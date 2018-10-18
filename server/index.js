@@ -8,17 +8,18 @@ const http = require('http');
 const path = require('path');
 const methodOverride = require('method-override');
 
-// mongoose.connect(
-//   DB_INFO,
-//   { useNewUrlParser: true }
-// );
-// const db = mongoose.connection;
+const SHOP_MODEL = require('./models/shop');
+mongoose.connect(
+  DB_INFO,
+  { useNewUrlParser: true }
+);
+const db = mongoose.connection;
 
-// db.on('error', console.error.bind(console, 'connection error'));
+db.on('error', console.error.bind(console, 'connection error'));
 
-// db.once('open', callbak => {
-//   console.log('db connection success');
-// });
+db.once('open', callbak => {
+  console.log('db connection success');
+});
 
 const app = express();
 
@@ -31,17 +32,41 @@ app.use(methodOverride('_method'));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
-app.listen(process.env.PORT || 9000);
+app.listen(process.env.PORT || 9998);
 
 // http.createServer(app).listen(app.get('port'), function() {
 //   console.log('server started' + app.get('port'));
 //   // connectionDb();
 // });
 
-app.get('/', (req, res) => {
-  res.render('index.html', {
-    title: 'MAD',
-    arr: [1, 2, 3, 4, 5, 6, 7]
+app.post('/dummy', (req, res) => {
+  console.log(req.body.shopName);
+
+  const add_shop = new SHOP_MODEL({
+    shop_name: req.body.shopName,
+    region: req.body.region,
+    shop_category: req.body.shopCategory,
+    shop_address: req.body.shopAddress
   });
-  console.log(res);
+  add_shop.save(err => {
+    if (err) {
+      console.error(err);
+      res.json({
+        result: 0
+      });
+      return;
+    }
+    res.end();
+  });
+});
+
+app.get('/dummy', (req, res) => {
+  SHOP_MODEL.find({}, 'shop_name shop_address', (err, addr) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send({
+      addr
+    });
+  });
 });

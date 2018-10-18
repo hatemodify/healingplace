@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios';
+import VueDaumMap from 'vue-daum-map';
+
 
 Vue.config.productionTip = false
 
@@ -11,5 +14,9 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  axios,
+  
 })
+
+Vue.use(axios)
