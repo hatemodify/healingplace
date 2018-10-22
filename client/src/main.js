@@ -18,5 +18,3 @@ new Vue({
   axios,
   
 })
-
-Vue.use(axios)

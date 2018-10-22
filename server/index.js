@@ -41,7 +41,6 @@ app.listen(process.env.PORT || 9998);
 
 app.post('/dummy', (req, res) => {
   console.log(req.body.shopName);
-
   const add_shop = new SHOP_MODEL({
     shop_name: req.body.shopName,
     region: req.body.region,
