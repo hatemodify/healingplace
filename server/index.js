@@ -7,8 +7,8 @@ const DB_INFO = require('./dbsetting');
 const http = require('http');
 const path = require('path');
 const methodOverride = require('method-override');
-
 const SHOP_MODEL = require('./models/shop');
+
 mongoose.connect(
   DB_INFO,
   { useNewUrlParser: true }
@@ -32,6 +32,7 @@ app.use(methodOverride('_method'));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
+app.use('/shop', require('./router/shop'));
 app.listen(process.env.PORT || 9998);
 
 // http.createServer(app).listen(app.get('port'), function() {

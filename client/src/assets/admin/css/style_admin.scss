@@ -1,0 +1,22 @@
+#app {
+  overflow: hidden;
+  .menu {
+    float: left;
+    width: 200px;
+    background: #020413;
+    padding: 20px 10px;
+    height: 100vh;
+  }
+  .menu-list a,
+  .menu-label {
+    color: #999;
+  }
+  .menu-list a.is-active {
+    background: #fc1955;
+    color: #fff;
+  }
+  #contents {
+    overflow: hidden;
+    padding: 40px 30px;
+  }
+}
