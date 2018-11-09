@@ -4,8 +4,8 @@ const SHOP = require('../models/shop');
 
 router.post('/addShop', (req, res) => {
   const NEW_SHOP = new SHOP({
-    shop_id: req.body.userId,
-    shop_name: req.body.name,
+    shop_id: req.body.shopId,
+    shop_name: req.body.shopName,
     shop_password: req.body.password,
     shop_address: req.body.address,
     shop_phone_number: req.body.phone1,

@@ -3,12 +3,12 @@
         <h3 class="subtitle" @click="submit">With Material Design Icons</h3>
         <b-field>
             <b-input placeholder="이름"
-                icon="account" v-model="userData.name" maxlength="12" minlength="2" required>
+                icon="account" v-model="userData.shopName" maxlength="12" minlength="2" required>
             </b-input>
         </b-field>        
         <b-field>
             <b-input placeholder="아이디"
-                icon="account" v-model="userData.userId" maxlength="12" minlength="2" required>
+                icon="account" v-model="userData.shopId" maxlength="12" minlength="2" required>
             </b-input>
         </b-field>
         <b-field>
@@ -63,8 +63,7 @@
           </div>    
         </div>       
         <button class="button is-medium is-danger" @click="submit">등록</button>
-        
-    </section>
+0    </section>
 </template>
 
 <script>
@@ -80,8 +79,8 @@ export default {
       category: OPTIONS.category,
       level: OPTIONS.level,
       userData: {
-        name: '',
-        userId: '',
+        shopName: '',
+        shopId: '',
         password: '',
         address: '',
         phone1: '',
@@ -99,7 +98,11 @@ export default {
     },
     submit() {
       axios
-        .post(`${process.env.ROOT_API}/shop/addShop`, this.userData)
+        .post(`${process.env.ROOT_API}/shop/addShop`, this.userData, {
+          headers: {
+            'Content-type': 'application/json'
+          }
+        })
         .then(() => {
           this.alert();
         });
