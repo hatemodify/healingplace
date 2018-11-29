@@ -8,5 +8,11 @@ const PRODUCT_MODEL = {
   shop_region: {
     type: String,
     require: true
-  }
+  },
+  title:{
+    type:String,
+  },
+  product:[],
+  thumbnail:[],
+  detail:String,
 };

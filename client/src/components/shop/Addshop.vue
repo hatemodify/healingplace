@@ -63,7 +63,7 @@
           </div>    
         </div>       
         <button class="button is-medium is-danger" @click="submit">등록</button>
-0    </section>
+    </section>
 </template>
 
 <script>
