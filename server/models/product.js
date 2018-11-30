@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.schema;
+const Schema = mongoose.Schema;
 const PRODUCT_MODEL = {
   shop_Id: {
     type: String,
@@ -7,12 +7,16 @@ const PRODUCT_MODEL = {
   },
   shop_region: {
     type: String,
-    require: true
   },
   title:{
     type:String,
   },
-  product:[],
+  reservation:String,
+  price_data:[],
   thumbnail:[],
   detail:String,
 };
+
+
+const productSchema = new Schema(PRODUCT_MODEL);
+module.exports = mongoose.model('product', productSchema);

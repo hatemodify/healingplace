@@ -33,6 +33,7 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/shop', require('./router/shop'));
+app.use('/client', require('./router/client'));
 app.listen(process.env.PORT || 9998);
 
 // http.createServer(app).listen(app.get('port'), function() {

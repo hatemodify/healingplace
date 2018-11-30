@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const SHOP = require('../models/shop');
+const PRODUCT = require('../models/product');
 
 router.post('/addShop', (req, res) => {
   const NEW_SHOP = new SHOP({
@@ -22,6 +23,32 @@ router.post('/addShop', (req, res) => {
       return;
     }
     console.log(res);
+    res.end();
+  });
+});
+
+
+router.post('/addProduct', (req, res)=>{
+  const PRODUCT_DATA = req.body;
+
+  const NEW_PRODUCT = new PRODUCT({
+    shop_id: PRODUCT_DATA.shopId,
+    title:PRODUCT_DATA.title,
+    reservation:PRODUCT_DATA.reservation,
+    price_data:PRODUCT_DATA.priceData,
+    thumbnail:PRODUCT_DATA.thumbnail,
+    detail:PRODUCT_DATA.detail,
+  });
+
+  NEW_PRODUCT.save(err => {
+    if (err) {
+      console.error(err);
+      res.json({ result: 0 });
+      return;
+    }else{
+      console.log('success')
+    }
+
     res.end();
   });
 });

@@ -5,7 +5,7 @@ import Admin from '@/components/shop/index';
 import AddShop from '@/components/shop/AddShop';
 import AddProduct from '@/components/shop/AddProduct';
 import ShopLogin from '@/components/shop/Login';
-
+import ProductList from '@/components/client/ProductList';
 Vue.use(Router);
 
 export default new Router({
@@ -30,6 +30,11 @@ export default new Router({
       path: '/shop/AddProduct',
       name: 'AddProduct',
       component: AddProduct
+    },
+    {
+      path: '/client/ProductList',
+      name: 'ProductList',
+      component: ProductList
     }
   ]
 });
