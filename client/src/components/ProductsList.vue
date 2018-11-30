@@ -1,16 +1,18 @@
 <template>
   <div id="contents">
     <ul class="list_product">
-      <li v-for="item in productData" :key="item.shop_id">        
+      <li v-for="item in productData" :key="item.shop_id">
+        <router-link v-bind:to="{ name: 'ProductDetail', params: { _id: item._id } }">
         <figure class="thumb_product">
           <img :src="item.thumbnail">
         </figure>
+        </router-link>
       </li>
     </ul>
   </div>
 </template>
 <script>
-import axios from "axios";
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -18,7 +20,7 @@ export default {
     };
   },
   created() {
-      axios.get(`${process.env.ROOT_API}/client/productlist`).then(
+      axios.get(`http://localhost:9998/client/productlist`).then(
         response => {
           this.productData = response.data.data
         },

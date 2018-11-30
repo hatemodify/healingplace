@@ -7,11 +7,20 @@ router.get('/productlist', (req, res)=>{
     res.send({
       data
     })
-    
-    
   });
 })
 
+router.get('/productdetail/:_id', (req, res)=>{
+  console.log(req.params._id)
+  PRODUCT.find(
+    {_id:req.params._id},
+    (err,productData) =>{
+      console.log(productData);
+    res.send({
+      productData
+    })
+  });
+})
 
 
 
