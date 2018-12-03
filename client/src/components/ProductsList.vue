@@ -1,9 +1,10 @@
 <template>
   <div id="contents">
     <ul class="list_product">
-      <li v-for="item in productData" :key="item.shop_id">
+      <li v-for="item in productData">
         <router-link v-bind:to="{ name: 'ProductDetail', params: { _id: item._id } }">
         <figure class="thumb_product">
+          {{item.shop_id}}
           <img :src="item.thumbnail">
         </figure>
         </router-link>

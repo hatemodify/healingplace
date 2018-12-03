@@ -71,7 +71,7 @@
 </template>
 <script>
 import { VueEditor } from "vue2-editor";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   components: {
@@ -82,13 +82,30 @@ export default {
       productData: {
         shopId: localStorage.shopId,
         title: "",
+        shopAddress: "",
         reservation: "불가능",
         priceData: [],
-        thumbnail:[],
-        detail:''
+        thumbnail: [],
+        detail: ""
       },
-      image:'',
+      image: ""
     };
+  },
+  created() {
+    console.log(this.productData.shopId);
+    axios
+      .get(`http://localhost:9998/shop/addProduct/${this.productData.shopId}`)
+      .then(res => {
+        this.productData.shop_name = res.data.shop_name;
+        this.productData.shop_address = res.data.shop_address;
+        this.productData.shop_category = res.data.shop_category;
+        this.productData.shop_personal_day = res.data.shop_personal_day;
+        this.productData.shop_phone_number = res.data.shop_phone_number;
+
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   methods: {
     deleteDropFile(index) {
@@ -134,11 +151,11 @@ export default {
         this.productData.thumbnail.push(vm.image);
       };
       reader.readAsDataURL(file);
-      
+
       console.log(this.productData);
     },
     removeImage: function(e) {
-      this.image = '';
+      this.image = "";
     },
     handleFilesUpload() {
       let uploadedFiles = this.$refs.files.files;
@@ -146,13 +163,16 @@ export default {
           Adds the uploaded file to the files array
         */
     },
-    formSubmit(){
+    formSubmit() {
       console.log(this.productData, this.productData.shopId);
-      axios.post('http://localhost:9998/shop/addProduct' , this.productData).then(()=>{
-        console.log('success');
-      }).catch(()=>{
-        console.log('fail');
-      })
+      axios
+        .post("http://localhost:9998/product/addProduct", this.productData)
+        .then(() => {
+          console.log("success");
+        })
+        .catch(() => {
+          console.log("fail");
+        });
     }
   }
 };

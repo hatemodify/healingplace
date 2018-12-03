@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const PRODUCT_MODEL = {
-  shop_Id: {
+  shop_id: {
     type: String,
-    require: true
+  },
+  shop_name: {
+    type: String,
   },
   shop_region: {
     type: String,
@@ -11,6 +13,7 @@ const PRODUCT_MODEL = {
   title:{
     type:String,
   },
+  shop_address:String,
   reservation:String,
   price_data:[],
   thumbnail:[],

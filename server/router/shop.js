@@ -27,30 +27,10 @@ router.post('/addShop', (req, res) => {
   });
 });
 
-
-router.post('/addProduct', (req, res)=>{
-  const PRODUCT_DATA = req.body;
-
-  const NEW_PRODUCT = new PRODUCT({
-    shop_id: PRODUCT_DATA.shopId,
-    title:PRODUCT_DATA.title,
-    reservation:PRODUCT_DATA.reservation,
-    price_data:PRODUCT_DATA.priceData,
-    thumbnail:PRODUCT_DATA.thumbnail,
-    detail:PRODUCT_DATA.detail,
-  });
-
-  NEW_PRODUCT.save(err => {
-    if (err) {
-      console.error(err);
-      res.json({ result: 0 });
-      return;
-    }else{
-      console.log('success')
-    }
-
-    res.end();
-  });
-});
+router.get('/addProduct/:shopid', (req, res) =>{
+  SHOP.find({shop_id:req.params.shopid} , (err, data) => {
+    res.send(data[0])
+  })
+})
 
 module.exports = router;

@@ -34,6 +34,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/shop', require('./router/shop'));
 app.use('/client', require('./router/client'));
+app.use('/product', require('./router/product'));
 app.listen(process.env.PORT || 9998);
 
 // http.createServer(app).listen(app.get('port'), function() {

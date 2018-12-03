@@ -23,13 +23,13 @@ import axios from 'axios';
     data(){
       return{
         id : this.$route.params._id,
-        data:''
+        data:'',
+
       }
     },
     created() {
       axios.get(`http://localhost:9998/client/productdetail/${this.id}`).then((res)=>{
         this.data = res.data.productData[0]
-        console.log(this.data)
       })
     },
   }
