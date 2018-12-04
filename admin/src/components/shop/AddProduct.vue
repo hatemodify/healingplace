@@ -55,14 +55,36 @@
       </label>
       <input
         type="file"
+        class="mb30"
         id="reg_profile"
         name="reg_profile"
         ref="reg_profile"
         @change="onFileChange"
       >
+      <b-field label="카테고리를 선택 하세요">
+        <b-select placeholder="Select a subject">
+            <option value="1">카테고리1</option>
+            <option value="2">카테고리2</option>
+            <option value="2">카테고리3</option>
+            <option value="2">카테고리4</option>
+            <option value="2">카테고리5</option>
+        </b-select>
+      </b-field>
     </section>
     <section class="section_divide">
       <vue-editor v-model="productData.detail"></vue-editor>
+    </section>
+    <section class="section_divide">
+      <div class="cf">
+        <label class="label">주소</label>
+        <div class="control is-clearfix">
+          <input type="text" autocomplete="on" class="input" v-model="productData.shop_address">
+        </div>
+      </div>
+      <div>
+        <label class="label">{{productData.shop_address}}</label>
+        <input type="text" class="inp_size40" v-model="productData.shop_name" >
+      </div>
     </section>
     <div class="wrap_btn">
       <button class="button is-large is-danger" @click="formSubmit">저장</button>
@@ -81,27 +103,31 @@ export default {
     return {
       productData: {
         shopId: localStorage.shopId,
-        title: "",
-        shopAddress: "",
-        reservation: "불가능",
+        title: '',
+        category:'',
+        reservation: '불가능',
         priceData: [],
         thumbnail: [],
-        detail: ""
+        detail: ''
       },
-      image: ""
+      image: ''
     };
   },
-  created() {
-    console.log(this.productData.shopId);
+  created(){
+    console.log('a');
+  },
+  beforeCreate() {
+    console.log('b');
+    const shopId = localStorage.shopId
     axios
-      .get(`http://localhost:9998/shop/addProduct/${this.productData.shopId}`)
+      .get(`http://localhost:9998/shop/addProduct/${shopId}`)
       .then(res => {
         this.productData.shop_name = res.data.shop_name;
         this.productData.shop_address = res.data.shop_address;
         this.productData.shop_category = res.data.shop_category;
         this.productData.shop_personal_day = res.data.shop_personal_day;
         this.productData.shop_phone_number = res.data.shop_phone_number;
-
+        console.log(this.productData);
       })
       .catch(err => {
         console.log(err);

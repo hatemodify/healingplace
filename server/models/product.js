@@ -13,6 +13,7 @@ const PRODUCT_MODEL = {
   title:{
     type:String,
   },
+  category:String,
   shop_address:String,
   reservation:String,
   price_data:[],
