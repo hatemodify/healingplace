@@ -30,6 +30,6 @@ export default new Router({
       path: '/shop/AddProduct',
       name: 'AddProduct',
       component: AddProduct
-    },
+    }
   ]
 });

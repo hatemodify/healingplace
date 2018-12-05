@@ -63,11 +63,11 @@
       >
       <b-field label="카테고리를 선택 하세요">
         <b-select placeholder="Select a subject">
-            <option value="1">카테고리1</option>
-            <option value="2">카테고리2</option>
-            <option value="2">카테고리3</option>
-            <option value="2">카테고리4</option>
-            <option value="2">카테고리5</option>
+          <option value="1">카테고리1</option>
+          <option value="2">카테고리2</option>
+          <option value="2">카테고리3</option>
+          <option value="2">카테고리4</option>
+          <option value="2">카테고리5</option>
         </b-select>
       </b-field>
     </section>
@@ -78,14 +78,30 @@
       <div class="cf">
         <label class="label">주소</label>
         <div class="control is-clearfix">
-          <input type="text" autocomplete="on" class="input" v-model="productData.shop_address">
+          <input
+            type="text"
+            autocomplete="on"
+            v-model="shop_address"
+            class="input"
+            ref="addr"
+          >
+        </div>
+        <label class="label">휴무일</label>
+        <div class="control is-clearfix">
+          <input
+            type="text"
+            autocomplete="on"
+            v-model="shop_personal_day"
+            class="input"
+          >
         </div>
       </div>
-      <div>
-        <label class="label">{{productData.shop_address}}</label>
-        <input type="text" class="inp_size40" v-model="productData.shop_name" >
-      </div>
     </section>
+    <div>
+      <span v-if="loading">loading</span>
+      <span v-if="error">err</span>
+      <div v-if="post">{{post}}</div>
+    </div>
     <div class="wrap_btn">
       <button class="button is-large is-danger" @click="formSubmit">저장</button>
     </div>
@@ -103,36 +119,55 @@ export default {
     return {
       productData: {
         shopId: localStorage.shopId,
-        title: '',
-        category:'',
-        reservation: '불가능',
+        title: "",
+        category: "",
+        reservation: "불가능",
         priceData: [],
         thumbnail: [],
-        detail: ''
+        detail: "",
+        shop_address: ""
       },
-      image: ''
+      shop_address:'',
+      shop_personal_day:'',
+      loading: false,
+      post: null,
+      error: null,
+      image: ""
     };
   },
-  created(){
-    console.log('a');
+
+  beforeEnter: (to, from, next) => {
+    console.log(to);
   },
-  beforeCreate() {
-    console.log('b');
-    const shopId = localStorage.shopId
+
+  // created() {
+  //   this.fetchData();
+  // },
+  beforeRouteEnter(to, from, next) {
     axios
-      .get(`http://localhost:9998/shop/addProduct/${shopId}`)
+      .get(`http://localhost:9998/shop/addProduct/${localStorage.shopId}`)
       .then(res => {
-        this.productData.shop_name = res.data.shop_name;
-        this.productData.shop_address = res.data.shop_address;
-        this.productData.shop_category = res.data.shop_category;
-        this.productData.shop_personal_day = res.data.shop_personal_day;
-        this.productData.shop_phone_number = res.data.shop_phone_number;
-        console.log(this.productData);
+        next((vm)=>{
+          vm._data.productData = res.data
+          console.log(vm)
+        })
       })
       .catch(err => {
         console.log(err);
       });
   },
+  watch: {
+    // 라우트가 변경되면 메소드를 다시 호출됩니다.
+    $route: "fetchData"
+  },
+  created() {},
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$refs.addr.value = this.productData.shop_address;
+    });
+  },
+  render() {},
   methods: {
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
@@ -199,6 +234,34 @@ export default {
         .catch(() => {
           console.log("fail");
         });
+    },
+    async loadData() {
+      console.log(this.productData, "b");
+      const shopId = localStorage.shopId;
+      // await axios
+      //   .get(`http://localhost:9998/shop/addProduct/${shopId}`)
+      //   .then(res => {
+      //     this.productData.shop_name = res.data.shop_name;
+      //     this.productData.shop_address = res.data.shop_address;
+      //     this.productData.shop_category = res.data.shop_category;
+      //     this.productData.shop_personal_day = res.data.shop_personal_day;
+      //     this.productData.shop_phone_number = res.data.shop_phone_number;
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
+
+      let { data } = await axios.get(
+        `http://localhost:9998/shop/addProduct/${shopId}`
+      );
+      console.log(data);
+      return data;
+    },
+    fetchData() {
+      this.error = this.post = null;
+      this.loading = true;
+
+      getPost(() => {});
     }
   }
 };
