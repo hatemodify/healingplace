@@ -2,7 +2,7 @@
   <div id="contents">
     <section class="section_divide">
       <h3 class="tit_page">상품 등록</h3>
-      <div class="cf">
+      <div class="cf mb20">
         <b-field label="제목" class="fl inp_size60">
           <b-input v-model="productData.title" placeholder="제목을 입력하세요"></b-input>
         </b-field>
@@ -72,36 +72,31 @@
       </b-field>
     </section>
     <section class="section_divide">
-      <vue-editor v-model="productData.detail"></vue-editor>
-    </section>
-    <section class="section_divide">
       <div class="cf">
         <label class="label">주소</label>
-        <div class="control is-clearfix">
+        <div class="control is-clearfix mb20">
           <input
             type="text"
             autocomplete="on"
-            v-model="shop_address"
+            :value="productData.shop_address"
             class="input"
             ref="addr"
           >
         </div>
         <label class="label">휴무일</label>
         <div class="control is-clearfix">
-          <input
-            type="text"
-            autocomplete="on"
-            v-model="shop_personal_day"
-            class="input"
-          >
+          <input type="text" autocomplete="on" :value="productData.shop_personal_day" class="input">
         </div>
       </div>
     </section>
-    <div>
-      <span v-if="loading">loading</span>
-      <span v-if="error">err</span>
-      <div v-if="post">{{post}}</div>
-    </div>
+    <section class="section_divide">
+      <b-field label="취소 환불 규정">
+        <b-input type="textarea" v-model="productData.terms1"></b-input>
+      </b-field>
+    </section>
+    <section class="section_divide">
+      <vue-editor v-model="productData.detail"></vue-editor>
+    </section>
     <div class="wrap_btn">
       <button class="button is-large is-danger" @click="formSubmit">저장</button>
     </div>
@@ -120,54 +115,39 @@ export default {
       productData: {
         shopId: localStorage.shopId,
         title: "",
-        category: "",
         reservation: "불가능",
         priceData: [],
         thumbnail: [],
         detail: "",
-        shop_address: ""
+        terms1: "",
+        terms2: "",
+        shop_address: "",
+        shop_personal_day: "",
+        shop_name: ""
       },
-      shop_address:'',
-      shop_personal_day:'',
-      loading: false,
-      post: null,
-      error: null,
+      shopData: {},
       image: ""
     };
   },
 
-  beforeEnter: (to, from, next) => {
-    console.log(to);
-  },
-
-  // created() {
-  //   this.fetchData();
-  // },
   beforeRouteEnter(to, from, next) {
     axios
       .get(`http://localhost:9998/shop/addProduct/${localStorage.shopId}`)
       .then(res => {
-        next((vm)=>{
-          vm._data.productData = res.data
-          console.log(vm)
-        })
+        next(vm => {
+          const resData = res.data;
+          const data = vm._data.productData;
+          console.log(resData, data);
+          data.shop_address = resData.shop_address;
+          data.shop_personal_day = resData.shop_personal_day;
+          data.shop_name = resData.shop_name;
+        });
       })
       .catch(err => {
         console.log(err);
       });
   },
-  watch: {
-    // 라우트가 변경되면 메소드를 다시 호출됩니다.
-    $route: "fetchData"
-  },
   created() {},
-
-  mounted() {
-    this.$nextTick(function() {
-      this.$refs.addr.value = this.productData.shop_address;
-    });
-  },
-  render() {},
   methods: {
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
@@ -234,34 +214,6 @@ export default {
         .catch(() => {
           console.log("fail");
         });
-    },
-    async loadData() {
-      console.log(this.productData, "b");
-      const shopId = localStorage.shopId;
-      // await axios
-      //   .get(`http://localhost:9998/shop/addProduct/${shopId}`)
-      //   .then(res => {
-      //     this.productData.shop_name = res.data.shop_name;
-      //     this.productData.shop_address = res.data.shop_address;
-      //     this.productData.shop_category = res.data.shop_category;
-      //     this.productData.shop_personal_day = res.data.shop_personal_day;
-      //     this.productData.shop_phone_number = res.data.shop_phone_number;
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-
-      let { data } = await axios.get(
-        `http://localhost:9998/shop/addProduct/${shopId}`
-      );
-      console.log(data);
-      return data;
-    },
-    fetchData() {
-      this.error = this.post = null;
-      this.loading = true;
-
-      getPost(() => {});
     }
   }
 };

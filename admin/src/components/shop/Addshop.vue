@@ -15,7 +15,7 @@
       <b-field>
         <b-input
           placeholder="아이디"
-          icon="account"
+          icon='account'
           v-model="userData.shopId"
           maxlength="12"
           minlength="2"
@@ -71,7 +71,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      id: "",
+      id: '',
       password: "",
       region: OPTIONS.region,
       category: OPTIONS.category,

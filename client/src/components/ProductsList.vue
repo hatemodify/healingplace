@@ -3,37 +3,39 @@
     <ul class="list_product">
       <li v-for="item in productData">
         <router-link v-bind:to="{ name: 'ProductDetail', params: { _id: item._id } }">
-        <figure class="thumb_product">
-          {{item.shop_id}}
-          <img :src="item.thumbnail">
-        </figure>
+          <figure class="thumb_product">
+            {{item.shop_id}}
+            <img :src="item.thumbnail">
+          </figure>
         </router-link>
       </li>
     </ul>
   </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   data() {
     return {
-      productData:''
+      productData: ""
     };
   },
-  created() {
-      axios.get(`http://localhost:9998/client/productlist`).then(
-        response => {
-          this.productData = response.data.data
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      axios.get(`http://localhost:9998/product/productlist`).then(
+        res => {
+          vm._data.productData = res.data;
+          console.log(res);
         },
         error => {
           console.log(error);
         }
       );
+    });
   },
-  methods:{
-    loadData(){
-
-    }
+  created() {},
+  methods: {
+    loadData() {}
   }
 };
 </script>
