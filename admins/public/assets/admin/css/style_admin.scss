@@ -58,20 +58,20 @@
     padding-left: 20px;
   }
 }
-.txt_data{
+.txt_data {
   font-size: 14px;
   line-height: 20px;
   color: #000;
-  +.txt_data{
-    color:#777;
-    padding-left:20px;
+  + .txt_data {
+    color: #777;
+    padding-left: 20px;
   }
 }
-.section_divide{
+.section_divide {
   margin-bottom: 30px;
-  padding-bottom:30px;
+  padding-bottom: 30px;
   border-bottom: 1px solid #e3e3e3;
 }
-.wrap_btn{
-  text-align: center
+.wrap_btn {
+  text-align: center;
 }
