@@ -1,21 +1,19 @@
-<template>  
-  <div id="app">  
-    <siteNav></siteNav>  
-      <router-view/>
+<template>
+  <div id="app">
+    <siteNav></siteNav>
+    <router-view/>
   </div>
 </template>
+<style lang="scss">
+@import "../public/assets/admin/css/reset.css";
+@import "../public/assets/admin/css/style_admin.scss";
+</style>
 
 <script>
-import siteNav from '@/components/common/shop/Navigation';
+import siteNav from "@/components/Navigation";
 export default {
-  name: 'App',
   components: {
     siteNav
   }
 };
 </script>
-
-<style lang="scss">
-@import '/assets/admin/css/reset.css';
-@import '/assets/admin/css/style_admin.scss';
-</style>

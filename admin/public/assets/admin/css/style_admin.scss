@@ -1,0 +1,78 @@
+#app {
+  overflow: hidden;
+  .menu {
+    position: fixed;
+    left: 0;
+    width: 200px;
+    background: #020413;
+    padding: 20px 10px;
+    height: 100vh;
+  }
+  .menu-list a,
+  .menu-label {
+    color: #999;
+  }
+  .menu-list a.is-active {
+    background: #fc1955;
+    color: #fff;
+  }
+  #contents {
+    overflow: hidden;
+    padding: 40px 30px 40px 240px;
+  }
+}
+
+.tit_page {
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+.button.is-large {
+  font-size: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.inp_size20 {
+  float: left;
+  width: 20%;
+}
+.inp_size30 {
+  float: left;
+  width: 30%;
+}
+.inp_size40 {
+  float: left;
+  width: 50%;
+}
+
+.inp_size50 {
+  float: left;
+  width: 50%;
+}
+.inp_size60 {
+  float: left;
+  width: 60%;
+}
+[class*='inp_size'] {
+  + [class*='inp_size'] {
+    padding-left: 20px;
+  }
+}
+.txt_data {
+  font-size: 14px;
+  line-height: 20px;
+  color: #000;
+  + .txt_data {
+    color: #777;
+    padding-left: 20px;
+  }
+}
+.section_divide {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.wrap_btn {
+  text-align: center;
+}
