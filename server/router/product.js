@@ -30,11 +30,20 @@ router.post('/addProduct', (req, res) => {
   });
 });
 
+router.get('/productlist/:type/:value', (req, res) => {
+  let obj = {};
+  obj[req.params['type']] = req.params['value']
+  PRODUCT.find(obj, (err, data) => {
+    res.send(data);
+  });
+});
 router.get('/productlist', (req, res) => {
   PRODUCT.find({}, (err, data) => {
     res.send(data);
   });
 });
+
+
 
 router.get('/productdetail/:_id', (req, res) => {
   console.log(req.params._id);

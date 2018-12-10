@@ -8,7 +8,7 @@
     <ul>
       <li v-for="item in data.price_data" :key="item.name">
         <span>{{item.productName}}</span>
-        <span>{{item.productPrice}}</span>
+        <span>{{numComma(item.productPrice)}}</span>
       </li>
     </ul>
     <div>{{data.shop_address}}</div>
@@ -17,7 +17,13 @@
   </div>
 </template>
 <script>
+import utils from '@/utils.js'
 export default {
-  props: ["data"]
+  props: ["data"],
+  data(){
+    return{
+      numComma: utils.numComma
+    }
+  }
 };
 </script>

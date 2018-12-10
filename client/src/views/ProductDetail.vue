@@ -15,6 +15,7 @@
 
 <script>
 import axios from "axios";
+import utils from '@/utils.js'
 import productInfo from "@/components/productInfo.vue";
 import VueDaumMap from "vue-daum-map";
 
@@ -72,7 +73,7 @@ export default {
           });
 
           var infowindow = new daum.maps.InfoWindow({
-            content: `<div style="width:100px;text-align:center;padding:3px">${
+            content: `<div style='width:100px;text-align:center;padding:3px'>${
               opt.shop_name
             }</div>`
           });

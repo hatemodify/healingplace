@@ -1,20 +1,21 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from "vue";
+import Router from "vue-router";
 
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode: "history",
   routes: [
     {
-      path: '/prouctslist',
-      name: 'ProductsList',
-      component: () => import('./views/ProductsList.vue')
+      path: "/productslist",
+      name: "ProductsList",
+      component: () => import("./views/ProductsList.vue")
     },
     {
-      path: '/productdetail/:id',
-      name: 'ProductDetail',
-      component: () => import('./views/ProductDetail.vue')
+      path: "/productdetail/:_id",
+      name: "ProductDetail",
+      props:true,
+      component: () => import("./views/ProductDetail.vue")
     }
   ]
 });

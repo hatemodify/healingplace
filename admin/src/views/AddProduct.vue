@@ -103,8 +103,8 @@
   </div>
 </template>
 <script>
-import { VueEditor } from "vue2-editor";
-import axios from "axios";
+import { VueEditor } from 'vue2-editor';
+import axios from 'axios';
 
 export default {
   components: {
@@ -114,19 +114,19 @@ export default {
     return {
       productData: {
         shopId: localStorage.shopId,
-        title: "",
-        reservation: "불가능",
+        title: '',
+        reservation: '불가능',
         priceData: [],
         thumbnail: [],
-        detail: "",
-        terms1: "",
-        terms2: "",
-        shop_address: "",
-        shop_personal_day: "",
-        shop_name: ""
+        detail: '',
+        terms1: '',
+        terms2: '',
+        shop_address: '',
+        shop_personal_day: '',
+        shop_name: ''
       },
       shopData: {},
-      image: ""
+      image: ''
     };
   },
 
@@ -164,8 +164,8 @@ export default {
           })
         );
 
-        this.$refs.productName.value = "";
-        this.$refs.productPrice.value = "";
+        this.$refs.productName.value = '';
+        this.$refs.productPrice.value = '';
       }
     },
     removePrice(index) {
@@ -196,7 +196,7 @@ export default {
       console.log(this.productData);
     },
     removeImage: function(e) {
-      this.image = "";
+      this.image = '';
     },
     handleFilesUpload() {
       let uploadedFiles = this.$refs.files.files;
@@ -207,12 +207,13 @@ export default {
     formSubmit() {
       console.log(this.productData, this.productData.shopId);
       axios
-        .post("http://localhost:9998/product/addProduct", this.productData)
+        .post('http://localhost:9998/product/addProduct', this.productData)
         .then(() => {
-          console.log("success");
+          console.log('success');
+          this.$router.go(this.$router.currentRoute)
         })
         .catch(() => {
-          console.log("fail");
+          console.log('fail');
         });
     }
   }
