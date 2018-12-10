@@ -6,6 +6,8 @@
           <figure class="thumb_product">
             {{item.shop_id}}
             <img :src="item.thumbnail">
+            {{item.price_data[0].productName}}
+            {{item.price_data[0].productPrice}}
           </figure>
         </router-link>
       </li>
@@ -25,8 +27,6 @@ export default {
       const query = vm.$route.query;
       const type = Object.keys(query)[0];
       const value = query[type];
-
-      console.log(type)
       if(type){
       axios.get(`http://localhost:9998/product/productlist/${type}/${value}`).then(
         res => {

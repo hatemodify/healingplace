@@ -20,7 +20,10 @@ const PRODUCT_MODEL = {
   terms1: String,
   price_data: [],
   thumbnail: [],
-  detail: String
+  detail: String,
+  review:{
+     type: Schema.Types.ObjectId, ref: 'review' 
+  }
 };
 
 const productSchema = new Schema(PRODUCT_MODEL);

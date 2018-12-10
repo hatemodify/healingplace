@@ -1,6 +1,7 @@
 <template>
   <div id="contents">
     <product-info :data="productData"></product-info>
+    <product-review :id="id"></product-review>
     <vue-daum-map
       :appKey="appKey"
       :center.sync="center"
@@ -17,10 +18,11 @@
 import axios from "axios";
 import utils from '@/utils.js'
 import productInfo from "@/components/productInfo.vue";
+import ProductReview from "@/components/ProductReview.vue";
 import VueDaumMap from "vue-daum-map";
 
 export default {
-  components: { VueDaumMap, productInfo },
+  components: { VueDaumMap, productInfo , ProductReview },
   data() {
     return {
       id: this.$route.params._id,
@@ -57,22 +59,22 @@ export default {
   },
   methods: {
     onLoad(map) {
-      var bounds = map.getBounds();
-      var boundsStr = bounds.toString();
+      const bounds = map.getBounds();
+      const boundsStr = bounds.toString();
       this.mapObject = map;
       this.geocoder = new daum.maps.services.Geocoder();
     },
     addressSearch(opt) {
       this.geocoder.addressSearch(opt.shop_address, (result, status) => {
         if (status === daum.maps.services.Status.OK) {
-          var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+          const coords = new daum.maps.LatLng(result[0].y, result[0].x);
 
-          var marker = new daum.maps.Marker({
+          const marker = new daum.maps.Marker({
             map: this.mapObject,
             position: coords
           });
 
-          var infowindow = new daum.maps.InfoWindow({
+          const infowindow = new daum.maps.InfoWindow({
             content: `<div style='width:100px;text-align:center;padding:3px'>${
               opt.shop_name
             }</div>`

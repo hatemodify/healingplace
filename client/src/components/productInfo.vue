@@ -24,6 +24,9 @@ export default {
     return{
       numComma: utils.numComma
     }
+  },
+  methods:{
+
   }
 };
 </script>
