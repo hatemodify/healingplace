@@ -1,7 +1,7 @@
 <template>
   <div id="contents">
     <product-info :data="productData"></product-info>
-    <product-review :id="id"></product-review>
+    <product-review :data="reviewData"></product-review>
     <vue-daum-map
       :appKey="appKey"
       :center.sync="center"
@@ -27,6 +27,7 @@ export default {
     return {
       id: this.$route.params._id,
       productData: "",
+      reviewData:'',
       appKey: "eaf4c13b334e2ff65a4abdb939521573",
       level: 3,
       mapTypeId: VueDaumMap.MapTypeId.NORMAL,
@@ -47,7 +48,9 @@ export default {
           `http://localhost:9998/product/productdetail/${vm.$route.params._id}`
         )
         .then(res => {
-          vm._data.productData = res.data;
+          console.log(res);
+          vm._data.productData = res.data.productData[0];
+          vm._data.reviewData = res.data.reviewData;
         })
         .catch(err => {
           console.log(err);
@@ -85,6 +88,6 @@ export default {
         }
       });
     }
-  }
+  },
 };
 </script>
