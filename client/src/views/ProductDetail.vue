@@ -49,8 +49,7 @@ export default {
         )
         .then(res => {
           console.log(res);
-          vm._data.productData = res.data.productData[0];
-          vm._data.reviewData = res.data.reviewData;
+          vm._data.productData = res.data;
         })
         .catch(err => {
           console.log(err);
