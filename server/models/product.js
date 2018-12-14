@@ -22,7 +22,8 @@ const PRODUCT_MODEL = {
   thumbnail: [],
   detail: String,
   review:{
-     type: Schema.Types.ObjectId, ref: 'review' 
+     type: Schema.Types.ObjectId, 
+     ref: 'review' 
   }
 };
 
