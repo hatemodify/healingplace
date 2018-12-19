@@ -19,30 +19,21 @@ router.post('/addProduct', (req, res) => {
     detail: PRODUCT_DATA.detail,
     shop_address: PRODUCT_DATA.shop_address,
     shop_personal_day: PRODUCT_DATA.shop_personal_day,
-    terms1: PRODUCT_DATA.terms1,    
+    terms1: PRODUCT_DATA.terms1,  
+
   })
   const ADD_REVIEW = new REVIEW({
     product_id: NEW_PRODUCT._id,
-    _id: new Schema.ObjectId()
-    // review_list: {
-    //   author: REVIEW_DATA.author,
-    //   content: REVIEW_DATA.content,
-    //   created: REVIEW_DATA.created
-    // }
   })
 
   NEW_PRODUCT.review = ADD_REVIEW._id;
-  
-  // const ADD_REVIEW = new REVIEW({product_id: NEW_PRODUCT._id})
-
   NEW_PRODUCT.save(err => {
     if (err) {
       return (err)
     }
-    ADD_REVIEW.save();
     console.log('success')
   })
-  
+  ADD_REVIEW.save();
   res.end()
 })
 
@@ -65,11 +56,6 @@ router.get('/productdetail/:_id', (req, res) => {
   .populate('review').then(data =>{
     res.send(data)
   })
-    // REVIEW.findOne({ product_id: ID }).populate('product_id').then(data =>{
-    // res.send({
-    //   data
-    // })
-  //})
 })
 
 router.post('/productdetail/:_id', (req, res) => {
@@ -100,25 +86,6 @@ router.post('/productdetail/:_id', (req, res) => {
       })
     }
   )
-
-  // REVIEW.findOne({ product_id: _id }, (err, data) => {
-  //   if (data.length > 0) {
-  //     REVIEW.findOneAndUpdate(
-  //       {
-  //         product_id: _id
-  //       },
-  //       {
-  //         $push: {
-  //           review_list: REVIEW_DATA
-  //         }
-  //       },
-  //       success => {
-  //         console.log('success')
-  //       }
-  //     )
-  //   } else {
-
-  //   }
-  // })
+  res.send()
 })
 module.exports = router

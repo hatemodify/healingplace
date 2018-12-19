@@ -126,7 +126,8 @@ export default {
         shop_name: ''
       },
       shopData: {},
-      image: ''
+      image: '',
+      images:[]
     };
   },
 

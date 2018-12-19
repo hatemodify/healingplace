@@ -2,6 +2,8 @@
   <div id="contents">
     <product-info :data="productData"></product-info>
     <product-review :data="reviewData"></product-review>
+    <input type="date" ref="reserveDate">
+    <input type="time" ref="reserveTime">
     <vue-daum-map
       :appKey="appKey"
       :center.sync="center"
@@ -49,7 +51,10 @@ export default {
         )
         .then(res => {
           console.log(res);
-          vm._data.productData = res.data;
+          const data = res.data;
+          const vmData = vm._data;
+          vmData.productData = data;
+          vmData.reviewData = data.review.review_list
         })
         .catch(err => {
           console.log(err);
@@ -57,7 +62,10 @@ export default {
     });
   },
   watch: {
-    productData: "addressSearch"
+    productData: "addressSearch",
+  },
+  updated() {
+
   },
   methods: {
     onLoad(map) {
@@ -86,6 +94,9 @@ export default {
           this.mapObject.setCenter(coords);
         }
       });
+    },
+    t(){
+      console.log(this.$refs.date.value)
     }
   },
 };

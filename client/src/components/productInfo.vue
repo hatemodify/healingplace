@@ -2,9 +2,11 @@
   <div class="product_info">
     <h3>{{data.title}}</h3>
     {{data.reservation}}
-    <figure>
-      <img :src="data.thumbnail">
-    </figure>
+    <carousel>
+      <slide v-for="item in data.thumbnail">
+        <img :src="item">
+      </slide>
+    </carousel>
     <ul>
       <li v-for="item in data.price_data" :key="item.name">
         <span>{{item.productName}}</span>
@@ -18,12 +20,17 @@
 </template>
 <script>
 import utils from '@/utils.js'
+import { Carousel, Slide } from 'vue-carousel';
 export default {
   props: ["data"],
   data(){
     return{
       numComma: utils.numComma
     }
+  },
+  components:{
+    Carousel,
+    Slide
   },
   methods:{
 

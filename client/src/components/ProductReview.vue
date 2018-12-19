@@ -30,8 +30,9 @@ export default {
   methods:{
     writeReview(){
       axios.post(`http://localhost:9998/product/productdetail/${this.$route.params._id}`, this.review)
-      .then(() => {
-        console.log('success');
+      .then(res => {
+        console.log(res)
+
       })
       .catch((err) => {
         console.log(this.review)

@@ -5,7 +5,7 @@
         <router-link v-bind:to="{ name: 'ProductDetail', params: { _id: item._id } }">
           <figure class="thumb_product">
             {{item.shop_id}}
-            <img :src="item.thumbnail">
+            <img :src="item.thumbnail[0]">
             {{item.price_data[0].productName}}
             {{item.price_data[0].productPrice}}
           </figure>
