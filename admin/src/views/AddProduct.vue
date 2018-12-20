@@ -62,7 +62,7 @@
         @change="onFileChange"
       >
       <b-field label="카테고리를 선택 하세요">
-        <b-select placeholder="Select a subject">
+        <b-select v-model="productData.category" placeholder="Select a subject">
           <option value="1">카테고리1</option>
           <option value="2">카테고리2</option>
           <option value="2">카테고리3</option>
@@ -78,14 +78,14 @@
           <input
             type="text"
             autocomplete="on"
-            :value="productData.shop_address"
+            :value="shopData.shop_address"
             class="input"
             ref="addr"
           >
         </div>
         <label class="label">휴무일</label>
         <div class="control is-clearfix">
-          <input type="text" autocomplete="on" :value="productData.shop_personal_day" class="input">
+          <input type="text" autocomplete="on" :value="shopData.shop_personal_day" class="input">
         </div>
       </div>
     </section>
@@ -103,8 +103,8 @@
   </div>
 </template>
 <script>
-import { VueEditor } from 'vue2-editor';
-import axios from 'axios';
+import { VueEditor } from "vue2-editor";
+import axios from "axios";
 
 export default {
   components: {
@@ -114,34 +114,38 @@ export default {
     return {
       productData: {
         shopId: localStorage.shopId,
-        title: '',
-        reservation: '불가능',
-        priceData: [],
-        thumbnail: [],
-        detail: '',
-        terms1: '',
-        terms2: '',
-        shop_address: '',
-        shop_personal_day: '',
-        shop_name: ''
+        title: "",
+        reservation: "불가능",
+        priceData: [],        
+        detail: "",
+        terms1: "",
+        terms2: "",
+        category: "",
+        shop_address: "",
+        shop_personal_day: "",
+        shop_name: ""
       },
-      shopData: {},
-      image: '',
-      images:[]
+      formData: new FormData(),
+      shopData: {
+        shop_address: "",
+        shop_personal_day: ""
+      },
+      image: "",
+      images: []
     };
   },
-
   beforeRouteEnter(to, from, next) {
     axios
       .get(`http://localhost:9998/shop/addProduct/${localStorage.shopId}`)
       .then(res => {
         next(vm => {
           const resData = res.data;
-          const data = vm._data.productData;
-          console.log(resData, data);
+          const data = vm._data.shopData;
+
           data.shop_address = resData.shop_address;
           data.shop_personal_day = resData.shop_personal_day;
           data.shop_name = resData.shop_name;
+          console.log(data);
         });
       })
       .catch(err => {
@@ -164,9 +168,8 @@ export default {
             productPrice
           })
         );
-
-        this.$refs.productName.value = '';
-        this.$refs.productPrice.value = '';
+        this.$refs.productName.value = "";
+        this.$refs.productPrice.value = "";
       }
     },
     removePrice(index) {
@@ -176,11 +179,11 @@ export default {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.createImage(files[0]);
-      // this.formData.append(
-      //   'file',
-      //   this.$refs.reg_profile.files[0],
-      //   this.$refs.reg_profile.files[0].name
-      // );
+      this.formData.append(
+        'thumbnail',
+        this.$refs.reg_profile.files[0],
+        this.$refs.reg_profile.files[0].name
+      );
     },
     createImage(file) {
       const image = new Image();
@@ -189,32 +192,37 @@ export default {
 
       reader.onload = e => {
         vm.image = e.target.result;
-        console.log(vm.image);
-        this.productData.thumbnail.push(vm.image);
+        // this.productData.thumbnail.push(vm.image);
       };
       reader.readAsDataURL(file);
-
-      console.log(this.productData);
     },
     removeImage: function(e) {
-      this.image = '';
+      this.image = "";
     },
     handleFilesUpload() {
       let uploadedFiles = this.$refs.files.files;
-      /*
-          Adds the uploaded file to the files array
-        */
     },
     formSubmit() {
-      console.log(this.productData, this.productData.shopId);
+      for (let key in this.productData){
+        this.formData.append(key , this.productData[key])
+      }
+      console.log(this.formData.get('thumbnail'))
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" }
+      };
       axios
-        .post('http://localhost:9998/product/addProduct', this.productData)
+        .post(
+          "http://localhost:9998/product/addProduct",
+          this.formData,
+          config
+        )
         .then(() => {
-          console.log('success');
-          this.$router.go(this.$router.currentRoute)
+          console.log("success");
+
+          // this.$router.go(this.$router.currentRoute)
         })
         .catch(() => {
-          console.log('fail');
+          console.log("fail");
         });
     }
   }
