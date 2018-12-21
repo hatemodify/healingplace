@@ -65,46 +65,46 @@
 </template>
 
 <script>
-import OPTIONS from "@/util/options";
-import axios from "axios";
+import OPTIONS from '@/util/options'
+import axios from 'axios'
 
 export default {
   data() {
     return {
-      id: "",
-      password: "",
+      id: '',
+      password: '',
       region: OPTIONS.region,
       category: OPTIONS.category,
       level: OPTIONS.level,
       userData: {
-        shopName: "",
-        shopId: "",
-        password: "",
-        address: "",
-        phone1: "",
-        phone2: "",
-        personalDay: "",
-        category: "",
+        shopName: '',
+        shopId: '',
+        password: '',
+        address: '',
+        phone1: '',
+        phone2: '',
+        personalDay: '',
+        category: '',
         level: 0
       }
-    };
+    }
   },
   created() {},
   methods: {
     dialog() {
-      this.$dialog.alert("등록 되었습니다.");
+      this.$dialog.alert('등록 되었습니다.')
     },
     submit() {
       axios
         .post(`${process.env.ROOT_API}/shop/addShop`, this.userData, {
           headers: {
-            "Content-type": "application/json"
+            'Content-type': 'application/json'
           }
         })
         .then(() => {
-          this.dialog();
-        });
+          this.dialog()
+        })
     }
   }
-};
+}
 </script>

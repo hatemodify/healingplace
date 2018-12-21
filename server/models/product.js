@@ -24,6 +24,10 @@ const PRODUCT_MODEL = {
   review:{
      type: Schema.Types.ObjectId, 
      ref: 'review' 
+  },
+  shop_info:{
+    type: Schema.Types.ObjectId, 
+    ref: 'shop' 
   }
 };
 

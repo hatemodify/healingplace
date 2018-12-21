@@ -26,8 +26,6 @@ const storage = multer.diskStorage({
 const upload = multer({storage:storage});
 
 router.post('/addProduct', upload.single('thumbnail'), (req, res) => {
-  
-
   const PRODUCT_DATA = req.body
   let NEW_PRODUCT = new PRODUCT({
     shop_id: PRODUCT_DATA.shopId,

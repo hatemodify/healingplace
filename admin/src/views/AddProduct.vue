@@ -103,8 +103,8 @@
   </div>
 </template>
 <script>
-import { VueEditor } from "vue2-editor";
-import axios from "axios";
+import { VueEditor } from 'vue2-editor'
+import axios from 'axios'
 
 export default {
   components: {
@@ -114,52 +114,51 @@ export default {
     return {
       productData: {
         shopId: localStorage.shopId,
-        title: "",
-        reservation: "불가능",
-        priceData: [],        
-        detail: "",
-        terms1: "",
-        terms2: "",
-        category: "",
-        shop_address: "",
-        shop_personal_day: "",
-        shop_name: ""
+        title: '',
+        reservation: '불가능',
+        priceData: [],
+        detail: '',
+        terms1: '',
+        terms2: '',
+        category: '',
+        shop_address: '',
+        shop_personal_day: '',
+        shop_name: ''
       },
       formData: new FormData(),
       shopData: {
-        shop_address: "",
-        shop_personal_day: ""
+        shop_address: '',
+        shop_personal_day: ''
       },
-      image: "",
+      image: '',
       images: []
-    };
+    }
   },
   beforeRouteEnter(to, from, next) {
     axios
       .get(`http://localhost:9998/shop/addProduct/${localStorage.shopId}`)
       .then(res => {
         next(vm => {
-          const resData = res.data;
-          const data = vm._data.shopData;
+          const resData = res.data
+          const data = vm._data.shopData
 
-          data.shop_address = resData.shop_address;
-          data.shop_personal_day = resData.shop_personal_day;
-          data.shop_name = resData.shop_name;
-          console.log(data);
-        });
+          data.shop_address = resData.shop_address
+          data.shop_personal_day = resData.shop_personal_day
+          data.shop_name = resData.shop_name
+          console.log(data)
+        })
       })
       .catch(err => {
-        console.log(err);
-      });
+        console.log(err)
+      })
   },
-  created() {},
   methods: {
     deleteDropFile(index) {
-      this.dropFiles.splice(index, 1);
+      this.dropFiles.splice(index, 1)
     },
     addPrice() {
-      const productName = this.$refs.productName.value;
-      const productPrice = this.$refs.productPrice.value;
+      const productName = this.$refs.productName.value
+      const productPrice = this.$refs.productPrice.value
 
       if (productName && productPrice) {
         this.productData.priceData.push(
@@ -167,40 +166,42 @@ export default {
             productName,
             productPrice
           })
-        );
-        this.$refs.productName.value = "";
-        this.$refs.productPrice.value = "";
+        )
+        this.$refs.productName.value = ''
+        this.$refs.productPrice.value = ''
+     
+        console.log(this.productData.priceData)
       }
     },
     removePrice(index) {
-      this.productData.priceData.splice(index, 1);
+      this.productData.priceData.splice(index, 1)
     },
     onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length) return
+      this.createImage(files[0])
       this.formData.append(
         'thumbnail',
         this.$refs.reg_profile.files[0],
         this.$refs.reg_profile.files[0].name
-      );
+      )
     },
     createImage(file) {
-      const image = new Image();
-      const reader = new FileReader();
-      const vm = this;
+      const image = new Image()
+      const reader = new FileReader()
+      const vm = this
 
       reader.onload = e => {
-        vm.image = e.target.result;
-        // this.productData.thumbnail.push(vm.image);
-      };
-      reader.readAsDataURL(file);
+        vm.image = e.target.result
+        // this.productData.thumbnail.push(vm.image)
+      }
+      reader.readAsDataURL(file)
     },
     removeImage: function(e) {
-      this.image = "";
+      this.image = ''
     },
     handleFilesUpload() {
-      let uploadedFiles = this.$refs.files.files;
+      let uploadedFiles = this.$refs.files.files
     },
     formSubmit() {
       for (let key in this.productData){
@@ -208,23 +209,23 @@ export default {
       }
       console.log(this.formData.get('thumbnail'))
       const config = {
-        headers: { "Content-Type": "multipart/form-data" }
-      };
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
       axios
-        .post(
-          "http://localhost:9998/product/addProduct",
-          this.formData,
-          config
-        )
-        .then(() => {
-          console.log("success");
-
-          // this.$router.go(this.$router.currentRoute)
-        })
-        .catch(() => {
-          console.log("fail");
-        });
+      .post(
+        'http://localhost:9998/product/addProduct',
+        this.formData,
+        config
+      )
+      .then(() => {
+        console.log('success')
+        console.log(this.formData.get('price_data'))
+        // this.$router.go(this.$router.currentRoute)
+      })
+      .catch(() => {
+        console.log('fail')
+      })
     }
   }
-};
+}
 </script>
