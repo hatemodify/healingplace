@@ -2,7 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const PRODUCT_MODEL = {
   shop_id: {
-    type: String
+    type:String,
+    ref: 'shop' 
+  },
+  shop_info: {
+    type: Schema.Types.ObjectId, 
+    ref: 'shop' 
   },
   shop_name: {
     type: String
@@ -25,10 +30,6 @@ const PRODUCT_MODEL = {
      type: Schema.Types.ObjectId, 
      ref: 'review' 
   },
-  shop_info:{
-    type: Schema.Types.ObjectId, 
-    ref: 'shop' 
-  }
 };
 
 const productSchema = new Schema(PRODUCT_MODEL);

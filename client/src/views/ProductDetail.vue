@@ -18,18 +18,19 @@
 
 <script>
 import axios from "axios";
-import utils from '@/utils.js'
+import utils from "@/utils.js";
 import productInfo from "@/components/productInfo.vue";
 import ProductReview from "@/components/ProductReview.vue";
 import VueDaumMap from "vue-daum-map";
 
 export default {
-  components: { VueDaumMap, productInfo , ProductReview },
+  components: { VueDaumMap, productInfo, ProductReview },
   data() {
     return {
+
       id: this.$route.params._id,
       productData: "",
-      reviewData:'',
+      reviewData: "",
       appKey: "eaf4c13b334e2ff65a4abdb939521573",
       level: 3,
       mapTypeId: VueDaumMap.MapTypeId.NORMAL,
@@ -43,30 +44,42 @@ export default {
     };
   },
   beforeCreate() {},
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      axios
-        .get(
-          `http://localhost:9998/product/productdetail/${vm.$route.params._id}`
-        )
-        .then(res => {
-          console.log(res);
-          const data = res.data;
-          const vmData = vm._data;
-          vmData.productData = data;
-          vmData.reviewData = data.review.review_list
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    });
+  // beforeRouteEnter(to, from, next) {
+  //   next(vm => {
+  //     axios
+  //       .get(
+  //         `http://localhost:9998/product/productdetail/${vm.$route.params._id}`
+  //       )
+  //       .then(res => {
+  //         console.log(res);
+  //         const data = res.data;
+  //         const vmData = vm._data;
+  //         vmData.productData = data;
+  //         vmData.reviewData = data.review.review_list
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   });
+  // },
+  created() {
+    axios
+      .get(
+        `http://localhost:9998/product/productdetail/${this.$route.params._id}`
+      )
+      .then(res => {
+        console.log(res);
+        this.productData = res.data;
+        this.reviewData = res.data.review.review_list;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   watch: {
-    productData: "addressSearch",
+    productData: "addressSearch"
   },
-  updated() {
-
-  },
+  updated() {},
   methods: {
     onLoad(map) {
       const bounds = map.getBounds();
@@ -75,29 +88,29 @@ export default {
       this.geocoder = new daum.maps.services.Geocoder();
     },
     addressSearch(opt) {
-      this.geocoder.addressSearch(opt.shop_address, (result, status) => {
-        if (status === daum.maps.services.Status.OK) {
-          const coords = new daum.maps.LatLng(result[0].y, result[0].x);
+      this.geocoder.addressSearch(
+        opt.shop_info.shop_address,
+        (result, status) => {
+          if (status === daum.maps.services.Status.OK) {
+            const coords = new daum.maps.LatLng(result[0].y, result[0].x);
 
-          const marker = new daum.maps.Marker({
-            map: this.mapObject,
-            position: coords
-          });
+            const marker = new daum.maps.Marker({
+              map: this.mapObject,
+              position: coords
+            });
 
-          const infowindow = new daum.maps.InfoWindow({
-            content: `<div style='width:100px;text-align:center;padding:3px'>${
-              opt.shop_name
-            }</div>`
-          });
-          infowindow.open(this.mapObject, marker);
+            const infowindow = new daum.maps.InfoWindow({
+              content: `<div style='width:100px;text-align:center;padding:3px'>${
+                opt.shop_info.shop_name
+              }</div>`
+            });
+            infowindow.open(this.mapObject, marker);
 
-          this.mapObject.setCenter(coords);
+            this.mapObject.setCenter(coords);
+          }
         }
-      });
-    },
-    t(){
-      console.log(this.$refs.date.value)
+      );
     }
-  },
+  }
 };
 </script>

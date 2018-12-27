@@ -3,6 +3,7 @@
     <section class="section_divide">
       <h3 class="tit_page">상품 등록</h3>
       <div class="cf mb20">
+        {{shopData._id}}
         <b-field label="제목" class="fl inp_size60">
           <b-input v-model="productData.title" placeholder="제목을 입력하세요"></b-input>
         </b-field>
@@ -116,19 +117,18 @@ export default {
         shopId: localStorage.shopId,
         title: '',
         reservation: '불가능',
-        priceData: [],
+        priceData:[],
         detail: '',
         terms1: '',
         terms2: '',
         category: '',
-        shop_address: '',
-        shop_personal_day: '',
-        shop_name: ''
+        _id:'5bd827d4aa97e19ba3b7005c'
       },
       formData: new FormData(),
       shopData: {
         shop_address: '',
-        shop_personal_day: ''
+        shop_personal_day: '',
+        _id:''
       },
       image: '',
       images: []
@@ -141,10 +141,10 @@ export default {
         next(vm => {
           const resData = res.data
           const data = vm._data.shopData
-
           data.shop_address = resData.shop_address
           data.shop_personal_day = resData.shop_personal_day
-          data.shop_name = resData.shop_name
+          data.shop_name = resData.shop_name,
+          data._id = resData._id
           console.log(data)
         })
       })
@@ -152,6 +152,7 @@ export default {
         console.log(err)
       })
   },
+
   methods: {
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1)
@@ -161,16 +162,12 @@ export default {
       const productPrice = this.$refs.productPrice.value
 
       if (productName && productPrice) {
-        this.productData.priceData.push(
-          new Object({
+        this.productData.priceData.push(new Object({
             productName,
             productPrice
-          })
-        )
+        }))
         this.$refs.productName.value = ''
         this.$refs.productPrice.value = ''
-     
-        console.log(this.productData.priceData)
       }
     },
     removePrice(index) {
@@ -205,9 +202,10 @@ export default {
     },
     formSubmit() {
       for (let key in this.productData){
-        this.formData.append(key , this.productData[key])
+        this.formData.set(key , JSON.stringify(this.productData[key]))
+        console.log(`${key} : ${this.productData[key]}`)
       }
-      console.log(this.formData.get('thumbnail'))
+    
       const config = {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
@@ -219,7 +217,7 @@ export default {
       )
       .then(() => {
         console.log('success')
-        console.log(this.formData.get('price_data'))
+        console.log(this.formData.get('productPrice'))
         // this.$router.go(this.$router.currentRoute)
       })
       .catch(() => {

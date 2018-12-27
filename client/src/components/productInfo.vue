@@ -4,7 +4,7 @@
     {{data.reservation}}
     <carousel>
       <slide v-for="item in data.thumbnail">
-        <img :src="item">
+        <img :src="imgPath(item.filename)">
       </slide>
     </carousel>
     <ul>
@@ -13,8 +13,14 @@
         <span>{{numComma(item.productPrice)}}</span>
       </li>
     </ul>
-    <div>{{data.shop_address}}</div>
-    <div>{{data.shop_personal_day}}</div>
+    <template v-if="data.shop_info">
+    <div>
+      {{data.shop_info.shop_address}}
+    </div>
+    <div>
+      {{data.shop_info.shop_personal_day}}
+    </div>
+    </template>
     <div v-html="data.detail"></div>
   </div>
 </template>
@@ -25,7 +31,8 @@ export default {
   props: ["data"],
   data(){
     return{
-      numComma: utils.numComma
+
+      numComma: utils.numComma,
     }
   },
   components:{
@@ -33,7 +40,9 @@ export default {
     Slide
   },
   methods:{
-
+    imgPath(imageName){
+      return (require(`../../upload/thumb/${imageName}`))
+    },
   }
 };
 </script>

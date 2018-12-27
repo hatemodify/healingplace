@@ -9,7 +9,8 @@ export default{
     const hour = time.substr(8, 2);
     const min = time.substr(10, 2);
     return new Date(year, month, day, hour, min);
-  }
+  },
+
 }
 
 
