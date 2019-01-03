@@ -27,7 +27,6 @@ export default {
   components: { VueDaumMap, productInfo, ProductReview },
   data() {
     return {
-
       id: this.$route.params._id,
       productData: "",
       reviewData: "",
