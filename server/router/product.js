@@ -70,37 +70,11 @@ router.get('/productlist', (req, res) => {
 
 router.get('/productdetail/:_id', (req, res) => {
   const ID = req.params._id
-  // PRODUCT.findOne({ _id: ID })
-  //   .populate('review shop_info')
-  //   .then(data => {
-  //     res.send(data)
-  // })
-  REVIEW.aggregate(
-    // Start with a $match pipeline which can take advantage of an index and limit documents processed
-    [
-      { $match : {
-       "product_id": mongoose.Types.ObjectId(ID)
-    }},
-    {$unwind:"$review_list"},
-    {$group: {
-      _id: null,
-      rate_avg: {$avg: "$review_list.rate"},
-    }
-  },{
-    $project:{
-      "id"
-    }
-  }
-  ]
-  ).then(data=>{
-    res.send(data)
-  })
-
-  // REVIEW.find({
-  //  review_list: { $elemMatch: { rate: {$gt:'0'} }} }
-  // ).then(data=>{
-  //   res.send(data)
-  // })
+  PRODUCT.findOne({ _id: ID })
+    .populate('review shop_info')
+    .then(data => {
+      res.send(data)
+    })
 })
 
 router.post('/productdetail/:_id', (req, res) => {
@@ -115,31 +89,40 @@ router.post('/productdetail/:_id', (req, res) => {
       $push: {
         review_list: REVIEW_DATA
       },
-      rate_avg:avg()
-    }, 
-    {
-      upsert: true
-    },
-    () => {
-      const ADD_REVIEW = new REVIEW({
-        product_id: _id,
-        review_list: {
-          author: REVIEW_DATA.author,
-          content: REVIEW_DATA.content,
-          created: REVIEW_DATA.created
-        }
-      })
-    },
-    console.log('ads'),
-  )
-  avg(_id);
-  res.send()
-});
-
-const avg = (id) =>{
-   REVIEW.aggregate([
-    {$match:{product_id:id}},
+      rate_avg: rateAvg(_id)
+    })
     
+  //   {
+  //     upsert: true
+  //   },
+  //   () => {
+  //     const ADD_REVIEW = new REVIEW({
+  //       product_id: _id,
+  //       review_list: {
+  //         author: REVIEW_DATA.author,
+  //         content: REVIEW_DATA.content,
+  //         created: REVIEW_DATA.created
+  //       }
+  //     })
+  //   }
+  // )
+  res.send()
+})
+
+const rate = (id) => {
+   REVIEW.aggregate([
+    {
+      $match: {
+        product_id: mongoose.Types.ObjectId(id)
+      }
+    },
+    { $unwind: '$review_list' },
+    {
+      $group: {
+        _id: null,
+        rate_avg: { $avg: '$review_list.rate' }
+      },     
+    }
   ])
 }
 
