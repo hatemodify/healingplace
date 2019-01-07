@@ -81,17 +81,15 @@ router.post('/productdetail/:_id', (req, res) => {
   const _id = req.params._id
   const REVIEW_DATA = req.body
   REVIEW_DATA.created = utils.getDate(new Date())
-  REVIEW.findOneAndUpdate(
-    {
-      product_id: _id
-    },
-    {
-      $push: {
-        review_list: REVIEW_DATA
-      },
-      rate_avg: rateAvg(_id)
-    })
-    
+  // REVIEW.findOneAndUpdate(
+  //   {
+  //     product_id: _id
+  //   },
+  //   {
+  //     $push: {
+  //       review_list: REVIEW_DATA
+  //     }
+  //   },
   //   {
   //     upsert: true
   //   },
@@ -105,12 +103,30 @@ router.post('/productdetail/:_id', (req, res) => {
   //       }
   //     })
   //   }
-  // )
-  res.send()
+  // ).then(data => {
+  //   REVIEW.update({ product_id: _id }, { rate_avg: 777 })
+  //   res.send()
+  // })
+  REVIEW.find({ product_id: _id }).then(data => {
+    const len = data[0].review_list.length + 1;
+
+    REVIEW.update(
+      { product_id: _id },
+      {
+        $push: {
+          review_list: REVIEW_DATA
+        },
+        rate_avg: (data[0].rate_avg + Number(REVIEW_DATA.rate)) / len
+      }
+    ).then(result=>{
+      res.send(result)
+    })
+
+  })
 })
 
-const rate = (id) => {
-   REVIEW.aggregate([
+const rate = id => {
+  REVIEW.aggregate([
     {
       $match: {
         product_id: mongoose.Types.ObjectId(id)
@@ -121,7 +137,7 @@ const rate = (id) => {
       $group: {
         _id: null,
         rate_avg: { $avg: '$review_list.rate' }
-      },     
+      }
     }
   ])
 }

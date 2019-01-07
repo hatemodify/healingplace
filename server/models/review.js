@@ -6,12 +6,12 @@ const PRODUCT_REVIEW_MODEL = {
     ref: 'product'
   },
   review_list: [
-    {
-      author: String,
-      content: String,
-      rate: Number,
-      created: String
-    }
+    // {
+    //   author: String,
+    //   content: String,
+    //   rate: Number,
+    //   created: String
+    // }
   ],
   rate_avg: {
     type: Number,

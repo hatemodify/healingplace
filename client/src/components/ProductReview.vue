@@ -1,15 +1,15 @@
 <template>
   <div class="wrap_review">
-    <template v-if="data.length > 0">
+    <template v-if="data.review_list">
       <ul>
-        <li v-for="item in data" :key="item.autor">
+        <li v-for="item in data.review_list" :key="item.autor">
           <span class="txt_data">{{item.author}}</span>
           <span class="txt_content">{{item.content}}</span>
           <span class="txt_content">{{item.created}}</span> -
           <span class="rate">{{item.rate}}</span>
-          {{rateAvg(item.rate)}}
         </li>
       </ul>
+      {{(data.rate_avg).toFixed(1)}}
     </template>
     <template v-else>후기가 없습니다.</template>
     <div class="write_review">
@@ -46,15 +46,14 @@ export default {
         author: "",
         content: "",
       },
+      floor:utils.floor
     };
   },
   computed: {
 
   },
   methods: {
-    rateAvg(rate){
-      let avg = avg + rate
-    },
+
     writeReview() {
       axios
         .post(

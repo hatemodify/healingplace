@@ -69,7 +69,7 @@ export default {
       .then(res => {
         console.log(res);
         this.productData = res.data;
-        this.reviewData = res.data.review.review_list;
+        this.reviewData = res.data.review;
       })
       .catch(err => {
         console.log(err);
