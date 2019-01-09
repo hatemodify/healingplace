@@ -13,9 +13,7 @@
         </li>
       </ul>
     </template>
-    <template v-else>
-      등록된 상품 없음
-    </template>
+    <template v-else>등록된 상품 없음</template>
   </div>
 </template>
 <script>
@@ -60,19 +58,21 @@ export default {
     const query = this.$route.query;
     const type = Object.keys(query)[0];
     const value = query[type];
+    console.log(query);
     if (type) {
       axios
-        .get(`http://localhost:9998/product/productlist/${type}/${value}`)
+        .get(`http://localhost:9998/product/productslist/${type}/${value}`)
         .then(
           res => {
             this.productData = res.data;
+            console.log("type");
           },
           error => {
             console.log(error);
           }
         );
     } else {
-      axios.get(`http://localhost:9998/product/productlist`).then(
+      axios.get(`http://localhost:9998/product/productslist`).then(
         res => {
           this.productData = res.data;
         },

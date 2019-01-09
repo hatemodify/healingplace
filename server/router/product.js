@@ -27,10 +27,10 @@ const upload = multer({ storage: storage }).array('thumbnail')
 
 router.post('/addProduct', upload, (req, res) => {
   const PRODUCT_DATA = req.body
-  console.log(req.files)
+  console.log(req.body)
   let NEW_PRODUCT = new PRODUCT({
     shop_id: PRODUCT_DATA.shopId,
-    shop_info: JSON.parse(PRODUCT_DATA._id),
+    shop_info: PRODUCT_DATA._id,
     title: PRODUCT_DATA.title,
     reservation: PRODUCT_DATA.reservation,
     price_data: JSON.parse(PRODUCT_DATA.priceData),
@@ -55,14 +55,16 @@ router.post('/addProduct', upload, (req, res) => {
   res.end()
 })
 
-router.get('/productlist/:type/:value', (req, res) => {
+router.get('/productslist/:type/:value', (req, res) => {
+  console.log(req.params)
   let obj = {}
   obj[req.params['type']] = req.params['value']
+  console.log(obj)
   PRODUCT.find(obj, (err, data) => {
     res.send(data)
   })
 })
-router.get('/productlist', (req, res) => {
+router.get('/productslist', (req, res) => {
   PRODUCT.find({}, (err, data) => {
     res.send(data)
   })
@@ -108,7 +110,7 @@ router.post('/productdetail/:_id', (req, res) => {
   //   res.send()
   // })
   REVIEW.find({ product_id: _id }).then(data => {
-    const len = data[0].review_list.length + 1;
+    const len = data[0].review_list.length + 1
 
     REVIEW.update(
       { product_id: _id },
@@ -118,10 +120,9 @@ router.post('/productdetail/:_id', (req, res) => {
         },
         rate_avg: (data[0].rate_avg + Number(REVIEW_DATA.rate)) / len
       }
-    ).then(result=>{
+    ).then(result => {
       res.send(result)
     })
-
   })
 })
 

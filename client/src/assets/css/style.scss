@@ -40,3 +40,40 @@
     width: 100%;
   }
 }
+
+.site_logo{
+  img{
+    width: 100px;
+  }
+}
+#wrap{
+
+}
+#site_header{
+  height:100px;
+  padding:20px 30px;
+  overflow: hidden;
+  .header_inner{    
+    margin: auto;
+  }
+  .site_logo{
+    float: left;
+    margin-right: 30px;
+  }
+  .site_menu{
+    float: left;
+    li{
+      float: left;
+      margin-right: 30px;
+      line-height: 20px;
+      font-size: 14px;
+    }
+  }
+  .wrap_util{
+    float: right;
+    .link_util{
+      display: inline-block;
+      margin-left: 20px;
+    }
+  }
+}

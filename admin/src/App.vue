@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <siteNav></siteNav>
+    <site-nav></site-nav>
     <router-view/>
   </div>
 </template>
@@ -13,7 +13,7 @@
 import siteNav from "@/components/Navigation";
 export default {
   components: {
-    siteNav
+    "site-nav": siteNav
   }
 };
 </script>

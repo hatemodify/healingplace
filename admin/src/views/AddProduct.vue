@@ -122,6 +122,7 @@ export default {
         terms1: "",
         terms2: "",
         category: "",
+        region: "",
         _id: "5bd827d4aa97e19ba3b7005c"
       },
       formData: new FormData(),
@@ -204,14 +205,16 @@ export default {
         this.formData.append("thumbnail", elem[0], elem[0].name);
       });
       for (let key in this.productData) {
-        this.formData.append(key, JSON.stringify(this.productData[key]));
-        console.log(`${key} : ${this.productData[key]}`);
+        console.log(key);
+        key === "priceData"
+          ? this.formData.append(key, JSON.stringify(this.productData[key]))
+          : this.formData.append(key, this.productData[key]);
       }
       axios
         .post("http://localhost:9998/product/addProduct", this.formData, config)
         .then(() => {
           console.log("success");
-          this.$router.go(this.$router.currentRoute)
+          // this.$router.go(this.$router.currentRoute);
         })
         .catch(() => {
           console.log("fail");

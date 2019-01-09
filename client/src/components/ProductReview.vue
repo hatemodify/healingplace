@@ -17,17 +17,52 @@
       <textarea v-model="review.content"></textarea>
       <div class="wrap_rate">
         <div class="rate_star">
-        <input type="radio" id="rate1" class="screen_out" name="productRate" value="1" v-model="review.rate">
-        <input type="radio" id="rate2" class="screen_out" name="productRate" value="2" v-model="review.rate">
-        <input type="radio" id="rate3" class="screen_out" name="productRate" value="3" v-model="review.rate">
-        <input type="radio" id="rate4" class="screen_out" name="productRate" value="4" v-model="review.rate">
-        <input type="radio" id="rate5" class="screen_out" name="productRate" value="5" v-model="review.rate">
-        <label for="rate1" class="lab_rate1"></label>
-        <label for="rate2" class="lab_rate2"></label>
-        <label for="rate3" class="lab_rate3"></label>
-        <label for="rate4" class="lab_rate4"></label>
-        <label for="rate5" class="lab_rate5"></label>
-        <span class="rate_on"></span>
+          <input
+            type="radio"
+            id="rate1"
+            class="screen_out"
+            name="productRate"
+            value="1"
+            v-model="review.rate"
+          >
+          <input
+            type="radio"
+            id="rate2"
+            class="screen_out"
+            name="productRate"
+            value="2"
+            v-model="review.rate"
+          >
+          <input
+            type="radio"
+            id="rate3"
+            class="screen_out"
+            name="productRate"
+            value="3"
+            v-model="review.rate"
+          >
+          <input
+            type="radio"
+            id="rate4"
+            class="screen_out"
+            name="productRate"
+            value="4"
+            v-model="review.rate"
+          >
+          <input
+            type="radio"
+            id="rate5"
+            class="screen_out"
+            name="productRate"
+            value="5"
+            v-model="review.rate"
+          >
+          <label for="rate1" class="lab_rate1"></label>
+          <label for="rate2" class="lab_rate2"></label>
+          <label for="rate3" class="lab_rate3"></label>
+          <label for="rate4" class="lab_rate4"></label>
+          <label for="rate5" class="lab_rate5"></label>
+          <span class="rate_on"></span>
         </div>
         <em class="txt_rate"></em>
       </div>
@@ -44,16 +79,13 @@ export default {
     return {
       review: {
         author: "",
-        content: "",
+        content: ""
       },
-      floor:utils.floor
+      floor: utils.floor
     };
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
-
     writeReview() {
       axios
         .post(
