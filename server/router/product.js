@@ -8,6 +8,7 @@ const REVIEW = require('../models/review')
 const utils = require('../utils')
 const multer = require('multer')
 const crypto = require('crypto')
+const requestIp = require('request-ip')
 
 const storage = multer.diskStorage({
   destination: (req, files, cb) => {
@@ -65,6 +66,10 @@ router.get('/productslist/:type/:value', (req, res) => {
   })
 })
 router.get('/productslist', (req, res) => {
+  console.log('ipis', requestIp.getClientIp(req))
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+  console.log(`ipppppp : ${ip}`)
   PRODUCT.find({}, (err, data) => {
     res.send(data)
   })

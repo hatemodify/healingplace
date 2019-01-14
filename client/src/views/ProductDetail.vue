@@ -30,7 +30,7 @@ export default {
       id: this.$route.params._id,
       productData: "",
       reviewData: "",
-      appKey: "eaf4c13b334e2ff65a4abdb939521573",
+      appKey: "002bf88c10aa0bca45e14a686a0f2b60",
       level: 3,
       mapTypeId: VueDaumMap.MapTypeId.NORMAL,
       libraries: ["services", "clusterer", "drawing"],
