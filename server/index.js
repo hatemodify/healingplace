@@ -71,8 +71,38 @@ app.get('/dummy', (req, res) => {
     if (err) {
       console.log(err)
     }
-    res.send({
-      addr
+    let temp = []
+    addr.forEach(item =>{
+      item.shop_address.length > 5 ?temp.push(item): addr
     })
+    
+    res.send({
+      temp
+    })
+  })
+})
+
+
+
+
+app.get('/near', (req,res)=>{
+  const lng = req.body.lng;
+  const lat = req.body.lat;
+  console.log(req.body)
+  SHOP_MODEL.aggregate([
+    {
+      $geoNear: {
+         near: { 
+           type: "Point",
+           coordinates: [126.570677,  33.450705]
+         },
+         distanceField: "dist.calculated",
+         maxDistance: 10000,
+         spherical: true
+      }
+    }
+   ],(err,data)=>{
+    if(err) throw err;
+    return res.send(data);
   })
 })

@@ -46,7 +46,13 @@ const SHOP_MODEL = {
   shop_level: {
     type: Number,
     default: 0
+  },
+  location: {
+    type: { type: String },
+    coordinates: [Number],
   }
 };
+
 const shopSchema = new Schema(SHOP_MODEL);
+shopSchema.index({ location: '2dsphere' });
 module.exports = mongoose.model('shop', shopSchema);
