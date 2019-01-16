@@ -33,6 +33,11 @@
       </b-field>
       <b-field>
         <b-input placeholder="주소" icon="home-map-marker" v-model="userData.address"></b-input>
+        <button class="button fr is-small is-danger" @click="getCoords">좌표불러오기</button>
+      </b-field>
+      <b-field>
+        <input type="text" placeholder="y" icon="home-map-marker" v-model="userData.latitude" ref="y">        
+        <input type="text" placeholder="x" icon="home-map-marker" v-model="userData.longitude" ref="x">        
       </b-field>
       <b-field>
         <b-input placeholder="전화번호" icon="phone-classic" v-model="userData.phone1"></b-input>
@@ -65,46 +70,73 @@
 </template>
 
 <script>
-import OPTIONS from '@/util/options'
-import axios from 'axios'
+import OPTIONS from "@/util/options";
+import VueDaumMap from "vue-daum-map";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      id: '',
-      password: '',
+      id: "",
+      password: "",
       region: OPTIONS.region,
       category: OPTIONS.category,
       level: OPTIONS.level,
       userData: {
-        shopName: '',
-        shopId: '',
-        password: '',
-        address: '',
-        phone1: '',
-        phone2: '',
-        personalDay: '',
-        category: '',
+        shopName: "",
+        shopId: "",
+        password: "",
+        address: "",
+        latitude: "",
+        longitude: "",
+        phone1: "",
+        phone2: "",
+        personalDay: "",
+        category: "",
         level: 0
       }
-    }
+    };
   },
   created() {},
   methods: {
     dialog() {
-      this.$dialog.alert('등록 되었습니다.')
+      this.$dialog.alert("등록 되었습니다.");
     },
     submit() {
       axios
         .post(`${process.env.ROOT_API}/shop/addShop`, this.userData, {
           headers: {
-            'Content-type': 'application/json'
+            "Content-type": "application/json"
           }
         })
         .then(() => {
-          this.dialog()
-        })
+          this.dialog();
+        });
+    },
+    getCoords() {
+      const appkey = `36b94e04f7eb04d98cf49baa6fa460d8`;
+      const query = encodeURIComponent(this.userData.address);
+      const config = {
+        headers: {
+          Authorization: `KakaoAK ${appkey}`
+        }
+      };
+      if (!query) {
+        alert("주소를 입력하세요");
+        return
+      }
+      axios
+        .get(
+          `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}`,
+          config
+        )
+        .then(res => {
+           console.log(res)
+          res.data.documents.length === 0? alert('올바른 주소를 입력하세요'): this.$refs.x.value = res.data.documents[0].x
+          this.$refs.y.value = res.data.documents[0].y
+         
+        });
     }
   }
-}
+};
 </script>

@@ -15,6 +15,7 @@
     "material-design-icons-iconfont": "^4.0.3",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.17",
+    "vue-daum-map": "^1.0.12",
     "vue-router": "^3.0.1",
     "vue2-editor": "^2.6.6",
     "vuex": "^3.0.1"

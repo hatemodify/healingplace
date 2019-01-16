@@ -92,7 +92,7 @@ export default {
         (result, status) => {
           if (status === daum.maps.services.Status.OK) {
             const coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
+            console.log(coords);
             const marker = new daum.maps.Marker({
               map: this.mapObject,
               position: coords
