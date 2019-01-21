@@ -6,7 +6,7 @@
         <b-input
           placeholder="이름"
           icon="account"
-          v-model="userData.shopName"
+          v-model="shopData.shopName"
           maxlength="12"
           minlength="2"
           required
@@ -16,7 +16,7 @@
         <b-input
           placeholder="아이디"
           icon="account"
-          v-model="userData.shopId"
+          v-model="shopData.shopId"
           maxlength="12"
           minlength="2"
           required
@@ -27,38 +27,50 @@
           type="password"
           placeholder="패스워드"
           icon="onepassword"
-          v-model="userData.password"
+          v-model="shopData.password"
           password-reveal
         ></b-input>
       </b-field>
       <b-field>
-        <b-input placeholder="주소" icon="home-map-marker" v-model="userData.address"></b-input>
+        <b-input placeholder="주소" icon="home-map-marker" v-model="shopData.address"></b-input>
         <button class="button fr is-small is-danger" @click="getCoords">좌표불러오기</button>
       </b-field>
       <b-field>
-        <input type="text" placeholder="y" icon="home-map-marker" v-model="userData.latitude" ref="y">        
-        <input type="text" placeholder="x" icon="home-map-marker" v-model="userData.longitude" ref="x">        
+        <input
+          type="text"
+          placeholder="y"
+          icon="home-map-marker"
+          v-model="shopData.latitude"
+          ref="y"
+        >
+        <input
+          type="text"
+          placeholder="x"
+          icon="home-map-marker"
+          v-model="shopData.longitude"
+          ref="x"
+        >
       </b-field>
       <b-field>
-        <b-input placeholder="전화번호" icon="phone-classic" v-model="userData.phone1"></b-input>
+        <b-input placeholder="전화번호" icon="phone-classic" v-model="shopData.phone1"></b-input>
       </b-field>
       <b-field>
-        <b-input placeholder="휴대폰번호" icon="phone" v-model="userData.phone2"></b-input>
+        <b-input placeholder="휴대폰번호" icon="phone" v-model="shopData.phone2"></b-input>
       </b-field>
       <b-field>
-        <b-input placeholder="휴무일" icon="calendar-check" v-model="userData.personalDay"></b-input>
+        <b-input placeholder="휴무일" icon="calendar-check" v-model="shopData.personalDay"></b-input>
       </b-field>
       <div class="cf mb30">
         <div class="fl mr20">
           <b-field label="카테고리">
-            <b-select placeholder="카테고리를 선택하세요" v-model="userData.category">
+            <b-select placeholder="카테고리를 선택하세요" v-model="shopData.category">
               <option v-for="category in category" :value="category" :key="category">{{category}}</option>
             </b-select>
           </b-field>
         </div>
         <div class="fl">
           <b-field label="등급">
-            <b-select placeholder="등급을 선택하세요" v-model="userData.level">
+            <b-select placeholder="등급을 선택하세요" v-model="shopData.level">
               <option v-for="level in level" :value="level" :key="level">{{level}}</option>
             </b-select>
           </b-field>
@@ -82,7 +94,7 @@ export default {
       region: OPTIONS.region,
       category: OPTIONS.category,
       level: OPTIONS.level,
-      userData: {
+      shopData: {
         shopName: "",
         shopId: "",
         password: "",
@@ -104,7 +116,7 @@ export default {
     },
     submit() {
       axios
-        .post(`${process.env.ROOT_API}/shop/addShop`, this.userData, {
+        .post(`http://localhost:9998/shop/addShop`, this.shopData, {
           headers: {
             "Content-type": "application/json"
           }
@@ -115,7 +127,7 @@ export default {
     },
     getCoords() {
       const appkey = `36b94e04f7eb04d98cf49baa6fa460d8`;
-      const query = encodeURIComponent(this.userData.address);
+      const query = encodeURIComponent(this.shopData.address);
       const config = {
         headers: {
           Authorization: `KakaoAK ${appkey}`
@@ -123,7 +135,7 @@ export default {
       };
       if (!query) {
         alert("주소를 입력하세요");
-        return
+        return;
       }
       axios
         .get(
@@ -131,10 +143,14 @@ export default {
           config
         )
         .then(res => {
-           console.log(res)
-          res.data.documents.length === 0? alert('올바른 주소를 입력하세요'): this.$refs.x.value = res.data.documents[0].x
-          this.$refs.y.value = res.data.documents[0].y
-         
+          console.log(res);
+          if (res.data.documents.length === 0) {
+            alert("올바른 주소를 입력하세요");
+          } else {
+            this.shopData.longitude = res.data.documents[0].x;
+            this.shopData.latitude = res.data.documents[0].y;
+            console.log(this.shopData.longitude, this.shopData.latitude);
+          }
         });
     }
   }

@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const SHOP = require('../models/shop');
-const PRODUCT = require('../models/product');
+const express = require('express')
+const router = express.Router()
+const SHOP = require('../models/shop')
+const PRODUCT = require('../models/product')
 
 router.post('/addShop', (req, res) => {
   const NEW_SHOP = new SHOP({
@@ -13,24 +13,28 @@ router.post('/addShop', (req, res) => {
     cell_phone_number: req.body.phone2,
     shop_personal_day: req.body.personalDay,
     shop_category: req.body.category,
-    shop_level: req.body.level
-  });
+    shop_level: req.body.level,
+    location: {
+      type: 'Point',
+      coordinates: [Number(req.body.longitude), Number(req.body.latitude)]
+    }
+  })
 
   NEW_SHOP.save(err => {
     if (err) {
-      console.error(err);
-      res.json({ result: 0 });
-      return;
+      console.error(err)
+      res.json({ result: 0 })
+      return
     }
-    console.log(res);
-    res.end();
-  });
-});
+    console.log(res)
+    res.end()
+  })
+})
 
-router.get('/addProduct/:shopid', (req, res) =>{
-  SHOP.find({shop_id:req.params.shopid} , (err, data) => {
+router.get('/addProduct/:shopid', (req, res) => {
+  SHOP.find({ shop_id: req.params.shopid }, (err, data) => {
     res.send(data[0])
   })
 })
 
-module.exports = router;
+module.exports = router

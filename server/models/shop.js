@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 const SHOP_MODEL = {
   shop_id: {
     type: String,
@@ -49,10 +49,10 @@ const SHOP_MODEL = {
   },
   location: {
     type: { type: String },
-    coordinates: [Number],
+    coordinates: [Number]
   }
-};
+}
 
-const shopSchema = new Schema(SHOP_MODEL);
-shopSchema.index({ location: '2dsphere' });
-module.exports = mongoose.model('shop', shopSchema);
+const shopSchema = new Schema(SHOP_MODEL)
+shopSchema.index({ location: '2dsphere' })
+module.exports = mongoose.model('shop', shopSchema)
