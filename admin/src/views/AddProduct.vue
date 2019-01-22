@@ -104,122 +104,130 @@
   </div>
 </template>
 <script>
-import { VueEditor } from "vue2-editor";
-import axios from "axios";
+import { VueEditor } from 'vue2-editor'
+import axios from 'axios'
 
 export default {
-  components: {
-    VueEditor
-  },
-  data() {
-    return {
-      productData: {
-        shopId: localStorage.shopId,
-        title: "",
-        reservation: "불가능",
-        priceData: [],
-        detail: "",
-        terms1: "",
-        terms2: "",
-        category: "",
-        region: "",
-        _id: "5bd827d4aa97e19ba3b7005c"
-      },
-      formData: new FormData(),
-      shopData: {
-        shop_address: "",
-        shop_personal_day: "",
-        _id: ""
-      },
-      image: "",
-      images: []
-    };
-  },
-  beforeRouteEnter(to, from, next) {
-    axios
-      .get(`http://localhost:9998/shop/addProduct/${localStorage.shopId}`)
-      .then(res => {
-        next(vm => {
-          const resData = res.data;
-          const data = vm._data.shopData;
-          data.shop_address = resData.shop_address;
-          data.shop_personal_day = resData.shop_personal_day;
-          (data.shop_name = resData.shop_name), (data._id = resData._id);
-          console.log(data);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
+    components: {
+        VueEditor,
+    },
+    data() {
+        return {
+            productData: {
+                shopId: localStorage.shopId,
+                title: '',
+                reservation: '불가능',
+                priceData: [],
+                detail: '',
+                terms1: '',
+                terms2: '',
+                category: '',
+                region: '',
+                _id: '5bd827d4aa97e19ba3b7005c',
+            },
+            formData: new FormData(),
+            shopData: {
+                shop_address: '',
+                shop_personal_day: '',
+                _id: '',
+            },
+            image: '',
+            images: [],
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        axios
+            .get(`http://localhost:9998/shop/addProduct/${localStorage.shopId}`)
+            .then(res => {
+                next(vm => {
+                    const resData = res.data
+                    const data = vm._data.shopData
+                    data.shop_address = resData.shop_address
+                    data.shop_personal_day = resData.shop_personal_day
+                    ;(data.shop_name = resData.shop_name),
+                        (data._id = resData._id)
+                    console.log(data)
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
 
-  methods: {
-    deleteDropFile(index) {
-      this.dropFiles.splice(index, 1);
-    },
-    addPrice() {
-      const productName = this.$refs.productName.value;
-      const productPrice = this.$refs.productPrice.value;
+    methods: {
+        deleteDropFile(index) {
+            this.dropFiles.splice(index, 1)
+        },
+        addPrice() {
+            const productName = this.$refs.productName.value
+            const productPrice = this.$refs.productPrice.value
 
-      if (productName && productPrice) {
-        this.productData.priceData.push(
-          new Object({
-            productName,
-            productPrice
-          })
-        );
-        this.$refs.productName.value = "";
-        this.$refs.productPrice.value = "";
-      }
-    },
-    removePrice(index) {
-      this.productData.priceData.splice(index, 1);
-    },
-    onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
-      this.images.push(this.$refs.reg_thumb.files);
-    },
-    createImage(file) {
-      const image = new Image();
-      const reader = new FileReader();
+            if (productName && productPrice) {
+                this.productData.priceData.push(
+                    new Object({
+                        productName,
+                        productPrice,
+                    })
+                )
+                this.$refs.productName.value = ''
+                this.$refs.productPrice.value = ''
+            }
+        },
+        removePrice(index) {
+            this.productData.priceData.splice(index, 1)
+        },
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files
+            if (!files.length) return
+            this.createImage(files[0])
+            this.images.push(this.$refs.reg_thumb.files)
+        },
+        createImage(file) {
+            const image = new Image()
+            const reader = new FileReader()
 
-      reader.onload = e => {
-        this.image = e.target.result;
-        // this.productData.thumbnail.push(vm.image)
-      };
-      reader.readAsDataURL(file);
+            reader.onload = e => {
+                this.image = e.target.result
+                // this.productData.thumbnail.push(vm.image)
+            }
+            reader.readAsDataURL(file)
+        },
+        removeImage: function(e) {
+            this.image = ''
+        },
+        handleFilesUpload() {
+            let uploadedFiles = this.$refs.files.files
+        },
+        formSubmit() {
+            const config = {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            }
+            this.images.forEach(elem => {
+                this.formData.append('thumbnail', elem[0], elem[0].name)
+            })
+            for (let key in this.productData) {
+                console.log(key)
+                key === 'priceData'
+                    ? this.formData.append(
+                          key,
+                          JSON.stringify(this.productData[key])
+                      )
+                    : this.formData.append(key, this.productData[key])
+            }
+            axios
+                .post(
+                    'http://localhost:9998/product/addProduct',
+                    this.formData,
+                    config
+                )
+                .then(() => {
+                    console.log('success')
+                    // this.$router.go(this.$router.currentRoute);
+                })
+                .catch(() => {
+                    console.log('fail')
+                })
+        },
     },
-    removeImage: function(e) {
-      this.image = "";
-    },
-    handleFilesUpload() {
-      let uploadedFiles = this.$refs.files.files;
-    },
-    formSubmit() {
-      const config = {
-        headers: { "Content-Type": "multipart/form-data" }
-      };
-      this.images.forEach(elem => {
-        this.formData.append("thumbnail", elem[0], elem[0].name);
-      });
-      for (let key in this.productData) {
-        console.log(key);
-        key === "priceData"
-          ? this.formData.append(key, JSON.stringify(this.productData[key]))
-          : this.formData.append(key, this.productData[key]);
-      }
-      axios
-        .post("http://localhost:9998/product/addProduct", this.formData, config)
-        .then(() => {
-          console.log("success");
-          // this.$router.go(this.$router.currentRoute);
-        })
-        .catch(() => {
-          console.log("fail");
-        });
-    }
-  }
-};
+}
 </script>

@@ -30,20 +30,20 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      userData: {
-        userId: "",
-        password: ""
-      }
-    };
-  },
-  methods: {
-    alert() {},
-    login() {
-      if (this.userData.userId && this.userData.password) {
-      }
-    }
-  }
-};
+    data() {
+        return {
+            userData: {
+                userId: '',
+                password: '',
+            },
+        }
+    },
+    methods: {
+        alert() {},
+        login() {
+            if (this.userData.userId && this.userData.password) {
+            }
+        },
+    },
+}
 </script>

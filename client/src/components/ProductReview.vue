@@ -71,38 +71,38 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import utils from "@/utils.js";
+import axios from 'axios'
+import utils from '@/utils.js'
 export default {
-  props: ["data"],
-  data() {
-    return {
-      review: {
-        author: "",
-        content: ""
-      },
-      floor: utils.floor
-    };
-  },
-  computed: {},
-  methods: {
-    writeReview() {
-      axios
-        .post(
-          `http://localhost:9998/product/productdetail/${
-            this.$route.params._id
-          }`,
-          this.review
-        )
-        .then(res => {
-          alert("등록 되었습니다");
-          this.$router.go(this.$router.currentRoute);
-        })
-        .catch(err => {
-          console.log(this.review);
-          console.log(err);
-        });
-    }
-  }
-};
+    props: ['data'],
+    data() {
+        return {
+            review: {
+                author: '',
+                content: '',
+            },
+            floor: utils.floor,
+        }
+    },
+    computed: {},
+    methods: {
+        writeReview() {
+            axios
+                .post(
+                    `http://localhost:9998/product/productdetail/${
+                        this.$route.params._id
+                    }`,
+                    this.review
+                )
+                .then(res => {
+                    alert('등록 되었습니다')
+                    this.$router.go(this.$router.currentRoute)
+                })
+                .catch(err => {
+                    console.log(this.review)
+                    console.log(err)
+                })
+        },
+    },
+}
 </script>

@@ -85,7 +85,6 @@ app.get('/dummy', (req, res) => {
 app.get('/near/:lat/:lng', (req, res) => {
   const lng = Number(req.params.lng)
   const lat = Number(req.params.lat)
-  console.log(lng, lat)
   // SHOP_MODEL.aggregate(
   //   [
   //     {

@@ -82,77 +82,80 @@
 </template>
 
 <script>
-import OPTIONS from "@/util/options";
-import VueDaumMap from "vue-daum-map";
-import axios from "axios";
+import OPTIONS from '@/util/options'
+import VueDaumMap from 'vue-daum-map'
+import axios from 'axios'
 
 export default {
-  data() {
-    return {
-      id: "",
-      password: "",
-      region: OPTIONS.region,
-      category: OPTIONS.category,
-      level: OPTIONS.level,
-      shopData: {
-        shopName: "",
-        shopId: "",
-        password: "",
-        address: "",
-        latitude: "",
-        longitude: "",
-        phone1: "",
-        phone2: "",
-        personalDay: "",
-        category: "",
-        level: 0
-      }
-    };
-  },
-  created() {},
-  methods: {
-    dialog() {
-      this.$dialog.alert("등록 되었습니다.");
-    },
-    submit() {
-      axios
-        .post(`http://localhost:9998/shop/addShop`, this.shopData, {
-          headers: {
-            "Content-type": "application/json"
-          }
-        })
-        .then(() => {
-          this.dialog();
-        });
-    },
-    getCoords() {
-      const appkey = `36b94e04f7eb04d98cf49baa6fa460d8`;
-      const query = encodeURIComponent(this.shopData.address);
-      const config = {
-        headers: {
-          Authorization: `KakaoAK ${appkey}`
+    data() {
+        return {
+            id: '',
+            password: '',
+            region: OPTIONS.region,
+            category: OPTIONS.category,
+            level: OPTIONS.level,
+            shopData: {
+                shopName: '',
+                shopId: '',
+                password: '',
+                address: '',
+                latitude: '',
+                longitude: '',
+                phone1: '',
+                phone2: '',
+                personalDay: '',
+                category: '',
+                level: 0,
+            },
         }
-      };
-      if (!query) {
-        alert("주소를 입력하세요");
-        return;
-      }
-      axios
-        .get(
-          `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}`,
-          config
-        )
-        .then(res => {
-          console.log(res);
-          if (res.data.documents.length === 0) {
-            alert("올바른 주소를 입력하세요");
-          } else {
-            this.shopData.longitude = res.data.documents[0].x;
-            this.shopData.latitude = res.data.documents[0].y;
-            console.log(this.shopData.longitude, this.shopData.latitude);
-          }
-        });
-    }
-  }
-};
+    },
+    created() {},
+    methods: {
+        dialog() {
+            this.$dialog.alert('등록 되었습니다.')
+        },
+        submit() {
+            axios
+                .post(`http://localhost:9998/shop/addShop`, this.shopData, {
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                })
+                .then(() => {
+                    this.dialog()
+                })
+        },
+        getCoords() {
+            const appkey = `36b94e04f7eb04d98cf49baa6fa460d8`
+            const query = encodeURIComponent(this.shopData.address)
+            const config = {
+                headers: {
+                    Authorization: `KakaoAK ${appkey}`,
+                },
+            }
+            if (!query) {
+                alert('주소를 입력하세요')
+                return
+            }
+            axios
+                .get(
+                    `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}`,
+                    config
+                )
+                .then(res => {
+                    console.log(res)
+                    if (res.data.documents.length === 0) {
+                        alert('올바른 주소를 입력하세요')
+                    } else {
+                        this.shopData.longitude = res.data.documents[0].x
+                        this.shopData.latitude = res.data.documents[0].y
+                        console.log(
+                            this.shopData.longitude,
+                            this.shopData.latitude
+                        )
+                    }
+                })
+        },
+    },
+}
 </script>

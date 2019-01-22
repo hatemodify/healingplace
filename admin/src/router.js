@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-Vue.use(Router);
+import Vue from 'vue'
+import Router from 'vue-router'
+Vue.use(Router)
 
 export default new Router({
   mode: 'history',
@@ -17,4 +17,4 @@ export default new Router({
       component: () => import('./views/AddShop.vue')
     }
   ]
-});
+})

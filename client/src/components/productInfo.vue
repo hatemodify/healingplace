@@ -14,35 +14,30 @@
       </li>
     </ul>
     <template v-if="data.shop_info">
-    <div>
-      {{data.shop_info.shop_address}}
-    </div>
-    <div>
-      {{data.shop_info.shop_personal_day}}
-    </div>
+      <div>{{data.shop_info.shop_address}}</div>
+      <div>{{data.shop_info.shop_personal_day}}</div>
     </template>
     <div v-html="data.detail"></div>
   </div>
 </template>
 <script>
 import utils from '@/utils.js'
-import { Carousel, Slide } from 'vue-carousel';
+import { Carousel, Slide } from 'vue-carousel'
 export default {
-  props: ["data"],
-  data(){
-    return{
-
-      numComma: utils.numComma,
-    }
-  },
-  components:{
-    Carousel,
-    Slide
-  },
-  methods:{
-    imgPath(imageName){
-      return (require(`../../upload/thumb/${imageName}`))
+    props: ['data'],
+    data() {
+        return {
+            numComma: utils.numComma,
+        }
     },
-  }
-};
+    components: {
+        Carousel,
+        Slide,
+    },
+    methods: {
+        imgPath(imageName) {
+            return require(`../../upload/thumb/${imageName}`)
+        },
+    },
+}
 </script>
