@@ -8,6 +8,7 @@ const http = require('http')
 const path = require('path')
 const methodOverride = require('method-override')
 const SHOP_MODEL = require('./models/shop')
+const PRODUCT_MODEL = require('./models/product')
 
 mongoose.connect(
   DB_INFO,
@@ -105,17 +106,22 @@ app.get('/near/:lat/:lng', (req, res) => {
   //     return res.send(data)
   //   }
   // )
-  SHOP_MODEL.find(
-    {
-      location: {
-        $near: {
-          $geometry: { type: 'Point', coordinates: [lng, lat] },
-          $maxDistance: 0.5 * 6378.1
-        }
-      }
-    },
-    (err, data) => {
-      res.send(data)
-    }
-  )
+  // PRODUCT_MODEL.find(
+  //   {
+  //     location: {
+  //       $near: {
+  //         $geometry: { type: 'Point', coordinates: [lng, lat] },
+  //         $maxDistance: 0.5 * 6378.1
+  //       }
+  //     }
+  //   },
+  //   (err, data) => {
+  //     res.send(data)
+  //   }
+  // )
+  PRODUCT_MODEL.find()
+    .populate('shop_info')
+    .then(data => {
+      data.find()
+    })
 })

@@ -1,7 +1,7 @@
 <template>
-  <div id="contents">
+  <div class="wrap_product">
+    <h3 class="subtitle">상품 정보</h3>
     <section class="section_divide">
-      <h3 class="tit_page">상품 등록</h3>
       <div class="cf mb20">
         <input type="text" v-model="productData._id">
         <b-field label="제목" class="fl inp_size60">
@@ -111,6 +111,7 @@ export default {
     components: {
         VueEditor,
     },
+    props: ['data'],
     data() {
         return {
             productData: {
@@ -136,23 +137,23 @@ export default {
         }
     },
     beforeRouteEnter(to, from, next) {
-        axios
-            .get(`http://localhost:9998/shop/addProduct/${localStorage.shopId}`)
-            .then(res => {
-                next(vm => {
-                    const resData = res.data
-                    const data = vm._data.shopData
-                    data.shop_address = resData.shop_address
-                    data.shop_personal_day = resData.shop_personal_day
-                    data.shop_name = resData.shop_name
-                    data._id = resData._id
-                    vm._data.productData._id = resData._id
-                    console.log(data)
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        // axios
+        //     .get(`http://localhost:9998/shop/addProduct/${localStorage.shopId}`)
+        //     .then(res => {
+        //         next(vm => {
+        //             const resData = res.data
+        //             const data = vm._data.shopData
+        //             data.shop_address = resData.shop_address
+        //             data.shop_personal_day = resData.shop_personal_day
+        //             data.shop_name = resData.shop_name
+        //             data._id = resData._id
+        //             vm._data.productData._id = resData._id
+        //             console.log(data)
+        //         })
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //     })
     },
     methods: {
         deleteDropFile(index) {

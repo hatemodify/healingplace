@@ -1,8 +1,7 @@
 <template>
   <div id="contents">
-    <h2 class="tit_page">샵 등록</h2>
     <section>
-      <h3 class="subtitle">샵 정보</h3>
+      <h3 class="subtitle" @click="submit">With Material Design Icons</h3>
       <b-field>
         <b-input
           placeholder="이름"
@@ -77,24 +76,17 @@
           </b-field>
         </div>
       </div>
+      <button class="button is-medium is-danger" @click="submit">등록</button>
     </section>
-    <section>
-      <AddProduct></AddProduct>
-    </section>
-    <button class="button is-medium is-danger" @click="submit">등록</button>
   </div>
 </template>
 
 <script>
 import OPTIONS from '@/util/options'
-import AddProduct from '@/components/AddProduct'
 import VueDaumMap from 'vue-daum-map'
 import axios from 'axios'
 
 export default {
-    components: {
-        AddProduct,
-    },
     data() {
         return {
             id: '',
