@@ -106,22 +106,18 @@ app.get('/near/:lat/:lng', (req, res) => {
   //     return res.send(data)
   //   }
   // )
-  // PRODUCT_MODEL.find(
-  //   {
-  //     location: {
-  //       $near: {
-  //         $geometry: { type: 'Point', coordinates: [lng, lat] },
-  //         $maxDistance: 0.5 * 6378.1
-  //       }
-  //     }
-  //   },
-  //   (err, data) => {
-  //     res.send(data)
-  //   }
-  // )
-  PRODUCT_MODEL.find()
-    .populate('shop_info')
-    .then(data => {
-      data.find()
-    })
+  SHOP_MODEL.find(
+    {
+      location: {
+        $near: {
+          $geometry: { type: 'Point', coordinates: [lng, lat] },
+          $maxDistance: 0.5 * 6378.1
+        }
+      }
+    },
+    (err, data) => {
+      console.log(data)
+      res.send(data)
+    }
+  )
 })

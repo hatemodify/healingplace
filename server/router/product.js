@@ -72,8 +72,8 @@ router.get('/productslist', (req, res) => {
 
 router.get('/productdetail/:_id', (req, res) => {
   const ID = req.params._id
-  PRODUCT.findOne({ _id: ID })
-    .populate('review shop_info')
+  SHOP.findOne({ _id: ID })
+    .populate('review')
     .then(data => {
       res.send(data)
     })

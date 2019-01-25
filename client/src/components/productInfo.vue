@@ -13,9 +13,9 @@
         <span>{{numComma(item.productPrice)}}</span>
       </li>
     </ul>
-    <template v-if="data.shop_info">
-      <div>{{data.shop_info.shop_address}}</div>
-      <div>{{data.shop_info.shop_personal_day}}</div>
+    <template v-if="data">
+      <div>{{data.shop_address}}</div>
+      <div>{{data.shop_personal_day}}</div>
     </template>
     <div v-html="data.detail"></div>
   </div>

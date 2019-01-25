@@ -1,45 +1,26 @@
 <template>
   <div id="wrap">
-    <p>Lat = {{center.lat}} Lon ={{center.lng}}</p>
+    <p>Lat = {{latitude}} Lon ={{longitude}}</p>
 
-    <p>{{temp}}</p>
-    <!-- <vue-daum-map
-      :appKey="appKey"
-      :center.sync="center"
-      :level.sync="level"
-      :mapTypeId="mapTypeId"
-      :libraries="libraries"
-      style="width:500px;height:500px;"
-    ></vue-daum-map>-->
+    <product-list :data="shopData"></product-list>
+
     <br>
     <button @click="near">near</button>
-    {{addr}}
   </div>
 </template>
 <script>
 import axios from 'axios'
 import VueDaumMap from 'vue-daum-map'
+import productList from '@/components/list.vue'
 export default {
-    components: { VueDaumMap },
+    components: { VueDaumMap, productList },
     data() {
         return {
-            error: '',
-            lat: '',
-            lon: '',
-            appKey: '002bf88c10aa0bca45e14a686a0f2b60',
-            level: 3,
-            mapTypeId: VueDaumMap.MapTypeId.NORMAL,
-            libraries: ['services', 'clusterer', 'drawing'],
-            mapObject: null,
             latitude: '',
             longitude: '',
-            center: { lat: '', lng: '' },
-            geocoder: '',
-            addr: [],
-            temp: '',
+            shopData: '',
         }
     },
-
     beforeMount() {
         Promise.resolve(this.geo(this.getMyLocation)).then((lat, lng) => {})
         console.log(1)
@@ -49,8 +30,6 @@ export default {
             navigator.geolocation.getCurrentPosition(position)
         },
         getMyLocation: function(position) {
-            this.center.lat = position.coords.latitude
-            this.center.lng = position.coords.longitude
             this.latitude = position.coords.latitude
             this.longitude = position.coords.longitude
             this.near()
@@ -65,7 +44,7 @@ export default {
                 lng,
             }
             axios.get(`http://127.0.0.1:9998/near/${lat}/${lng}`).then(res => {
-                console.log(res)
+                this.shopData = res.data
                 // res.data.forEach(item => {
                 //     let a = {
                 //         shopName: item.shop_name,
@@ -107,3 +86,4 @@ export default {
     },
 }
 </script>
+

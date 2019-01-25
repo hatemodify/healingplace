@@ -22,7 +22,6 @@ export default {
     data() {
         return {
             productData: '',
-            thumb: '',
         }
     },
     // beforeRouteEnter(to, from, next) {

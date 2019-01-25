@@ -89,31 +89,28 @@ export default {
             this.geocoder = new daum.maps.services.Geocoder()
         },
         addressSearch(opt) {
-            this.geocoder.addressSearch(
-                opt.shop_info.shop_address,
-                (result, status) => {
-                    if (status === daum.maps.services.Status.OK) {
-                        const coords = new daum.maps.LatLng(
-                            result[0].y,
-                            result[0].x
-                        )
-                        console.log(coords)
-                        const marker = new daum.maps.Marker({
-                            map: this.mapObject,
-                            position: coords,
-                        })
+            this.geocoder.addressSearch(opt.shop_address, (result, status) => {
+                if (status === daum.maps.services.Status.OK) {
+                    const coords = new daum.maps.LatLng(
+                        result[0].y,
+                        result[0].x
+                    )
+                    console.log(coords)
+                    const marker = new daum.maps.Marker({
+                        map: this.mapObject,
+                        position: coords,
+                    })
 
-                        const infowindow = new daum.maps.InfoWindow({
-                            content: `<div style='width:100px;text-align:center;padding:3px'>${
-                                opt.shop_info.shop_name
-                            }</div>`,
-                        })
-                        infowindow.open(this.mapObject, marker)
+                    const infowindow = new daum.maps.InfoWindow({
+                        content: `<div style='width:100px;text-align:center;padding:3px'>${
+                            opt.shop_name
+                        }</div>`,
+                    })
+                    infowindow.open(this.mapObject, marker)
 
-                        this.mapObject.setCenter(coords)
-                    }
+                    this.mapObject.setCenter(coords)
                 }
-            )
+            })
         },
     },
 }

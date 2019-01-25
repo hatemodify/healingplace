@@ -6,11 +6,11 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/admin/addproduct',
-      name: 'AddProduct',
-      component: () => import('./views/AddProduct.vue')
-    },
+    // {
+    //   path: '/admin/addproduct',
+    //   name: 'AddProduct',
+    //   component: () => import('./views/AddProduct.vue')
+    // },
     {
       path: '/admin/addShop',
       name: 'AddShop',

@@ -47,6 +47,21 @@ const SHOP_MODEL = {
     type: Number,
     default: 0
   },
+  shop_region: {
+    type: String
+  },
+  title: {
+    type: String
+  },
+  reservation: String,
+  terms1: String,
+  price_data: [],
+  thumbnail: [],
+  detail: String,
+  review: {
+    type: Schema.Types.ObjectId,
+    ref: 'review'
+  },
   location: {
     type: { type: String },
     coordinates: [Number]

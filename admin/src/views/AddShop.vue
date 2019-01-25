@@ -79,7 +79,7 @@
       </div>
     </section>
     <section>
-      <AddProduct></AddProduct>
+      <AddProduct :productData="shopData" :images="images" :formData="formData"></AddProduct>
     </section>
     <button class="button is-medium is-danger" @click="submit">등록</button>
   </div>
@@ -112,9 +112,17 @@ export default {
                 phone1: '',
                 phone2: '',
                 personalDay: '',
-                category: '',
                 level: 0,
+                reservation: '불가능',
+                priceData: [],
+                detail: '',
+                terms1: '',
+                terms2: '',
+                category: '',
+                region: '',
             },
+            formData: new FormData(),
+            images: [],
         }
     },
     created() {},
@@ -123,12 +131,25 @@ export default {
             this.$dialog.alert('등록 되었습니다.')
         },
         submit() {
+            const config = {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            }
+            AddProduct.methods.formSubmit(
+                this.images,
+                this.formData,
+                this.shopData
+            )
+
+            for (var value of this.formData.values()) {
+                console.log(value)
+            }
+
             axios
-                .post(`http://localhost:9998/shop/addShop`, this.shopData, {
-                    headers: {
-                        'Content-type': 'application/json',
-                    },
-                })
+                .post(
+                    `http://localhost:9998/shop/addShop`,
+                    this.formData,
+                    config
+                )
                 .then(() => {
                     this.dialog()
                 })
