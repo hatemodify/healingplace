@@ -1,19 +1,14 @@
 <template>
   <div id="wrap">
     <p>Lat = {{latitude}} Lon ={{longitude}}</p>
-
     <product-list :data="shopData"></product-list>
-
-    <br>
-    <button @click="near">near</button>
   </div>
 </template>
 <script>
 import axios from 'axios'
-import VueDaumMap from 'vue-daum-map'
 import productList from '@/components/list.vue'
 export default {
-    components: { VueDaumMap, productList },
+    components: { productList },
     data() {
         return {
             latitude: '',
@@ -22,8 +17,8 @@ export default {
         }
     },
     beforeMount() {
-        Promise.resolve(this.geo(this.getMyLocation)).then((lat, lng) => {})
-        console.log(1)
+        this.geo(this.getMyLocation)
+        console.log(this.latitude)
     },
     methods: {
         geo: position => {
@@ -34,8 +29,6 @@ export default {
             this.longitude = position.coords.longitude
             this.near()
         },
-        onLoad(map) {},
-
         near() {
             const lat = this.latitude
             const lng = this.longitude
@@ -57,31 +50,6 @@ export default {
                 //     console.log(this.addr)
                 // })
             })
-        },
-        markerr(map) {
-            this.near()
-            setTimeout(() => {
-                this.mapObject = map
-                var imageSrc =
-                    'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png'
-                for (var i = 0; i < this.addr.length; i++) {
-                    // 마커 이미지의 이미지 크기 입니다
-                    var imageSize = new daum.maps.Size(24, 35)
-
-                    // 마커 이미지를 생성합니다
-                    var markerImage = new daum.maps.MarkerImage(
-                        imageSrc,
-                        imageSize
-                    )
-
-                    var marker = new daum.maps.Marker({
-                        map: this.mapObject, // 마커를 표시할 지도
-                        title: this.addr[i].shopName, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다.
-                        position: this.addr[i].latlng, // 마커를 표시할 위치
-                        image: markerImage, // 마커 이미지
-                    })
-                }
-            }, 500)
         },
     },
 }

@@ -21,9 +21,6 @@
 
 <script>
 export default {
-    data() {
-        return {}
-    },
     props: ['data'],
     methods: {
         imgPath(imageName) {

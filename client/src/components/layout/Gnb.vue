@@ -9,7 +9,7 @@
       <nav class="site_menu">
         <ul class="list_menu">
           <li>
-            <router-link to>내주변</router-link>
+            <router-link to="around">내주변</router-link>
           </li>
           <li>
             <router-link to>지역</router-link>
@@ -29,10 +29,3 @@
     </div>
   </header>
 </template>
-<script>
-export default {
-  data() {
-    return {};
-  }
-};
-</script>

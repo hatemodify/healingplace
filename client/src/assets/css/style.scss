@@ -50,11 +50,17 @@
 
 }
 #site_header{
-  height:100px;
   padding:20px 30px;
   overflow: hidden;
+   background: rgb(54, 255, 201);
+
+  a{
+    color: #fff;
+    font-size: 16px;
+  }
   .header_inner{    
     margin: auto;
+    line-height: 30px;
   }
   .site_logo{
     float: left;
@@ -65,15 +71,34 @@
     li{
       float: left;
       margin-right: 30px;
-      line-height: 20px;
       font-size: 14px;
     }
+  }
+  .wrap_search{
+    float: left;
   }
   .wrap_util{
     float: right;
     .link_util{
       display: inline-block;
       margin-left: 20px;
+    }
+  }
+}
+.wrap_category{
+  background: rgb(63, 233, 188);
+  .list_category{
+    display: flex;
+    line-height: 50px;
+    text-align: center;
+    justify-content: center;
+    li{
+      float: left;
+      margin: 0 20px;
+    }
+    a{
+      color: #fff;
+      font-size: 15px;
     }
   }
 }

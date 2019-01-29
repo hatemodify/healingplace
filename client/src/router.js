@@ -7,6 +7,11 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      name: 'Main',
+      component: () => import('./views/Main.vue')
+    },
+    {
       path: '/around',
       name: 'Around',
       component: () => import('./views/Around.vue')

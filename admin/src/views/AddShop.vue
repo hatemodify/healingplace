@@ -88,7 +88,6 @@
 <script>
 import OPTIONS from '@/util/options'
 import AddProduct from '@/components/AddProduct'
-import VueDaumMap from 'vue-daum-map'
 import axios from 'axios'
 
 export default {
@@ -129,6 +128,7 @@ export default {
     methods: {
         dialog() {
             this.$dialog.alert('등록 되었습니다.')
+            this.$router.go(this.$router.currentRoute)
         },
         submit() {
             const config = {
