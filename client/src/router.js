@@ -4,6 +4,8 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+  linkActiveClass: 'active',
+  linkExactActiveClass: 'exact-active',
   mode: 'history',
   routes: [
     {

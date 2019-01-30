@@ -1,5 +1,5 @@
 <template>
-  <div id='app'>
+  <div id="app">
     <gnb></gnb>
     <router-view/>
   </div>
@@ -11,10 +11,29 @@
 </style>
 
 <script>
-import gnb from '@/components/layout/Gnb';
+import { mapMutations } from 'vuex'
+import gnb from '@/components/layout/Gnb'
+import axios from 'axios'
 export default {
-  components: {
-    gnb
-  }
-};
+    components: {
+        gnb,
+    },
+    beforeMount() {
+        this.geo(this.getMyLocation)
+    },
+    methods: {
+        geo(position) {
+            navigator.geolocation.getCurrentPosition(position)
+        },
+        getMyLocation(position) {
+            const coord = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            }
+            this.myLocation(coord)
+        },
+
+        ...mapMutations(['myLocation']),
+    },
+}
 </script>

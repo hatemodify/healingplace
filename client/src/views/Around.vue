@@ -1,14 +1,14 @@
 <template>
   <div id="wrap">
     <p>Lat = {{latitude}} Lon ={{longitude}}</p>
-    <product-list :data="shopData"></product-list>
+    <shoplist :data="shopData"></shoplist>
   </div>
 </template>
 <script>
 import axios from 'axios'
-import productList from '@/components/list.vue'
+import shoplist from '@/components/Shoplist.vue'
 export default {
-    components: { productList },
+    components: { shoplist },
     data() {
         return {
             latitude: '',
@@ -17,25 +17,15 @@ export default {
         }
     },
     beforeMount() {
-        this.geo(this.getMyLocation)
-        console.log(this.latitude)
+        this.near()
     },
+
+    mounted() {},
     methods: {
-        geo: position => {
-            navigator.geolocation.getCurrentPosition(position)
-        },
-        getMyLocation: function(position) {
-            this.latitude = position.coords.latitude
-            this.longitude = position.coords.longitude
-            this.near()
-        },
         near() {
-            const lat = this.latitude
-            const lng = this.longitude
-            const coord = {
-                lat,
-                lng,
-            }
+            const coords = this.$store.state.coords
+            const lat = coords.latitude
+            const lng = coords.longitude
             axios.get(`http://127.0.0.1:9998/near/${lat}/${lng}`).then(res => {
                 this.shopData = res.data
                 // res.data.forEach(item => {

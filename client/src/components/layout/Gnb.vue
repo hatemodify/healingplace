@@ -7,15 +7,15 @@
         </router-link>
       </h1>
       <nav class="site_menu">
-        <ul class="list_menu">
-          <li>
-            <router-link to="around">내주변</router-link>
+        <ul class="list_menu" ref="gnb" id="gnb">
+          <li ref="around" @click="changePage('arround')">
+            <router-link to="/around" active-class="active">내주변</router-link>
           </li>
-          <li>
-            <router-link to>지역</router-link>
+          <li ref="local" @click="changePage('local')">
+            <router-link to="/local" exact-active-class="exact-active">지역</router-link>
           </li>
-          <li>
-            <router-link to>기획전</router-link>
+          <li ref="promotion" @click="changePage('promotion')">
+            <router-link to="/promotion">기획전</router-link>
           </li>
         </ul>
       </nav>
@@ -29,3 +29,20 @@
     </div>
   </header>
 </template>
+<script>
+import { mapMutations } from 'vuex'
+export default {
+    data() {
+        return {
+            current: this.$store.currentPage,
+            active: false,
+        }
+    },
+    updated() {},
+    mounted() {},
+    created() {},
+    methods: {
+        ...mapMutations(['changePage']),
+    },
+}
+</script>

@@ -68,4 +68,14 @@ router.get('/addProduct/:shopid', (req, res) => {
   })
 })
 
+router.get('/shopList/:type/:value', (req, res) => {
+  console.log(req.params)
+  let obj = {}
+  obj[req.params['type']] = req.params['value']
+  console.log(obj)
+  PRODUCT.find(obj, (err, data) => {
+    res.send(data)
+  })
+})
+
 module.exports = router
