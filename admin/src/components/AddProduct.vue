@@ -68,9 +68,9 @@
     <section class="section_divide">
       <vue-editor v-model="productData.detail"></vue-editor>
     </section>
-    <div class="wrap_btn">
+    <!-- <div class="wrap_btn">
       <button class="button is-large is-danger" @click="formSubmit">저장</button>
-    </div>
+    </div>-->
   </div>
 </template>
 <script>

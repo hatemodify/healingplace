@@ -23,11 +23,12 @@ export default {
     mounted() {},
     methods: {
         near() {
-            const coords = this.$store.state.coords
-            const lat = coords.latitude
-            const lng = coords.longitude
+            const coordinates = this.$store.state.coordinates
+            const lat = coordinates.latitude
+            const lng = coordinates.longitude
             axios.get(`http://127.0.0.1:9998/near/${lat}/${lng}`).then(res => {
                 this.shopData = res.data
+
                 // res.data.forEach(item => {
                 //     let a = {
                 //         shopName: item.shop_name,

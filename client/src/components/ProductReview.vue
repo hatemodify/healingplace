@@ -84,7 +84,7 @@ export default {
             floor: utils.floor,
         }
     },
-    computed: {},
+
     methods: {
         writeReview() {
             axios

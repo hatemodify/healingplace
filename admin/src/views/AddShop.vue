@@ -8,7 +8,7 @@
           placeholder="이름"
           icon="account"
           v-model="shopData.shopName"
-          maxlength="12"
+          maxlength="30"
           minlength="2"
           required
         ></b-input>
@@ -18,7 +18,7 @@
           placeholder="아이디"
           icon="account"
           v-model="shopData.shopId"
-          maxlength="12"
+          maxlength="24"
           minlength="2"
           required
         ></b-input>

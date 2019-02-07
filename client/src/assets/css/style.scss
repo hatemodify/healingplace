@@ -1,3 +1,7 @@
+#contents{
+  width: 1200px;
+  margin:20px auto;
+}
 [class^="lab_rate"]{
   float: left;
   position: relative;
@@ -24,6 +28,14 @@
     background: url('./assets/images/rate_on.png');
     background-size: 20px 20px;
   }
+  @for $i from 1 through 5{
+    &.rate_#{$i}{
+      .rate_on{
+        width: 20% * $i
+      }      
+    }
+  }
+
   #rate1:checked ~ .rate_on{
     width: 20%;
   }
@@ -46,9 +58,7 @@
     width: 100px;
   }
 }
-#wrap{
 
-}
 #site_header{
   padding:20px 30px;
   overflow: hidden;
@@ -102,3 +112,89 @@
     }
   }
 }
+.list_product{
+  display: flex;
+  flex-wrap: wrap;
+  li{
+    padding: 0 20px 20px;
+    width: 33.333%
+  }
+  .thumb_product{
+    overflow: hidden;
+    height: 190px;
+  }
+  .thumb_img{
+    width: 100%;
+  }
+  .wrap_info{
+    padding: 15px 0;
+  }
+  .tit_shop{
+    display: block;
+    font-size:16px;
+    margin-bottom: 10px;
+  }
+  .txt_price{
+    font-size: 18px;
+    margin-left: 10px;
+    color: rgb(97, 97, 97)
+  }
+  .txt_name{
+    font-size: 18px;    
+  }
+  .wrap_rate{
+    margin-top: 10px;
+  }
+  .txt_rate{    
+    float: right;
+    margin-right: 8px;
+    font-style: italic;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+.info_top{
+  display: flex;
+  .shop_thumb{
+    width: 40%
+  }
+  .shop_info{
+    width: 60%;
+    padding:30px 30px 0;
+  }
+  .tit_shop{
+    font-size: 24px;
+    margin-bottom: 10px;   
+  }
+}
+
+  .txt_g{
+    font-size: 15px;
+  }
+
+  .wrap_slide{
+    overflow: hidden;
+  }
+
+  .slide_thumb{
+    display: flex;
+    li{
+      width:100px;
+      img{
+        width: 100%;
+      }
+    }
+  }
+
+  .list_slide{
+    overflow: hidden;
+    position: relative;
+    transition: .5s all;
+    img{
+      width: 100%;
+    }
+    li{
+      float: left;
+      width: 480px;
+    }
+  }

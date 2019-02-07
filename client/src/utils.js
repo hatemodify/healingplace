@@ -10,7 +10,10 @@ export default {
     const min = time.substr(10, 2)
     return new Date(year, month, day, hour, min)
   },
-  toFixed : num =>{
+  toFixed: num => {
     return num.toFixed(1)
   }
+  // imgPath: imageName => {
+  //   return require(`@/upload/thumb/${imageName}`)
+  // }
 }

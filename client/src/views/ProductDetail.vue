@@ -11,7 +11,7 @@
       :mapTypeId="mapTypeId"
       :libraries="libraries"
       @load="onLoad"
-      style="width:500px;height:500px;"
+      style="width:100%;height:500px;"
     ></vue-daum-map>
   </div>
 </template>

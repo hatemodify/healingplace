@@ -86,6 +86,7 @@ app.get('/dummy', (req, res) => {
 app.get('/near/:lat/:lng', (req, res) => {
   const lng = Number(req.params.lng)
   const lat = Number(req.params.lat)
+
   // SHOP_MODEL.aggregate(
   //   [
   //     {
@@ -106,18 +107,17 @@ app.get('/near/:lat/:lng', (req, res) => {
   //     return res.send(data)
   //   }
   // )
-  SHOP_MODEL.find(
-    {
-      location: {
-        $near: {
-          $geometry: { type: 'Point', coordinates: [lng, lat] },
-          $maxDistance: 0.5 * 6378.1
-        }
+  SHOP_MODEL.find({
+    location: {
+      $near: {
+        $geometry: { type: 'Point', coordinates: [lng, lat] },
+        $maxDistance: 0.5 * 6378.1
       }
-    },
-    (err, data) => {
+    }
+  })
+    .populate('review')
+    .then(data => {
       console.log(data)
       res.send(data)
-    }
-  )
+    })
 })
