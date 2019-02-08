@@ -1,11 +1,14 @@
 <template>
   <div id="wrap">
-    <p>Lat = {{latitude}} Lon ={{longitude}}</p>
+    <p @click="sortDesc(shopData, 'review', 'rate_avg')">Lat = {{latitude}} Lon ={{longitude}}</p>
+
+    <p @click="sortAsc(shopData, 'review', 'rate_avg')">Lat = {{latitude}} Lon ={{longitude}}</p>
     <shoplist :data="shopData"></shoplist>
   </div>
 </template>
 <script>
 import axios from 'axios'
+import util from '@/utils.js'
 import shoplist from '@/components/Shoplist.vue'
 export default {
     components: { shoplist },
@@ -14,6 +17,8 @@ export default {
             latitude: '',
             longitude: '',
             shopData: '',
+            sortAsc: util.sortAsc,
+            sortDesc: util.sortDesc,
         }
     },
     beforeMount() {
@@ -21,6 +26,8 @@ export default {
     },
 
     mounted() {},
+
+    updated() {},
     methods: {
         near() {
             const coordinates = this.$store.state.coordinates
@@ -28,6 +35,7 @@ export default {
             const lng = coordinates.longitude
             axios.get(`http://127.0.0.1:9998/near/${lat}/${lng}`).then(res => {
                 this.shopData = res.data
+                console.log(res.data)
 
                 // res.data.forEach(item => {
                 //     let a = {

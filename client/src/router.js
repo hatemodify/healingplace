@@ -19,6 +19,11 @@ export default new Router({
       component: () => import('./views/Around.vue')
     },
     {
+      path: '/around/map',
+      name: 'Map',
+      component: () => import('./views/Map.vue')
+    },    
+    {
       path: '/productslist',
       name: 'ProductsList',
       component: () => import('./views/ProductsList.vue')
