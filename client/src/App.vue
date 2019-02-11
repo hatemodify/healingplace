@@ -22,18 +22,6 @@ export default {
         this.geolocate()
     },
     methods: {
-        geo(position) {
-            navigator.geolocation.getCurrentPosition(position)
-        },
-
-        getMyLocation(position) {
-            const coord = {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-            }
-            this.myLocation(coord)
-        },
-
         geolocate() {
             if (window.navigator && window.navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -52,7 +40,6 @@ export default {
 
         onGeolocateError(error) {
             console.warn(error.code, error.message)
-
             if (error.code === 1) {
                 // they said no
             } else if (error.code === 2) {

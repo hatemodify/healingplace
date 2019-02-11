@@ -38,9 +38,6 @@ export default {
             active: false,
         }
     },
-    updated() {},
-    mounted() {},
-    created() {},
     methods: {
         ...mapMutations(['changePage']),
     },

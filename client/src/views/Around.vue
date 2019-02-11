@@ -17,11 +17,13 @@ export default {
             latitude: '',
             longitude: '',
             shopData: '',
+            lat: this.$store.state.coordinates.latitude,
+            lng: this.$store.state.coordinates.longitude,
             sortAsc: util.sortAsc,
             sortDesc: util.sortDesc,
         }
     },
-    beforeMount() {
+    created() {
         this.near()
     },
 
@@ -29,26 +31,19 @@ export default {
 
     updated() {},
     methods: {
-        near() {
-            const coordinates = this.$store.state.coordinates
-            const lat = coordinates.latitude
-            const lng = coordinates.longitude
-            axios.get(`http://127.0.0.1:9998/near/${lat}/${lng}`).then(res => {
-                this.shopData = res.data
-                console.log(res.data)
-
-                // res.data.forEach(item => {
-                //     let a = {
-                //         shopName: item.shop_name,
-                //         latlng: new daum.maps.LatLng(
-                //             item.location.coordinates[1],
-                //             item.location.coordinates[0]
-                //         ),
-                //     }
-                //     this.addr.push(a)
-                //     console.log(this.addr)
-                // })
-            })
+        async near() {
+            try {
+                if (this.lat !== '') {
+                    const shopData = await axios.get(
+                        `http://127.0.0.1:9998/near/${this.lat}/${this.lng}`
+                    )
+                    this.shopData = shopData.data
+                } else {
+                    console.log('위치정보 없음')
+                }
+            } catch (e) {
+                console.log(e)
+            }
         },
     },
 }

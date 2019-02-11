@@ -80,7 +80,7 @@ export default {
     watch: {
         productData: 'addressSearch',
     },
-    updated() {},
+
     methods: {
         onLoad(map) {
             const bounds = map.getBounds()
@@ -95,7 +95,6 @@ export default {
                         result[0].y,
                         result[0].x
                     )
-                    console.log(coords)
                     const marker = new daum.maps.Marker({
                         map: this.mapObject,
                         position: coords,
