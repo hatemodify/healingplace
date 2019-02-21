@@ -38,7 +38,7 @@ app.use(
 )
 app.use(cors())
 app.use('/shop', require('./router/shop'))
-app.use('/client', require('./router/client'))
+app.use('/user', require('./router/user'))
 app.use('/product', require('./router/product'))
 app.listen(process.env.PORT || 9998)
 
@@ -117,7 +117,6 @@ app.get('/near/:lat/:lng', (req, res) => {
   })
     .populate('review')
     .then(data => {
-      console.log(data)
       res.send(data)
     })
 })

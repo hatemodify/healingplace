@@ -22,7 +22,7 @@ export default new Router({
       path: '/around/map',
       name: 'Map',
       component: () => import('./views/Map.vue')
-    },    
+    },
     {
       path: '/productslist',
       name: 'ProductsList',
@@ -33,6 +33,12 @@ export default new Router({
       name: 'ProductDetail',
       props: true,
       component: () => import('./views/ProductDetail.vue')
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      props: true,
+      component: () => import('./views/Login.vue')
     }
   ]
 })

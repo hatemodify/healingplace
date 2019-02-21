@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     currentPage: '',
-    coordinates: ''
+    coordinates: '',
+    Eea: ''
   },
   mutations: {
     changePage: (state, payload) => {
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     myLocation: (state, payload) => {
       return (state.coordinates = payload)
+    },
+    userLogin: (state, paload) => {
+      return (state.Eea = paload)
     }
   },
   actions: {}

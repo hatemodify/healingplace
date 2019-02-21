@@ -22,10 +22,17 @@
       <div class="wrap_search">
         <button class="btn_search"></button>
       </div>
-      <div class="wrap_util">
-        <router-link to class="link_util">회원가입</router-link>
-        <router-link to class="link_util">로그인</router-link>
-      </div>
+      <template v-if="!this.$store.state.Eea">
+        <div class="wrap_util">
+          <router-link to class="link_util">회원가입</router-link>
+          <router-link to="Login" class="link_util">로그인</router-link>
+        </div>
+      </template>
+      <template v-else>
+        <div class="wrap_util">
+          <router-link to class="link_util">마이페이지</router-link>
+        </div>
+      </template>
     </div>
   </header>
 </template>
@@ -36,7 +43,18 @@ export default {
         return {
             current: this.$store.currentPage,
             active: false,
+            loginState: this.$store.state.Eea,
         }
+    },
+    created() {
+        this.$store.watch(state => {
+            console.log(state)
+        })
+    },
+    watch: {
+        loginState: (before, after) => {
+            console.log(before, after)
+        },
     },
     methods: {
         ...mapMutations(['changePage']),
