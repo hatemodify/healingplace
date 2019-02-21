@@ -84,9 +84,9 @@ export default {
             floor: utils.floor,
         }
     },
-
     methods: {
         writeReview() {
+            this.checkUser()
             axios
                 .post(
                     `http://localhost:9998/product/productdetail/${
@@ -102,6 +102,12 @@ export default {
                     console.log(this.review)
                     console.log(err)
                 })
+        },
+        checkUser() {
+            if (!this.$store.state.Eea)
+                alert('로그인하셔야 작성 하실 수 있습니다.')
+            this.$router.push('/login')
+            return
         },
     },
 }
