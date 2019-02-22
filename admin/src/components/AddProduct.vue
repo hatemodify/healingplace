@@ -146,7 +146,7 @@ export default {
             }
             // axios
             //     .post(
-            //         'http://localhost:9998/product/addProduct',
+            //         'https://dev.local.com:9998/product/addProduct',
             //         this.formData,
             //         config
             //     )

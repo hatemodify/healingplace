@@ -1,3 +1,6 @@
+import { mapMutations } from 'vuex'
+import axios from 'axios'
+
 export default {
   numComma: num => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -16,15 +19,35 @@ export default {
   // imgPath: imageName => {
   //   return require(`@/upload/thumb/${imageName}`)
   // }
-  sortDesc (data, key1, key2) {
+  sortDesc: (data, key1, key2) => {
     console.log(data)
     data.sort((a, b) =>
       b[key1][key2] > a[key1][key2] ? 1 : a[key1][key2] > b[key1][key2] ? -1 : 0
     )
   },
-  sortAsc (data, key1, key2) {
+  sortAsc: (data, key1, key2) => {
     data.sort((a, b) =>
       b[key1][key2] < a[key1][key2] ? 1 : a[key1][key2] < b[key1][key2] ? -1 : 0
     )
+  },
+  loginSuccess: (googleUser, login) => {
+    console.log(googleUser)
+    axios
+      .post(
+        `https://dev.local.com:9998/user/loginProcess/`,
+        googleUser.getBasicProfile()
+      )
+      .then(res => {
+        this.userLogin(res.data.Eea)
+        localStorage.Eea = res.data.Eea
+        this.$router.push('/')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  loginFail: googleUser => {
+    console.log(googleUser)
+    console.log(googleUser.getBasicProfile())
   }
 }

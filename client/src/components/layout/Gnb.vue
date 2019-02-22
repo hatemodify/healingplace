@@ -24,13 +24,19 @@
       </div>
       <template v-if="!this.$store.state.Eea">
         <div class="wrap_util">
-          <router-link to class="link_util">회원가입</router-link>
-          <router-link to="Login" class="link_util">로그인</router-link>
+          <router-link to="/mypage" class="link_util">회원가입</router-link>
+          <GoogleLogin
+            :client_id="client_id"
+            :onSuccess="chkUser"
+            :onFailure="loginFail"
+            class="link_util"
+          >로그인</GoogleLogin>
         </div>
       </template>
       <template v-else>
         <div class="wrap_util">
           <router-link to class="link_util">마이페이지</router-link>
+          <a href="javascript:;" class="link_util" @click="logout">로그아웃</a>
         </div>
       </template>
     </div>
@@ -38,12 +44,20 @@
 </template>
 <script>
 import { mapMutations } from 'vuex'
+import GoogleLogin from 'vue-google-login'
+import { LoaderPlugin } from 'vue-google-login'
+import axios from 'axios'
+
 export default {
+    components: { GoogleLogin },
     data() {
         return {
             current: this.$store.currentPage,
             active: false,
             loginState: this.$store.state.Eea,
+            fullpath: this.$route.fullPath,
+            client_id:
+                '629478743345-pto5adbsdrkcvtlbvehjq06qt2gvfln7.apps.googleusercontent.com',
         }
     },
     created() {
@@ -51,13 +65,38 @@ export default {
             console.log(state)
         })
     },
-    watch: {
-        loginState: (before, after) => {
-            console.log(before, after)
-        },
-    },
     methods: {
+        chkUser(googleUser, login) {
+            axios
+                .post(
+                    `https://dev.local.com:9998/user/loginProcess/`,
+                    googleUser.getBasicProfile()
+                )
+                .then(res => {
+                    console.log(res)
+                    res.data.Eea
+                        ? this.loginSuccess(res)
+                        : this.$router.push('/join')
+                    // this.$router.go(this.$router.currentRoute)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+        loginFail(googleUser) {
+            console.log(googleUser)
+            console.log(googleUser.getBasicProfile())
+        },
+        logout() {
+            this.userLogin('')
+            localStorage.Eea = ''
+        },
+        loginSuccess(res) {
+            this.userLogin(res.data.Eea)
+            localStorage.Eea = res.data.Eea
+        },
         ...mapMutations(['changePage']),
+        ...mapMutations(['userLogin']),
     },
 }
 </script>

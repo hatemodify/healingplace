@@ -5,10 +5,12 @@ const morgan = require('morgan')
 const cors = require('cors')
 const DB_INFO = require('./dbsetting')
 const http = require('http')
+const https = require('https')
 const path = require('path')
 const methodOverride = require('method-override')
 const SHOP_MODEL = require('./models/shop')
 const PRODUCT_MODEL = require('./models/product')
+const fs = require('fs')
 
 mongoose.connect(
   DB_INFO,
@@ -40,12 +42,21 @@ app.use(cors())
 app.use('/shop', require('./router/shop'))
 app.use('/user', require('./router/user'))
 app.use('/product', require('./router/product'))
-app.listen(process.env.PORT || 9998)
+// app.listen(process.env.PORT || 9998)
 
 // http.createServer(app).listen(app.get('port'), function() {
 //   console.log('server started' + app.get('port'));
 //   // connectionDb();
 // });
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+}
+
+https.createServer(options, app).listen(9998, function () {
+  console.log('Https server listening on port ' + 9998)
+})
 
 app.post('/dummy', (req, res) => {
   console.log(req.body.shopName)
@@ -72,11 +83,16 @@ app.get('/dummy', (req, res) => {
     if (err) {
       console.log(err)
     }
-    let temp = []
-    addr.forEach(item => {
-      item.shop_address.length > 5 ? temp.push(item) : addr
-    })
 
+    // addr.forEach(item => {
+    //   item.shop_address.length > 5 ? temp.push(item) : addr
+    // })
+
+    let temp = addr.map(item => {
+      if (!item.shop_address) {
+        return item
+      }
+    })
     res.send({
       temp
     })
@@ -120,3 +136,7 @@ app.get('/near/:lat/:lng', (req, res) => {
       res.send(data)
     })
 })
+
+// http.createServer(app).listen(port1, function () {
+//   console.log("Http server listening on port " + port1);
+// });

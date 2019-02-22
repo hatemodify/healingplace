@@ -35,7 +35,9 @@ export default {
             try {
                 if (this.lat !== '') {
                     const shopData = await axios.get(
-                        `http://127.0.0.1:9998/near/${this.lat}/${this.lng}`
+                        `https://dev.local.com:9998/near/${this.lat}/${
+                            this.lng
+                        }`
                     )
                     this.shopData = shopData.data
                 } else {

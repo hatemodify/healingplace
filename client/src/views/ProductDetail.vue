@@ -47,7 +47,7 @@ export default {
     //   next(vm => {
     //     axios
     //       .get(
-    //         `http://localhost:9998/product/productdetail/${vm.$route.params._id}`
+    //         `https://dev.local.com:9998/product/productdetail/${vm.$route.params._id}`
     //       )
     //       .then(res => {
     //         console.log(res);
@@ -64,7 +64,7 @@ export default {
     created() {
         axios
             .get(
-                `http://localhost:9998/product/productdetail/${
+                `https://dev.local.com:9998/product/productdetail/${
                     this.$route.params._id
                 }`
             )

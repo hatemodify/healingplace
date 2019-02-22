@@ -1,56 +1,7 @@
+@import 'review.scss';
 #contents{
   width: 1000px;
   margin:20px auto;
-}
-[class^="lab_rate"]{
-  float: left;
-  position: relative;
-  width: 20px;
-  height: 20px;
-  z-index: 1;
-}
-.wrap_rate{
-  overflow: hidden;
-  .rate_star{
-    float: left;
-    position: relative;
-    width: 100px;
-    height: 20px;
-    background: url('./assets/images/rate_off.png');
-    background-size: 20px 20px;
-  }
-  .rate_on{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 20px;
-    background: url('./assets/images/rate_on.png');
-    background-size: 20px 20px;
-  }
-  @for $i from 1 through 5{
-    &.rate_#{$i}{
-      .rate_on{
-        width: 20% * $i
-      }      
-    }
-  }
-
-  #rate1:checked ~ .rate_on{
-    width: 20%;
-  }
-  #rate2:checked ~ .rate_on{
-    width: 40%;
-  }
-  #rate3:checked ~ .rate_on{
-    width: 60%;
-  }
-  #rate4:checked ~ .rate_on{
-    width: 80%;
-  }
-  #rate5:checked ~ .rate_on{
-    width: 100%;
-  }
 }
 
 .site_logo{

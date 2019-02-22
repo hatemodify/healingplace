@@ -30,7 +30,7 @@ export default {
     //     const type = Object.keys(query)[0];
     //     const value = query[type];
     //     if(type){
-    //     axios.get(`http://localhost:9998/product/productlist/${type}/${value}`).then(
+    //     axios.get(`https://dev.local.com:9998/product/productlist/${type}/${value}`).then(
     //       res => {
     //         vm._data.productData = res.data;
     //         vm.data.thumb = res.data.thumbnail[0].filename
@@ -40,7 +40,7 @@ export default {
     //       }
     //     );
     //     }else{
-    //       axios.get(`http://localhost:9998/product/productlist`).then(
+    //       axios.get(`https://dev.local.com:9998/product/productlist`).then(
     //         res => {
     //           vm._data.productData = res.data;
     //           vm._data.thumb = res.data[0].thumbnail[0].filename;
@@ -61,7 +61,7 @@ export default {
         if (type) {
             axios
                 .get(
-                    `http://localhost:9998/product/productslist/${type}/${value}`
+                    `https://dev.local.com:9998/product/productslist/${type}/${value}`
                 )
                 .then(
                     res => {
@@ -73,7 +73,7 @@ export default {
                     }
                 )
         } else {
-            axios.get(`http://localhost:9998/product/productslist`).then(
+            axios.get(`https://dev.local.com:9998/product/productslist`).then(
                 res => {
                     this.productData = res.data
                 },

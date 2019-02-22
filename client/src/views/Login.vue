@@ -30,6 +30,9 @@ export default {
                     localStorage.Eea = res.data.Eea
                     this.$router.push('/')
                 })
+                .catch(err => {
+                    console.log(err)
+                })
         },
         onFailure(googleUser) {
             console.log(googleUser)

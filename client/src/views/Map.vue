@@ -43,7 +43,7 @@ export default {
             const lng = coordinates.longitude
             this.mapObject = map
             axios
-                .get(`http://127.0.0.1:9998/near/${lat}/${lng}`)
+                .get(`https://dev.local.com:9998/near/${lat}/${lng}`)
                 .then(res => {
                     this.shopData = res.data
                 })

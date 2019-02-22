@@ -146,7 +146,7 @@ export default {
 
             axios
                 .post(
-                    `http://localhost:9998/shop/addShop`,
+                    `https://dev.local.com:9998/shop/addShop`,
                     this.formData,
                     config
                 )

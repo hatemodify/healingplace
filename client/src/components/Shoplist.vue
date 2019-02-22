@@ -45,7 +45,9 @@ export default {
         const value = query[type]
         if (type) {
             axios
-                .get(`http://localhost:9998/shop/shopList/${type}/${value}`)
+                .get(
+                    `https://dev.local.com:9998/shop/shopList/${type}/${value}`
+                )
                 .then(
                     res => {
                         this.productData = res.data
@@ -56,7 +58,7 @@ export default {
                     }
                 )
         } else {
-            axios.get(`http://localhost:9998/product/productslist`).then(
+            axios.get(`https://dev.local.com:9998/product/productslist`).then(
                 res => {
                     this.productData = res.data
                 },

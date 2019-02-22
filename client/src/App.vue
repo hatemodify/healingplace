@@ -20,6 +20,8 @@ export default {
     },
     beforeMount() {
         this.geolocate()
+        this.userLogin(localStorage.Eea)
+        console.log(this.$route.fullPath)
     },
     methods: {
         geolocate() {
@@ -49,6 +51,7 @@ export default {
             }
         },
         ...mapMutations(['myLocation']),
+        ...mapMutations(['userLogin']),
     },
 }
 </script>

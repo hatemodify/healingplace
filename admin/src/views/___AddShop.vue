@@ -116,7 +116,7 @@ export default {
         },
         submit() {
             axios
-                .post(`http://localhost:9998/shop/addShop`, this.shopData, {
+                .post(`https://dev.local.com:9998/shop/addShop`, this.shopData, {
                     headers: {
                         'Content-type': 'application/json',
                     },

@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     currentPage: '',
     coordinates: '',
-    Eea: ''
+    Eea: '',
+    prevPath: ''
   },
   mutations: {
     changePage: (state, payload) => {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     userLogin: (state, paload) => {
       return (state.Eea = paload)
+    },
+    backPath: (state, paload) => {
+      return (state.prevPath = paload)
     }
   },
   actions: {}
