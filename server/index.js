@@ -39,9 +39,9 @@ app.use(
   })
 )
 app.use(cors())
-app.use('/shop', require('./router/shop'))
-app.use('/user', require('./router/user'))
-app.use('/product', require('./router/product'))
+app.use('/shop', require('./routers/shop'))
+app.use('/user', require('./routers/user'))
+app.use('/product', require('./routers/product'))
 // app.listen(process.env.PORT || 9998)
 
 // http.createServer(app).listen(app.get('port'), function() {

@@ -22,7 +22,7 @@
       <div class="wrap_search">
         <button class="btn_search"></button>
       </div>
-      <template v-if="!this.$store.state.Eea">
+      <template v-if="!this.$store.state.userInfo.Eea">
         <div class="wrap_util">
           <router-link to="/mypage" class="link_util">회원가입</router-link>
           <GoogleLogin
@@ -73,8 +73,7 @@ export default {
                     googleUser.getBasicProfile()
                 )
                 .then(res => {
-                    console.log(res)
-                    res.data.Eea
+                    res.data
                         ? this.loginSuccess(res)
                         : this.$router.push('/join')
                     // this.$router.go(this.$router.currentRoute)
@@ -88,12 +87,14 @@ export default {
             console.log(googleUser.getBasicProfile())
         },
         logout() {
-            this.userLogin('')
-            localStorage.Eea = ''
+            this.userLogin({})
+            localStorage.clear()
         },
         loginSuccess(res) {
-            this.userLogin(res.data.Eea)
-            localStorage.Eea = res.data.Eea
+            const userInfo = res.data.userInfo
+            this.userLogin(userInfo)
+            localStorage.Eea = userInfo.Eea
+            localStorage.userName = userInfo.userName
         },
         ...mapMutations(['changePage']),
         ...mapMutations(['userLogin']),

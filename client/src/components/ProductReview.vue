@@ -11,9 +11,10 @@
       </span>
       <div></div>
     </div>
-    <div class="write_review">
+    <div class="write_review" v-if="this.$store.state.userInfo.Eea">
       <div class="cf">
-        <em class="txt_author">{{review.author}}</em>
+        <input type="text" class="txt_author" :value="this.$store.state.userInfo.userName">
+        <!-- <em class="txt_author">{{this.$store.state.userInfo.userName}}</em> -->
         <div class="wrap_rate">
           <div class="rate_star">
             <input
@@ -98,7 +99,7 @@ export default {
     data() {
         return {
             review: {
-                author: '',
+                author: this.$store.state.userInfo.userName,
                 content: '',
                 rate: '',
             },
@@ -106,14 +107,18 @@ export default {
             numComma: utils.numComma,
         }
     },
-    beforeMount() {
+    created() {
         const Eea = this.$store.state.Eea
-        axios
-            .get(`https://dev.local.com:9998/user/userInfo/${Eea}`)
-            .then(res => {
-                this.review.author = res.data
-                console.log(this.author)
-            })
+        if (Eea)
+            axios
+                .get(`https://dev.local.com:9998/user/userInfo/${Eea}`)
+                .then(res => {
+                    this.review.author = res.data.user_name
+                    console.log(this.author)
+                })
+    },
+    mounted() {
+        console.log(this.$store.state.userInfo.userName)
     },
     methods: {
         replaceName(txt) {
@@ -121,7 +126,18 @@ export default {
         },
         writeReview() {
             this.validate()
-            if (this.$store.state.Eea) {
+        },
+        validate() {
+            if (!this.review.content) {
+                alert('내용을 입력해주세요')
+                return
+            } else if (this.review.content.length < 10) {
+                alert('10자 이상 입력해 주세요')
+                return
+            } else if (!this.review.rate) {
+                alert('평점을 입력해 주세요')
+                return
+            } else {
                 axios
                     .post(
                         `https://dev.local.com:9998/product/productdetail/${
@@ -137,21 +153,6 @@ export default {
                         console.log(this.review)
                         console.log(err)
                     })
-            } else {
-                alert('로그인하셔야 작성 하실 수 있습니다.')
-                return
-            }
-        },
-        validate() {
-            if (!this.review.content) {
-                alert('내용을 입력해주세요')
-                return
-            } else if (this.review.content.length < 10) {
-                alert('10자 이상 입력해 주세요')
-                return
-            } else if (!this.review.rate) {
-                alert('평점을 입력해 주세요')
-                return
             }
         },
     },

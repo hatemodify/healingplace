@@ -5,7 +5,7 @@ const USER_MODEL = {
   Eea: {
     type: String
   },
-  name: {
+  user_name: {
     type: String,
     require: true
   },

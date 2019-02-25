@@ -19,8 +19,12 @@ export default {
         gnb,
     },
     beforeMount() {
+        const userInfo = {
+            Eea: localStorage.Eea,
+            userName: localStorage.userName,
+        }
         this.geolocate()
-        this.userLogin(localStorage.Eea)
+        this.userLogin(userInfo)
         console.log(this.$route.fullPath)
     },
     methods: {

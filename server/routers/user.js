@@ -30,14 +30,14 @@ router.post('/loginProcess', (req, res) => {
       res.send()
     } else {
       console.log('login success')
-      res.send({ Eea: user.Eea })
+      res.send({ userInfo: { Eea: user.Eea, userName: user.user_name } })
     }
   })
 })
 
 router.get('/userInfo/:_id', (req, res) => {
   USER.findOne({ Eea: req.params._id }, (err, user) => {
-    res.send(user.name)
+    res.send(user)
   })
 })
 
