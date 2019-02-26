@@ -16,7 +16,6 @@
         </ul>
       </div>
     </div>
-
     <template v-if="data">
       <div>{{data.shop_personal_day}}</div>
     </template>

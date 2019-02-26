@@ -24,14 +24,14 @@ export default {
         }
     },
     created() {
-        this.near()
+        this.aroundShopList()
     },
 
     mounted() {},
 
     updated() {},
     methods: {
-        async near() {
+        async aroundShopList() {
             try {
                 if (this.lat !== '') {
                     const shopData = await axios.get(

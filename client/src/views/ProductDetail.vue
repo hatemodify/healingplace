@@ -1,7 +1,7 @@
 <template>
   <div id="contents">
-    <product-info :data="productData"></product-info>
-    <product-review :data="reviewData"></product-review>
+    <product-info :data="productData"/>
+    <ReviewList :reviewData="reviewData" :reviewList="reviewData.review_list"/>
     <input type="date" ref="reserveDate">
     <input type="time" ref="reserveTime">
     <vue-daum-map
@@ -12,7 +12,7 @@
       :libraries="libraries"
       @load="onLoad"
       style="width:100%;height:500px;"
-    ></vue-daum-map>
+    />
   </div>
 </template>
 
@@ -20,16 +20,16 @@
 import axios from 'axios'
 import utils from '@/utils.js'
 import productInfo from '@/components/productInfo.vue'
-import ProductReview from '@/components/ProductReview.vue'
+import ReviewList from '@/components/review/ReviewList.vue'
 import VueDaumMap from 'vue-daum-map'
 
 export default {
-    components: { VueDaumMap, productInfo, ProductReview },
+    components: { VueDaumMap, productInfo, ReviewList },
     data() {
         return {
             id: this.$route.params._id,
             productData: '',
-            reviewData: '',
+            reviewData: [],
             appKey: '002bf88c10aa0bca45e14a686a0f2b60',
             level: 3,
             mapTypeId: VueDaumMap.MapTypeId.NORMAL,
@@ -42,7 +42,6 @@ export default {
             addr: [],
         }
     },
-    beforeCreate() {},
     // beforeRouteEnter(to, from, next) {
     //   next(vm => {
     //     axios

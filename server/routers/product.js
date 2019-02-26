@@ -73,7 +73,13 @@ router.get('/productslist', (req, res) => {
 router.get('/productdetail/:_id', (req, res) => {
   const ID = req.params._id
   SHOP.findOne({ _id: ID })
-    .populate('review')
+    .populate({
+      path: 'review',
+      options: {
+        limit: 2,
+        sort: { created: -1 }
+      }
+    })
     .then(data => {
       res.send(data)
     })
