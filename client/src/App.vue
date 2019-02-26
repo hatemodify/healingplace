@@ -20,12 +20,11 @@ export default {
     },
     beforeMount() {
         const userInfo = {
-            Eea: localStorage.Eea,
-            userName: localStorage.userName,
+            Eea: sessionStorage.Eea,
+            userName: sessionStorage.userName,
         }
         this.geolocate()
         this.userLogin(userInfo)
-        console.log(this.$route.fullPath)
     },
     methods: {
         geolocate() {

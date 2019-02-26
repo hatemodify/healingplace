@@ -67,6 +67,7 @@ export default {
     },
     methods: {
         chkUser(googleUser, login) {
+            console.log(googleUser)
             axios
                 .post(
                     `https://dev.local.com:9998/user/loginProcess/`,
@@ -88,13 +89,13 @@ export default {
         },
         logout() {
             this.userLogin({})
-            localStorage.clear()
+            sessionStorage.clear()
         },
         loginSuccess(res) {
             const userInfo = res.data.userInfo
             this.userLogin(userInfo)
-            localStorage.Eea = userInfo.Eea
-            localStorage.userName = userInfo.userName
+            sessionStorage.setItem('Eea', userInfo.Eea)
+            sessionStorage.setItem('userName', userInfo.userName)
         },
         ...mapMutations(['changePage']),
         ...mapMutations(['userLogin']),
