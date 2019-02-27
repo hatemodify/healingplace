@@ -1,5 +1,5 @@
 <template>
-  <div class="review_list">
+  <div class="review_comp">
     <div class="review_top" v-if="reviewList">
       <span class="txt_count">
         전체 리뷰
@@ -7,16 +7,16 @@
       </span>
       <span class="txt_avg">
         평점 평균
-        <strong>{{(reviewData.rate_avg).toFixed(1)}}</strong>
+        <strong>{{(reviewData.rate_avg)}}</strong>
       </span>
       <div></div>
     </div>
-    <WriteReview/>
+    <write-review/>
     <div class="wrap_reviewlist" v-if="reviewList">
       <ul class="review_list">
-        <li v-for="item in reviewList" :key="item.autor">
+        <li v-for="item in paginatedData" :key="item.autor">
           <div class="wrap_info">
-            <span class="txt_author">{{replaceName(item.author)}}</span>
+            <span class="txt_author">{{(item.author)}}</span>
             <div class="wrap_rate" :class="['rate_' + item.rate]">
               <div class="rate_star">
                 <span class="rate_on" :style="{width:20 * item.rate + '%'}"></span>
@@ -27,9 +27,13 @@
           <span class="txt_content">{{item.content}}</span>
         </li>
       </ul>
-      <div class="btn-cover">
-        <button :disabled="currentPage === 0" @click="prevPage" class="page-btn">이전</button>
-        <button :disabled="currentPage >= 10 - 1" @click="nextPage" class="page-btn">다음</button>
+      <div class="wrap_pagination">
+        <ul class="list_pagination" ref="pagination">
+          <li v-for="index in totalPage" :key="index" @click="changeCurrentPage(index - 1)">
+            <a href="javascript:;" v-if="index === 1" class="on">{{index}}</a>
+            <a href="javascript:;" v-else>{{index}}</a>
+          </li>
+        </ul>
       </div>
     </div>
     <div v-else>후기가 없습니다</div>
@@ -37,15 +41,14 @@
 </template>
 <script>
 import utils from '@/utils.js'
-import WriteReview from '@/components/review/WriteReview.vue'
+import WriteReview from './WriteReview.vue'
 export default {
     components: { WriteReview },
     data() {
         return {
-            floor: utils.floor,
             numComma: utils.numComma,
+            fixedNum: utils.fixedNum,
             currentPage: 0,
-            list: [],
         }
     },
     props: {
@@ -62,9 +65,12 @@ export default {
     },
     computed: {
         paginatedData() {
-            const start = this.currentPage * this.pageSize,
-                end = start + this.pageSize
+            const start = this.currentPage * this.pageSize
+            const end = start + this.pageSize
             return this.reviewList.slice(start, end)
+        },
+        totalPage() {
+            return Math.ceil(this.reviewList.length / 5)
         },
     },
     methods: {
@@ -73,10 +79,20 @@ export default {
         },
         nextPage() {
             this.currentPage += 1
+            console.log(this.reviewList)
         },
         prevPage() {
             this.currentPage -= 1
             console.log(this.currentPage)
+        },
+        changeCurrentPage(idx) {
+            this.currentPage = idx
+            this.toggleClass(idx)
+        },
+        toggleClass(idx) {
+            const pager = this.$refs.pagination
+            pager.querySelector('.on').classList.remove('on')
+            pager.children[idx].querySelector('a').classList.add('on')
         },
     },
 }

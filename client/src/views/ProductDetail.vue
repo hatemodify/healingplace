@@ -1,7 +1,7 @@
 <template>
   <div id="contents">
     <product-info :data="productData"/>
-    <ReviewList :reviewData="reviewData" :reviewList="reviewData.review_list"/>
+    <review-list :reviewData="reviewData" :reviewList="reviewData.review_list"/>
     <input type="date" ref="reserveDate">
     <input type="time" ref="reserveTime">
     <vue-daum-map
@@ -18,7 +18,6 @@
 
 <script>
 import axios from 'axios'
-import utils from '@/utils.js'
 import productInfo from '@/components/productInfo.vue'
 import ReviewList from '@/components/review/ReviewList.vue'
 import VueDaumMap from 'vue-daum-map'

@@ -76,11 +76,13 @@ router.get('/productdetail/:_id', (req, res) => {
     .populate({
       path: 'review',
       options: {
-        limit: 2,
         sort: { created: -1 }
       }
     })
     .then(data => {
+      data.review.review_list.sort((a, b) => {
+        return a.created > b.created ? -1 : a.created < b.created ? 1 : 0
+      })
       res.send(data)
     })
 })
@@ -89,6 +91,20 @@ router.post('/productdetail/:_id', (req, res) => {
   const _id = req.params._id
   const REVIEW_DATA = req.body
   REVIEW_DATA.created = utils.getDate(new Date())
+
+  REVIEW.find({ product_id: _id }).then(data => {
+    REVIEW.update(
+      { product_id: _id },
+      {
+        $push: {
+          review_list: REVIEW_DATA
+        },
+        rate_avg: rateAvg(data[0].review_list, REVIEW_DATA)
+      }
+    ).then(result => {
+      res.send(result)
+    })
+  })
   // REVIEW.findOneAndUpdate(
   //   {
   //     product_id: _id
@@ -115,21 +131,6 @@ router.post('/productdetail/:_id', (req, res) => {
   //   REVIEW.update({ product_id: _id }, { rate_avg: 777 })
   //   res.send()
   // })
-  REVIEW.find({ product_id: _id }).then(data => {
-    const len = data[0].review_list.length + 1
-
-    REVIEW.update(
-      { product_id: _id },
-      {
-        $push: {
-          review_list: REVIEW_DATA
-        },
-        rate_avg: (data[0].rate_avg + Number(REVIEW_DATA.rate)) / len
-      }
-    ).then(result => {
-      res.send(result)
-    })
-  })
 })
 
 const rate = id => {
@@ -147,6 +148,22 @@ const rate = id => {
       }
     }
   ])
+}
+
+const rateAvg = (list, data) => {
+  const len = list.length + 1
+  let sum = 0
+
+  list.forEach(element => {
+    sum = sum + Number(element.rate)
+  })
+  // const reducer = (accumulator, item) => accumulator + Number(item.rate)
+  // const b = list.reduce((acc, item, idx) => {
+  //   console.log(item)
+  //   return acc + Number(item.rate)
+  // })
+  // console.log(b)
+  return ((sum + Number(data.rate)) / len).toFixed(1)
 }
 
 module.exports = router

@@ -71,8 +71,12 @@
 }
 .review_list{
   li{
-    padding:20px 10px 30px;
+    padding:20px 10px 15px;
     border-top: 1px solid #e3e3e3;
+  }
+  .wrap_info{
+    overflow: hidden;
+    margin-bottom: 15px;
   }
   .txt_author{
     float: left;
@@ -95,10 +99,11 @@
   }
   .txt_content{
     display: block;
+    overflow: auto;
+    height: 60px;
     clear: both;
-    padding-top: 15px;
     font-size: 14px;
-    line-height:18px;
+    line-height:20px;
     color: #333;
   }
 }
@@ -136,5 +141,21 @@
     color: #fff;
     font-size: 15px;
     background: #36ffc9
+  }
+}
+.list_pagination{
+  overflow: hidden;
+  li{
+    float: left;
+    width:30px;
+    line-height: 30px;
+    text-align: center;
+    a{
+      display: block;
+    }
+  }
+  .on{    
+      color: #fff;
+      background: #36FFC9;
   }
 }

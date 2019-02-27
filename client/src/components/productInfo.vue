@@ -30,6 +30,7 @@ export default {
     props: ['data'],
     data() {
         return {
+            fixedNum: utils.fixedNum,
             numComma: utils.numComma,
         }
     },

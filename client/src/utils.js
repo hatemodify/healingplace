@@ -13,14 +13,13 @@ export default {
     const min = time.substr(10, 2)
     return new Date(year, month, day, hour, min)
   },
-  toFixed: num => {
+  fixedNum: num => {
     return num.toFixed(1)
   },
   // imgPath: imageName => {
   //   return require(`@/upload/thumb/${imageName}`)
   // }
   sortDesc: (data, key1, key2) => {
-    console.log(data)
     data.sort((a, b) =>
       b[key1][key2] > a[key1][key2] ? 1 : a[key1][key2] > b[key1][key2] ? -1 : 0
     )

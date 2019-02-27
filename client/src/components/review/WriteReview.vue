@@ -64,17 +64,20 @@
 <script>
 import axios from 'axios'
 import utils from '@/utils'
+
 export default {
     data() {
         return {
+            fixedNum: utils.fixedNum,
             review: {
                 author: this.$store.state.userInfo.userName,
                 content: '',
                 rate: '',
+                rateAvg: '',
             },
-            floor: utils.floor,
         }
     },
+
     created() {
         const Eea = this.$store.state.Eea
         if (Eea)
@@ -82,7 +85,6 @@ export default {
                 .get(`https://dev.local.com:9998/user/userInfo/${Eea}`)
                 .then(res => {
                     this.review.author = res.data.user_name
-                    console.log(this.author)
                 })
     },
 
