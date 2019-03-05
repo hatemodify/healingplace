@@ -98,7 +98,6 @@ app.get('/dummy', (req, res) => {
     })
   })
 })
-
 app.get('/near/:lat/:lng', (req, res) => {
   const lng = Number(req.params.lng)
   const lat = Number(req.params.lat)

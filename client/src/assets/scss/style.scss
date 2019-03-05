@@ -1,15 +1,13 @@
-@import 'review.scss';
+@import 'review';
 #contents{
   max-width: 1000px;
   margin:20px auto;
 }
-
 .site_logo{
   img{
     width: 100px;
   }
 }
-
 #site_header{
   padding:20px 30px;
   overflow: hidden;

@@ -43,8 +43,8 @@ export default {
                 } else {
                     console.log('위치정보 없음')
                 }
-            } catch (e) {
-                console.log(e)
+            } catch (error) {
+                console.log(error)
             }
         },
     },
