@@ -9,6 +9,9 @@ const SHOP_MODEL = {
     type: String,
     require: true
   },
+  description: {
+    type: String
+  },
   shop_password: {
     type: String,
     require: true

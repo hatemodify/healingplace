@@ -26,7 +26,7 @@ section {
 }
 
 html {
-  font-family: 'malgun gothic', sans-serif;
+  font-family: "malgun gothic", sans-serif;
   /* 1 */
   -ms-text-size-adjust: 100%;
   /* 2 */
@@ -56,7 +56,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -82,19 +82,20 @@ legend {
 }
 
 label,
-input[type='submit'],
-input[type='image'],
-input[type='reset'],
+input[type="submit"],
+input[type="image"],
+input[type="reset"],
 button {
   cursor: pointer;
+  background: transparent;
 }
 
-input[type='radio']:focus {
+input[type="radio"]:focus {
   outline: none;
 }
 
 .cf:after {
-  content: '';
+  content: "";
   display: block;
   clear: both;
 }

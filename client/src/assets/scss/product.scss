@@ -1,19 +1,178 @@
-.wrap_btn{
+.desc_shop {
+  font-size: 17px;
+  margin-bottom: 8px;
+  color: #555;
+}
+.txt_address {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+.wrap_btn {
   overflow: hidden;
   margin-top: 50px;
-  button{
+  button {
     float: left;
-    width:48%;
-    height:50px;
+    width: 48%;
+    height: 50px;
   }
-  .btn_cart{
-    border: 1px solid rgb(39,37,41);
-    color: rgb(39,37,41);
+  .btn_cart {
+    border: 1px solid rgb(39, 37, 41);
+    color: rgb(39, 37, 41);
     margin-right: 4%;
+    background: #fff;
   }
-  .btn_buy{
+  .btn_buy {
     background: rgb(39, 37, 41);
     color: #fff;
     font-size: 16px;
+  }
+}
+.btn_select {
+  display: block;
+  position: relative;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  height: 40px;
+  text-align: left;
+  text-indent: 15px;
+  &:after {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #333;
+    transition: 0.5s transform;
+    content: "";
+  }
+  &.active {
+    &:after {
+      transform: rotate(180deg);
+    }
+    + .wrap_price .list_opt {
+      display: block;
+    }
+  }
+}
+.wrap_price {
+  position: relative;
+  .list_opt {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    border-top: 0 none;
+    li {
+      overflow: hidden;
+      line-height: 30px;
+      padding: 0 15px;
+      cursor: pointer;
+      &:hover {
+        background: #f6f6f6;
+      }
+      .txt_name {
+        float: left;
+        overflow: hidden;
+        width: 70%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .txt_price {
+        float: right;
+      }
+    }
+  }
+}
+.list_selected {
+  li {
+    overflow: hidden;
+    line-height: 40px;
+    padding: 0 15px;
+    border-bottom: 1px solid #e3e3e3;
+    .txt_name {
+      float: left;
+      overflow: hidden;
+      width: 70%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .txt_price {
+      float: left;
+      width: 15%;
+      text-align: right;
+    }
+    .btn_del {
+      float: right;
+      position: relative;
+      margin-top: 10px;
+      width: 20px;
+      height: 20px;
+      background: none;
+      &:before,
+      &:after {
+        position: absolute;
+        top: 4px;
+        width: 1px;
+        height: 12px;
+        background: #333;
+        content: "";
+        transform: rotate(45deg);
+      }
+      &:after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+.txt_count {
+  overflow: hidden;
+  float: left;
+  .txt_inner {
+    font-size: 15px;
+  }
+  .btn_count {
+    float: right;
+    width: 20px;
+    height: 100%;
+    margin-top: 10px;
+    button {
+      display: block;
+      overflow: hidden;
+      position: relative;
+      height: 10px;
+      width: 20px;
+      &:after {
+        position: absolute;
+        left: 5px;
+      }
+    }
+    .btn_increase {
+      &:after {
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #555;
+        content: "";
+      }
+    }
+    .btn_decrease {
+      &:after {
+        top: 3px;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #555;
+        content: "";
+      }
+    }
   }
 }

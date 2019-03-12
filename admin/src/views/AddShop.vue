@@ -33,6 +33,9 @@
         ></b-input>
       </b-field>
       <b-field>
+        <b-input type="text" placeholder="간략설명" v-model="shopData.description"></b-input>
+      </b-field>
+      <b-field>
         <b-input placeholder="주소" icon="home-map-marker" v-model="shopData.address"></b-input>
         <button class="button fr is-small is-danger" @click="getCoords">좌표불러오기</button>
       </b-field>
@@ -105,6 +108,7 @@ export default {
                 shopName: '',
                 shopId: '',
                 password: '',
+                description: '',
                 address: '',
                 latitude: '',
                 longitude: '',

@@ -1,6 +1,6 @@
 <template>
   <div class="wrap_cart">
-    <button class="btn_cart">{{cartData.length}}</button>
+    <button class="btn_cart">{{cartData}}</button>
     <ul class="list_cart" v-if="cartData">
       <li></li>
     </ul>
