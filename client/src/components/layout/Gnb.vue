@@ -35,6 +35,8 @@
       </template>
       <template v-else>
         <div class="wrap_util">
+          {{this.$store.state.userInfo.Eea}}
+          <gnb-cart :userToken="this.$store.state.userInfo.Eea"/>
           <router-link to class="link_util">마이페이지</router-link>
           <a href="javascript:;" class="link_util" @click="logout">로그아웃</a>
         </div>
@@ -46,10 +48,11 @@
 import { mapMutations } from 'vuex'
 import GoogleLogin from 'vue-google-login'
 import { LoaderPlugin } from 'vue-google-login'
+import GnbCart from '../GnbCart'
 import axios from 'axios'
 
 export default {
-    components: { GoogleLogin },
+    components: { GoogleLogin, GnbCart },
     data() {
         return {
             current: this.$store.currentPage,
@@ -67,7 +70,6 @@ export default {
     },
     methods: {
         chkUser(googleUser, login) {
-            console.log(googleUser)
             axios
                 .post(
                     `https://dev.local.com:9998/user/loginProcess/`,

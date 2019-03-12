@@ -1,4 +1,5 @@
 @import 'review';
+@import 'product';
 #contents{
   max-width: 1000px;
   margin:20px auto;
@@ -36,6 +37,22 @@
   .wrap_search{
     float: left;
   }
+  .wrap_cart{
+    float: left;
+    .btn_cart{
+      display: inline-block;
+      width:30px;
+      height:30px;
+      padding-top:8px;
+      margin-top:-5px;
+      background:url('./assets/images/ico_bag.png');
+      background-size: 100%;
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
+    }
+  }
+
   .wrap_util{
     float: right;
     .link_util{

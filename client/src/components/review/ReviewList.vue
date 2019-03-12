@@ -12,10 +12,11 @@
       <div></div>
     </div>
     <write-review/>
+
     <div class="wrap_reviewlist" v-if="reviewList">
       <ul class="review_list">
         <li v-for="item in paginatedData" :key="item.autor">
-          <div class="wrap_info">
+          <div class="wrap_info" v-if="item.author">
             <span class="txt_author">{{replaceName(item.author)}}</span>
             <div class="wrap_rate" :class="['rate_' + item.rate]">
               <div class="rate_star">

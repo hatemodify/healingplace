@@ -1,0 +1,19 @@
+.wrap_btn{
+  overflow: hidden;
+  margin-top: 50px;
+  button{
+    float: left;
+    width:48%;
+    height:50px;
+  }
+  .btn_cart{
+    border: 1px solid rgb(39,37,41);
+    color: rgb(39,37,41);
+    margin-right: 4%;
+  }
+  .btn_buy{
+    background: rgb(39, 37, 41);
+    color: #fff;
+    font-size: 16px;
+  }
+}

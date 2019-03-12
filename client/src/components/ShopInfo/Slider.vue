@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         imgPath(imageName) {
-            return require(`../../upload/thumb/${imageName}`)
+            return require(`../../../upload/thumb/${imageName}`)
         },
 
         move(index) {

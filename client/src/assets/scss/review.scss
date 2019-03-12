@@ -71,12 +71,12 @@
 }
 .review_list{
   li{
-    padding:20px 10px 15px;
+    padding:20px 10px 25px;
     border-top: 1px solid #e3e3e3;
   }
   .wrap_info{
     overflow: hidden;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
   .txt_author{
     float: left;
@@ -145,11 +145,11 @@
 }
 .list_pagination{
   overflow: hidden;
+  text-align: center;
   li{
-    float: left;
+    display: inline-block;
     width:30px;
     line-height: 30px;
-    text-align: center;
     a{
       display: block;
     }

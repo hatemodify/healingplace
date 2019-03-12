@@ -41,4 +41,9 @@ router.get('/userInfo/:_id', (req, res) => {
   })
 })
 
+router.get('/cart/:_id', (req, res) => {
+  USER.findOne({ Eea: req.params._id }, (err, cartData) => {
+    res.send(cartData)
+  })
+})
 module.exports = router

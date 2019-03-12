@@ -14,6 +14,7 @@
             <span>{{numComma(item.productPrice)}}</span>
           </li>
         </ul>
+        <Btn/>
       </div>
     </div>
     <template v-if="data">
@@ -25,7 +26,8 @@
 </template>
 <script>
 import utils from '@/utils.js'
-import Slider from '@/components/Slider.vue'
+import Slider from './Slider'
+import Btn from './Btn'
 export default {
     props: ['data'],
     data() {
@@ -36,11 +38,8 @@ export default {
     },
     components: {
         Slider,
+        Btn,
     },
-    methods: {
-        imgPath(imageName) {
-            return require(`../../upload/thumb/${imageName}`)
-        },
-    },
+    methods: {},
 }
 </script>
