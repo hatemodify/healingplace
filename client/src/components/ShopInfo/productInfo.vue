@@ -27,7 +27,7 @@
           <li v-for="(item,index) in selectedData" :key="item.name">
             <span class="txt_name">{{item.productName}}</span>
             <span class="txt_count">
-              <span class="txt_inner">{{item.count}}</span>
+              <span class="txt_inner">{{item.quantity}}</span>
               <span class="btn_count">
                 <button class="btn_increase" @click="increase(index)"></button>
                 <button class="btn_decrease" @click="decrease(index)"></button>
@@ -68,12 +68,6 @@ export default {
         Slider,
         Btn,
     },
-    mounted() {},
-    computed: {
-        count() {
-            this.selectedData[index].count += 1
-        },
-    },
     methods: {
         showOpt() {
             const btnSelect = this.$refs.btnSelect
@@ -85,19 +79,29 @@ export default {
         selectOpt(index) {
             this.$refs.btnSelect.classList.remove('active')
             this.isActive = false
-            this.data.price_data[index].count = 1
+            // this.data.price_data[index].count = 1
+            // this.quantity.push(1)
+
             this.selectedData.indexOf(this.data.price_data[index]) < 0
                 ? this.selectedData.push(this.data.price_data[index])
                 : alert('이미 선택한 옵션입니다.')
+
+            this.$set(
+                this.selectedData[this.selectedData.length - 1],
+                'quantity',
+                1
+            )
         },
         deleteSelected(index) {
             this.selectedData.splice(index, 1)
         },
         increase(index) {
-            this.selectedData[index].count += 1
-            console.log(this.selectedData[index])
+            this.selectedData[index].quantity += 1
         },
-        decrease() {},
+        decrease(index) {
+            if (this.selectedData[index].quantity > 1)
+                this.selectedData[index].quantity -= 1
+        },
     },
 }
 </script>
