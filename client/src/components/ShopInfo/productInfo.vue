@@ -1,8 +1,8 @@
 <template>
-  <div id="contents">
+  <div class="product_info">
     <div class="info_top">
       <div class="shop_thumb">
-        <slider :data="data"></slider>
+        <ImageSlider :data="data.thumbnail"/>
       </div>
       <div class="shop_info">
         <h3 class="tit_shop">{{data.shop_name}}</h3>
@@ -52,8 +52,8 @@
 </template>
 <script>
 import utils from '@/utils.js'
-import Slider from './Slider'
-import Btn from './Btn'
+import ImageSlider from './ImageSlider'
+
 export default {
     props: ['data'],
     data() {
@@ -65,8 +65,7 @@ export default {
         }
     },
     components: {
-        Slider,
-        Btn,
+        ImageSlider,
     },
     methods: {
         showOpt() {
@@ -79,9 +78,6 @@ export default {
         selectOpt(index) {
             this.$refs.btnSelect.classList.remove('active')
             this.isActive = false
-            // this.data.price_data[index].count = 1
-            // this.quantity.push(1)
-
             this.selectedData.indexOf(this.data.price_data[index]) < 0
                 ? this.selectedData.push(this.data.price_data[index])
                 : alert('이미 선택한 옵션입니다.')

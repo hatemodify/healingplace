@@ -26,7 +26,7 @@
         <div class="wrap_util">
           <router-link to="/mypage" class="link_util">회원가입</router-link>
           <GoogleLogin
-            :client_id="client_id"
+            :client_id="CLIENT_ID"
             :onSuccess="chkUser"
             :onFailure="loginFail"
             class="link_util"
@@ -35,8 +35,7 @@
       </template>
       <template v-else>
         <div class="wrap_util">
-          {{this.$store.state.userInfo.Eea}}
-          <gnb-cart :userToken="this.$store.state.userInfo.Eea"/>
+          <!-- <GnbCart/> -->
           <router-link to class="link_util">마이페이지</router-link>
           <a href="javascript:;" class="link_util" @click="logout">로그아웃</a>
         </div>
@@ -46,30 +45,25 @@
 </template>
 <script>
 import { mapMutations } from 'vuex'
+import { CLIENT_ID } from '@/constants'
 import GoogleLogin from 'vue-google-login'
-import { LoaderPlugin } from 'vue-google-login'
-import GnbCart from '../GnbCart'
+// import { LoaderPlugin } from 'vue-google-login'
+import { GnbCart } from '@/components'
 import axios from 'axios'
 
 export default {
-    components: { GoogleLogin, GnbCart },
+    components: { GnbCart, GoogleLogin },
     data() {
         return {
             current: this.$store.currentPage,
             active: false,
             loginState: this.$store.state.Eea,
             fullpath: this.$route.fullPath,
-            client_id:
-                '629478743345-pto5adbsdrkcvtlbvehjq06qt2gvfln7.apps.googleusercontent.com',
         }
     },
-    created() {
-        this.$store.watch(state => {
-            console.log(state)
-        })
-    },
+
     methods: {
-        chkUser(googleUser, login) {
+        chkUser(googleUser) {
             axios
                 .post(
                     `https://dev.local.com:9998/user/loginProcess/`,
@@ -82,12 +76,11 @@ export default {
                     // this.$router.go(this.$router.currentRoute)
                 })
                 .catch(err => {
-                    console.log(err)
+                    return err
                 })
         },
         loginFail(googleUser) {
-            console.log(googleUser)
-            console.log(googleUser.getBasicProfile())
+            return googleUser.getBasicProfile()
         },
         logout() {
             this.userLogin({})

@@ -1,5 +1,5 @@
 <template>
-  <div>// Button to login
+  <div>
     <GoogleLogin :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>// Button to logout
     <GoogleLogin :client_id="client_id" :logoutButton="true">Logout</GoogleLogin>
   </div>

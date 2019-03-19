@@ -8,12 +8,10 @@
 
 <script>
 import axios from 'axios'
-import productInfo from '@/components/ShopInfo/productInfo.vue'
-import ReviewList from '@/components/review/ReviewList.vue'
-import ShopMap from '@/components/ShopInfo/ShopMap.vue'
+import { ProductInfo, ReviewList, ShopMap } from '@/components'
 
 export default {
-    components: { ShopMap, productInfo, ReviewList },
+    components: { ShopMap, ProductInfo, ReviewList },
     data() {
         return {
             id: this.$route.params._id,
@@ -56,7 +54,7 @@ export default {
                 }
             })
             .catch(err => {
-                console.log(err)
+                return err
             })
     },
 }

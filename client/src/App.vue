@@ -12,11 +12,12 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import gnb from '@/components/layout/Gnb'
+import { Gnb } from '@/components'
+
 import axios from 'axios'
 export default {
     components: {
-        gnb,
+        Gnb,
     },
     beforeMount() {
         const userInfo = {

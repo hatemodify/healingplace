@@ -1,13 +1,13 @@
 <template>
-  <category></category>
+  <CategoryList></CategoryList>
 </template>
 
 <script>
-import category from '@/components/layout/CategoryList.vue'
+import { CategoryList } from '@/components'
 export default {
     data() {
         return {}
     },
-    components: { category },
+    components: { CategoryList },
 }
 </script>

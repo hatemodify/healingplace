@@ -3,15 +3,15 @@
     <p @click="sortDesc(shopData, 'review', 'rate_avg')">Lat = {{latitude}} Lon ={{longitude}}</p>
 
     <p @click="sortAsc(shopData, 'review', 'rate_avg')">Lat = {{latitude}} Lon ={{longitude}}</p>
-    <shoplist :data="shopData"></shoplist>
+    <ShopList :data="shopData"></ShopList>
   </div>
 </template>
 <script>
 import axios from 'axios'
 import util from '@/utils.js'
-import shoplist from '@/components/Shoplist.vue'
+import { ShopList } from '@/components'
 export default {
-    components: { shoplist },
+    components: { ShopList },
     data() {
         return {
             latitude: '',
@@ -26,9 +26,6 @@ export default {
     created() {
         this.aroundShopList()
     },
-
-    mounted() {},
-
     updated() {},
     methods: {
         async aroundShopList() {
@@ -41,13 +38,12 @@ export default {
                     )
                     this.shopData = shopData.data
                 } else {
-                    console.log('위치정보 없음')
+                    alert('위치정보 없음')
                 }
             } catch (error) {
-                console.log(error)
+                return error
             }
         },
     },
 }
 </script>
-
