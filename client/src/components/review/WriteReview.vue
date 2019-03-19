@@ -63,12 +63,12 @@
 </template>
 <script>
 import axios from 'axios'
-import utils from '@/utils'
+import { fixedNum } from '@/utils/index'
 
 export default {
     data() {
         return {
-            fixedNum: utils.fixedNum,
+            fixedNum: fixedNum,
             review: {
                 author: this.$store.state.userInfo.userName,
                 content: '',

@@ -7,7 +7,7 @@
       </span>
       <span class="txt_avg">
         평점 평균
-        <strong>{{(reviewData.rate_avg)}}</strong>
+        <strong>{{fixedNum(reviewData.rate_avg)}}</strong>
       </span>
       <div></div>
     </div>
@@ -41,14 +41,14 @@
   </div>
 </template>
 <script>
-import utils from '@/utils.js'
-import WriteReview from './WriteReview.vue'
+import { numComma, fixedNum } from '@/utils/index'
+import WriteReview from './WriteReview'
 export default {
     components: { WriteReview },
     data() {
         return {
-            numComma: utils.numComma,
-            fixedNum: utils.fixedNum,
+            numComma: numComma,
+            fixedNum: fixedNum,
             currentPage: 0,
         }
     },
@@ -80,11 +80,9 @@ export default {
         },
         nextPage() {
             this.currentPage += 1
-            console.log(this.reviewList)
         },
         prevPage() {
             this.currentPage -= 1
-            console.log(this.currentPage)
         },
         changeCurrentPage(idx) {
             this.currentPage = idx

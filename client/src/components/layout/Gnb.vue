@@ -35,7 +35,7 @@
       </template>
       <template v-else>
         <div class="wrap_util">
-          <!-- <GnbCart/> -->
+          <GnbCart/>
           <router-link to class="link_util">마이페이지</router-link>
           <a href="javascript:;" class="link_util" @click="logout">로그아웃</a>
         </div>
@@ -45,10 +45,10 @@
 </template>
 <script>
 import { mapMutations } from 'vuex'
-import { CLIENT_ID } from '@/constants'
+import { CLIENT_ID } from '@/utils/constants'
 import GoogleLogin from 'vue-google-login'
 // import { LoaderPlugin } from 'vue-google-login'
-import { GnbCart } from '@/components'
+import GnbCart from '@/components/GnbCart'
 import axios from 'axios'
 
 export default {
@@ -59,6 +59,7 @@ export default {
             active: false,
             loginState: this.$store.state.Eea,
             fullpath: this.$route.fullPath,
+            CLIENT_ID: CLIENT_ID,
         }
     },
 

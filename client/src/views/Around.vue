@@ -8,7 +8,7 @@
 </template>
 <script>
 import axios from 'axios'
-import util from '@/utils.js'
+import { sortAsc, sortDesc } from '@/utils/index'
 import { ShopList } from '@/components'
 export default {
     components: { ShopList },
@@ -19,8 +19,8 @@ export default {
             shopData: '',
             lat: this.$store.state.coordinates.latitude,
             lng: this.$store.state.coordinates.longitude,
-            sortAsc: util.sortAsc,
-            sortDesc: util.sortDesc,
+            sortAsc: sortAsc,
+            sortDesc: sortDesc,
         }
     },
     created() {

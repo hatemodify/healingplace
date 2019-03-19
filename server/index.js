@@ -126,13 +126,16 @@ app.get('/near/:lat/:lng', (req, res) => {
     location: {
       $near: {
         $geometry: { type: 'Point', coordinates: [lng, lat] },
-        $maxDistance: 0.5 * 6378.1
+        $maxDistance: 60000
       }
     }
   })
     .populate('review')
     .then(data => {
       res.send(data)
+    })
+    .catch(err => {
+      console.log(err)
     })
 })
 

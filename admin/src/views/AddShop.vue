@@ -104,25 +104,51 @@ export default {
             region: OPTIONS.region,
             category: OPTIONS.category,
             level: OPTIONS.level,
+            // shopData: {
+            //     shopName: '',
+            //     shopId: '',
+            //     password: '',
+            //     description: '',
+            //     address: '',
+            //     latitude: '',
+            //     longitude: '',
+            //     phone1: '',
+            //     phone2: '',
+            //     personalDay: '',
+            //     level: 0,
+            //     reservation: '불가능',
+            //     priceData: [],
+            //     detail: '',
+            //     terms1: '',
+            //     terms2: '',
+            //     category: '',
+            //     region: '',
+            // },
+
             shopData: {
-                shopName: '',
-                shopId: '',
-                password: '',
-                description: '',
+                shopName: `테스트샵${Math.floor(Math.random() * (1000 - 1)) +
+                    1}`,
+                shopId: `testshop${Math.floor(Math.random() * (1000 - 1)) + 1}`,
+                password: `pw${Math.floor(Math.random() * (1000 - 1)) + 1}`,
+                description:
+                    OPTIONS.desc[Math.floor(Math.random() * (7 - 0 + 1)) + 0],
                 address: '',
                 latitude: '',
                 longitude: '',
-                phone1: '',
-                phone2: '',
-                personalDay: '',
-                level: 0,
+                phone1: '010-0000-6666',
+                phone2: '010-0000-6666',
+                personalDay: '연중무휴',
+                level: Math.floor(Math.random() * (10 - 1)) + 1,
                 reservation: '불가능',
-                priceData: [],
-                detail: '',
-                terms1: '',
-                terms2: '',
-                category: '',
-                region: '',
+                priceData: OPTIONS.price,
+                detail: OPTIONS.detail,
+                terms1: OPTIONS.terms,
+                terms2: OPTIONS.terms,
+                category:
+                    OPTIONS.category[
+                        Math.floor(Math.random() * (7 - 0 + 1)) + 0
+                    ],
+                region: OPTIONS[Math.floor(Math.random() * (13 - 0 + 1)) + 0],
             },
             formData: new FormData(),
             images: [],
@@ -143,11 +169,6 @@ export default {
                 this.formData,
                 this.shopData
             )
-
-            for (var value of this.formData.values()) {
-                console.log(value)
-            }
-
             axios
                 .post(
                     `https://dev.local.com:9998/shop/addShop`,
