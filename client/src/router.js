@@ -35,6 +35,11 @@ export default new Router({
       component: () => import('./views/ProductDetail.vue')
     },
     {
+      path: '/shop/shopList',
+      name: 'shopList',
+      component: () => import('./views/ProductsList.vue')
+    },
+    {
       path: '/login',
       name: 'Login',
       props: true,

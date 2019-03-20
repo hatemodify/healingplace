@@ -34,7 +34,7 @@ const SHOP_MODEL = {
     type: String,
     default: null
   },
-  shop_category: {
+  category: {
     type: String,
     require: true
   },

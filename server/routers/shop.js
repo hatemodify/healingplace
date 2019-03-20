@@ -32,7 +32,7 @@ router.post('/addShop', upload, (req, res) => {
     shop_phone_number: SHOP_DATA.phone1,
     cell_phone_number: SHOP_DATA.phone2,
     shop_personal_day: SHOP_DATA.personalDay,
-    shop_category: SHOP_DATA.category,
+    category: SHOP_DATA.category,
     shop_level: SHOP_DATA.level,
     reservation: SHOP_DATA.reservation,
     price_data: JSON.parse(SHOP_DATA.priceData),
@@ -69,13 +69,16 @@ router.get('/addProduct/:shopid', (req, res) => {
 })
 
 router.get('/shopList/:type/:value', (req, res) => {
-  console.log(req.params)
+ 
   let obj = {}
   obj[req.params['type']] = req.params['value']
-  console.log(obj)
-  PRODUCT.find(obj, (err, data) => {
+  
+  SHOP.find(obj, (err, data) => {
+    console.log(data)
     res.send(data)
   })
 })
+
+
 
 module.exports = router

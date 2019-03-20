@@ -2,28 +2,28 @@
   <div class="wrap_category">
     <ul class="list_category">
       <li>
-        <router-link to>category1</router-link>
+        <router-link to="/shop/shopList?category=cate1">category1</router-link>
       </li>
       <li>
-        <router-link to>category2</router-link>
+        <router-link to="/shop/shopList?category=cate2">category2</router-link>
       </li>
       <li>
-        <router-link to>category3</router-link>
+        <router-link to="/shop/shopList?category=cate3">category3</router-link>
       </li>
       <li>
-        <router-link to>category4</router-link>
+        <router-link to="/shop/shopList?category=cate4">category4</router-link>
       </li>
       <li>
-        <router-link to>category5</router-link>
+        <router-link to="/shop/shopList?category=cate5">category5</router-link>
       </li>
       <li>
-        <router-link to>category6</router-link>
+        <router-link to="/shop/shopList?category=cate6">category6</router-link>
       </li>
       <li>
-        <router-link to>category7</router-link>
+        <router-link to="/shop/shopList?category=cate7">category7</router-link>
       </li>
       <li>
-        <router-link to>category8</router-link>
+        <router-link to="/shop/shopList?category=cate8">category8</router-link>
       </li>
     </ul>
   </div>

@@ -3,7 +3,7 @@
     <template v-if="productData.length >0">
       <ul class="list_product">
         <li v-for="item in productData" :key="item._id">
-          <router-link v-bind:to="{ name: 'ProductDetail', params: { _id: item._id } }">
+          <router-link :to="{ name: 'ProductDetail', params: { _id: item._id } }">
             <figure class="thumb_product">
               <img :src="imgPath(item.thumbnail[0].filename)">
               {{item.price_data[0].productName}}
@@ -61,12 +61,11 @@ export default {
         if (type) {
             axios
                 .get(
-                    `https://dev.local.com:9998/product/productslist/${type}/${value}`
+                    `https://dev.local.com:9998/shop/shopList/${type}/${value}`
                 )
                 .then(
                     res => {
                         this.productData = res.data
-                        console.log('type')
                     },
                     error => {
                         console.log(error)
