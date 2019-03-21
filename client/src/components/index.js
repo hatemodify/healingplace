@@ -3,12 +3,14 @@ import GnbComp from './layout/Gnb.vue'
 import PaginationComp from './review/Pagination.vue'
 import ReviewListComp from './review/ReviewList.vue'
 import WriteReviewComp from './review/WriteReview.vue'
-import ProductInfoComp from './ShopInfo/productInfo.vue'
+import ProductInfoComp from './ShopInfo/ProductInfo.vue'
 import ShopMapComp from './ShopInfo/ShopMap.vue'
 import ShopListComp from './Shoplist.vue'
 import BtnComp from './ShopInfo/Btn.vue'
 import GnbCartComp from './GnbCart.vue'
 import ImageSliderComp from './ShopInfo/ImageSlider.vue'
+import PreloaderComp from './Preloader.vue'
+import SortComp from './Sort.vue'
 
 export const Gnb = GnbComp
 export const GnbCart = GnbCartComp
@@ -21,3 +23,5 @@ export const ShopMap = ShopMapComp
 export const ShopList = ShopListComp
 export const Btn = BtnComp
 export const ImageSlider = ImageSliderComp
+export const Preloader = PreloaderComp
+export const Sort = SortComp

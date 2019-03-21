@@ -1,45 +1,42 @@
 <template>
-  <div id="wrap">
-    <p @click="sortDesc(shopData, 'review', 'rate_avg')">Lat = {{latitude}} Lon ={{longitude}}</p>
-
-    <p @click="sortAsc(shopData, 'review', 'rate_avg')">Lat = {{latitude}} Lon ={{longitude}}</p>
-    <ShopList :data="shopData"></ShopList>
+  <div id="contents">
+    <Preloader v-if="!load"/>
+    <Sort :sortData="shopData"/>
+    <ShopList :data="shopData"/>
   </div>
 </template>
 <script>
 import axios from 'axios'
 import { sortAsc, sortDesc } from '@/utils/index'
-import { ShopList } from '@/components'
+import { ShopList, Preloader, Sort } from '@/components'
 export default {
-    components: { ShopList },
+    components: { ShopList, Preloader, Sort },
     data() {
         return {
-            latitude: '',
-            longitude: '',
             shopData: '',
             lat: this.$store.state.coordinates.latitude,
             lng: this.$store.state.coordinates.longitude,
             sortAsc: sortAsc,
             sortDesc: sortDesc,
+            load: false,
         }
     },
     created() {
         this.aroundShopList()
     },
+
     updated() {},
     methods: {
         async aroundShopList() {
             try {
-                if (this.lat !== '') {
-                    const shopData = await axios.get(
-                        `https://dev.local.com:9998/near/${this.lat}/${
-                            this.lng
-                        }`
-                    )
-                    this.shopData = shopData.data
-                } else {
-                    alert('위치정보 없음')
-                }
+                const shopData = await axios.get(
+                    `https://dev.local.com:9998/shop/near/${this.lat}/${
+                        this.lng
+                    }`
+                )
+                this.shopData = shopData.data
+                this.load = true
+                console.log(this.load)
             } catch (error) {
                 return error
             }

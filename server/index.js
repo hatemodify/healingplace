@@ -98,46 +98,7 @@ app.get('/dummy', (req, res) => {
     })
   })
 })
-app.get('/near/:lat/:lng', (req, res) => {
-  const lng = Number(req.params.lng)
-  const lat = Number(req.params.lat)
 
-  // SHOP_MODEL.aggregate(
-  //   [
-  //     {
-  //       $geoNear: {
-  //         near: {
-  //           type: 'Point',
-  //           coordinates: [lng, lat]
-  //         },
-  //         distanceField: 'dist.calculated',
-  //         maxDistance: 700,
-  //         spherical: true
-  //       }
-  //     },
-  //     { $limit: 50 }
-  //   ],
-  //   (err, data) => {
-  //     if (err) throw err
-  //     return res.send(data)
-  //   }
-  // )
-  SHOP_MODEL.find({
-    location: {
-      $near: {
-        $geometry: { type: 'Point', coordinates: [lng, lat] },
-        $maxDistance: 60000
-      }
-    }
-  })
-    .populate('review')
-    .then(data => {
-      res.send(data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-})
 
 // http.createServer(app).listen(port1, function () {
 //   console.log("Http server listening on port " + port1);

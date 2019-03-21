@@ -1,5 +1,6 @@
 @import "review";
 @import "product";
+
 #contents {
   max-width: 1000px;
   margin: 20px auto;
@@ -10,8 +11,10 @@
   }
 }
 #site_header {
+  position: relative;
   padding: 20px 30px;
   overflow: hidden;
+  z-index: 100;
   background: rgb(54, 255, 201);
 
   a {

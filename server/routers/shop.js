@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const SHOP = require('../models/shop')
+const SHOP_MODEL = require('../models/shop')
 const PRODUCT = require('../models/product')
 const REVIEW = require('../models/review')
 const multer = require('multer')
@@ -69,16 +70,54 @@ router.get('/addProduct/:shopid', (req, res) => {
 })
 
 router.get('/shopList/:type/:value', (req, res) => {
- 
   let obj = {}
   obj[req.params['type']] = req.params['value']
-  
+
   SHOP.find(obj, (err, data) => {
     console.log(data)
     res.send(data)
   })
 })
 
+router.get('/near/:lat/:lng', (req, res) => {
+  const lng = Number(req.params.lng)
+  const lat = Number(req.params.lat)
 
+  // SHOP_MODEL.aggregate(
+  //   [
+  //     {
+  //       $geoNear: {
+  //         near: {
+  //           type: 'Point',
+  //           coordinates: [lng, lat]
+  //         },
+  //         distanceField: 'dist.calculated',
+  //         maxDistance: 700,
+  //         spherical: true
+  //       }
+  //     },
+  //     { $limit: 50 }
+  //   ],
+  //   (err, data) => {
+  //     if (err) throw err
+  //     return res.send(data)
+  //   }
+  // )
+  SHOP_MODEL.find({
+    location: {
+      $near: {
+        $geometry: { type: 'Point', coordinates: [lng, lat] },
+        $maxDistance: 60000
+      }
+    }
+  })
+    .populate('review')
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.send(err)
+    })
+})
 
 module.exports = router

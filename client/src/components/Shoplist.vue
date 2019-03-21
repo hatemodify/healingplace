@@ -1,9 +1,10 @@
 <template>
   <div id="contents">
-    <template v-if="data.length >0">
+    <template v-if="!data.length">등록된 상품 없음</template>
+    <template v-else>
       <ul class="list_product">
         <li v-for="item in data" :key="item._id">
-          <router-link v-bind:to="{ name: 'ProductDetail', params: { _id: item._id } }">
+          <router-link v-bind:to="{ name: 'ShopDetail', params: { _id: item._id } }">
             <picture class="thumb_product" v-if="item.thumbnail[0].filename">
               <img :src="imgPath(item.thumbnail[0].filename)" class="thumb_img">
             </picture>
@@ -23,7 +24,6 @@
         </li>
       </ul>
     </template>
-    <template v-if="!data">등록된 상품 없음</template>
   </div>
 </template>
 
@@ -39,35 +39,7 @@ export default {
         }
     },
     props: ['data'],
-    created() {
-        const query = this.$route.query
-        const type = Object.keys(query)[0]
-        const value = query[type]
-        if (type) {
-            axios
-                .get(
-                    `https://dev.local.com:9998/shop/shopList/${type}/${value}`
-                )
-                .then(
-                    res => {
-                        this.productData = res.data
-                        console.log('type')
-                    },
-                    error => {
-                        console.log(error)
-                    }
-                )
-        } else {
-            axios.get(`https://dev.local.com:9998/product/productslist`).then(
-                res => {
-                    this.productData = res.data
-                },
-                error => {
-                    console.log(error)
-                }
-            )
-        }
-    },
+
     methods: {
         imgPath(imageName) {
             return require(`../../upload/thumb/${imageName}`)

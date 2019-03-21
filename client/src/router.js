@@ -24,20 +24,15 @@ export default new Router({
       component: () => import('./views/Map.vue')
     },
     {
-      path: '/productslist',
-      name: 'ProductsList',
-      component: () => import('./views/ProductsList.vue')
-    },
-    {
-      path: '/productdetail/:_id',
-      name: 'ProductDetail',
+      path: '/shop/shopdetail/:_id',
+      name: 'ShopDetail',
       props: true,
-      component: () => import('./views/ProductDetail.vue')
+      component: () => import('./views/ShopDetail.vue')
     },
     {
       path: '/shop/shopList',
       name: 'shopList',
-      component: () => import('./views/ProductsList.vue')
+      component: () => import('./views/ShopList.vue')
     },
     {
       path: '/login',

@@ -1,6 +1,6 @@
 <template>
   <div class="product_info">
-    <div class="info_top">
+    <div class="info_top mb50">
       <div class="shop_thumb">
         <ImageSlider :data="data.thumbnail"/>
       </div>
@@ -14,8 +14,8 @@
       <template v-if="data">
         <div>{{data.shop_personal_day}}</div>
       </template>
-      <div>{{data.terms1}}</div>
-      <div v-html="data.detail"></div>
+      <div class="cb mb50">{{data.terms1}}</div>
+      <div class="cb" v-html="data.detail"></div>
     </div>
   </div>
 </template>
