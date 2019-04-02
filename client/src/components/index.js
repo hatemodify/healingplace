@@ -6,7 +6,7 @@ import WriteReviewComp from './review/WriteReview.vue'
 import ProductInfoComp from './ShopInfo/ProductInfo.vue'
 import ShopMapComp from './ShopInfo/ShopMap.vue'
 import ShopListComp from './Shoplist.vue'
-import BtnComp from './ShopInfo/Btn.vue'
+import ShopBtnComp from './ShopInfo/ShopBtn.vue'
 import GnbCartComp from './GnbCart.vue'
 import ImageSliderComp from './ShopInfo/ImageSlider.vue'
 import PreloaderComp from './Preloader.vue'
@@ -21,7 +21,7 @@ export const WriteReview = WriteReviewComp
 export const ProductInfo = ProductInfoComp
 export const ShopMap = ShopMapComp
 export const ShopList = ShopListComp
-export const Btn = BtnComp
+export const ShopBtn = ShopBtnComp
 export const ImageSlider = ImageSliderComp
 export const Preloader = PreloaderComp
 export const Sort = SortComp

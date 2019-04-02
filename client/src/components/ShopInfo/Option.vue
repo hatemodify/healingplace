@@ -28,10 +28,6 @@
         <button class="btn_del" @click="deleteSelected(index)"></button>
       </li>
     </ul>
-    <div class="wrap_btn">
-      <button class="btn_cart">장바구니</button>
-      <button class="btn_buy">구매하기</button>
-    </div>
   </div>
 </template>
 <script>

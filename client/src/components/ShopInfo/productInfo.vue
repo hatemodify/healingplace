@@ -10,6 +10,7 @@
         <span class="txt_address">{{data.shop_address}}</span>
         <!-- {{data.reservation}} -->
         <Option :optData="data.price_data"/>
+        <ShopBtn :cartData="'asdasdasd'"/>
       </div>
       <template v-if="data">
         <div>{{data.shop_personal_day}}</div>
@@ -23,6 +24,7 @@
 import { fixedNum, numComma } from '@/utils/index'
 import ImageSlider from '@/components/ShopInfo/ImageSlider'
 import Option from '@/components/ShopInfo/Option'
+import ShopBtn from '@/components/ShopInfo/ShopBtn'
 
 export default {
     props: ['data'],
@@ -36,6 +38,7 @@ export default {
     components: {
         ImageSlider,
         Option,
+        ShopBtn
     },
 }
 </script>
