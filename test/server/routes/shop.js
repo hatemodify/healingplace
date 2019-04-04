@@ -79,6 +79,16 @@ router.get('/shopList/:type/:value', (req, res) => {
   })
 })
 
+router.get('/shopList', (req, res) => {
+  let obj = {}
+  obj[req.params['type']] = req.params['value']
+
+  SHOP.find((err, data) => {
+    console.log(data)
+    res.send(data)
+  })
+})
+
 router.get('/near/:lat/:lng', (req, res) => {
   const lng = Number(req.params.lng)
   const lat = Number(req.params.lat)

@@ -1,40 +1,42 @@
 <template>
-  <div>{{coords}}</div>
+  <div id="contents">
+    <Preloader v-if="!load"/>
+    <Sort :sortData="shopData"/>
+    <ShopList :data="shopData"/>
+  </div>
 </template>
-
 <script>
+import axios from 'axios'
+import { sortAsc, sortDesc } from '@/utils/index'
+import { ShopList, Preloader, Sort } from '@/components'
 export default {
+  components: { ShopList, Preloader, Sort },
   data() {
-    return { coords: '' }
+    return {
+      shopData: '',
+      lat: this.$store.state.coordinates.latitude,
+      lng: this.$store.state.coordinates.longitude,
+      sortAsc: sortAsc,
+      sortDesc: sortDesc,
+      load: false
+    }
   },
-  asyncData(context) {},
-  beforeMount() {
-    this.geolocate()
+  created() {
+    this.aroundShopList()
   },
-  methods: {
-    geolocate() {
-      if (window.navigator && window.navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          this.onGeolocateSuccess,
-          this.onGeolocateError
-        )
-      }
-    },
-    onGeolocateSuccess(coordinates) {
-      const coords = {
-        latitude: coordinates.coords.latitude,
-        longitude: coordinates.coords.longitude
-      }
-    },
 
-    onGeolocateError(error) {
-      console.warn(error.code, error.message)
-      if (error.code === 1) {
-        // they said no
-      } else if (error.code === 2) {
-        // position unavailable
-      } else if (error.code === 3) {
-        // timeout
+  updated() {},
+  methods: {
+    async aroundShopList() {
+      try {
+        const shopData = await axios.get(
+          `https://dev.local.com:3000/server/shop/near/${this.lat}/${this.lng}`
+        )
+        this.shopData = shopData.data
+        this.load = true
+        console.log(this.load)
+      } catch (error) {
+        return error
       }
     }
   }

@@ -1,9 +1,37 @@
-import Vue from 'vue'
+// import Vue from 'vue'
+// import Vuex from 'vuex'
+
+// Vue.use(Vuex)
+
+// const store = () => {
+//   new Vuex.Store({
+//     state: {
+//       currentPage: '',
+//       coordinates: '',
+//       userInfo: {},
+//       prevPath: ''
+//     },
+//     mutations: {
+//       changePage: (state, payload) => {
+//         return (state.currentPage = payload)
+//       },
+//       myLocation: (state, payload) => {
+//         return (state.coordinates = payload)
+//       },
+//       userLogin: (state, payload) => {
+//         return (state.userInfo = payload)
+//       },
+//       backPath: (state, payload) => {
+//         return (state.prevPath = payload)
+//       }
+//     },
+//     actions: {}
+//   })
+// }
+
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
-
-const store = () => {
+const store = () =>
   new Vuex.Store({
     state: {
       currentPage: '',
@@ -24,23 +52,7 @@ const store = () => {
       backPath: (state, payload) => {
         return (state.prevPath = payload)
       }
-    },
-    actions: {}
+    }
   })
-}
-
-// import Vuex from 'vuex'
-
-// const store = () =>
-//   new Vuex.Store({
-//     state: {
-//       counter: 0
-//     },
-//     mutations: {
-//       increment (state) {
-//         state.counter++
-//       }
-//     }
-//   })
 
 export default store

@@ -60,7 +60,9 @@ export default {
       CLIENT_ID: CLIENT_ID
     }
   },
-
+  created() {
+    console.log(CLIENT_ID)
+  },
   methods: {
     chkUser(googleUser) {
       axios

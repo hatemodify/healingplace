@@ -34,7 +34,6 @@ export const loginSuccess = (googleUser, login) => {
     .then(res => {
       this.userLogin(res.data.Eea)
       localStorage.Eea = res.data.Eea
-      // this.$router.push('/')
     })
     .catch(err => {
       console.log(err)
