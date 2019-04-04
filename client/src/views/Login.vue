@@ -9,13 +9,13 @@
 import { mapMutations } from 'vuex'
 import GoogleLogin from 'vue-google-login'
 import { LoaderPlugin } from 'vue-google-login'
+import { CLIENT_ID } from '@/utils/constants'
 import axios from 'axios'
 export default {
     components: { GoogleLogin },
     data() {
         return {
-            client_id:
-                '629478743345-pto5adbsdrkcvtlbvehjq06qt2gvfln7.apps.googleusercontent.com',
+            client_id: CLIENT_ID,
         }
     },
     methods: {

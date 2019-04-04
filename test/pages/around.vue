@@ -1,34 +1,34 @@
 <template>
-  <div></div>
+  <div>{{coords}}</div>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-      coords: {}
-    }
+    return { coords: '' }
   },
-  created() {
+  asyncData(context) {},
+  beforeMount() {
     this.geolocate()
-    console.log(this.coords)
   },
   methods: {
     geolocate() {
-      navigator.geolocation.getCurrentPosition(
-        this.onGeolocateSuccess,
-        this.onGeolocateError
-      )
+      if (window.navigator && window.navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          this.onGeolocateSuccess,
+          this.onGeolocateError
+        )
+      }
     },
     onGeolocateSuccess(coordinates) {
       const coords = {
         latitude: coordinates.coords.latitude,
         longitude: coordinates.coords.longitude
       }
-      this.coords = coords
     },
 
     onGeolocateError(error) {
+      console.warn(error.code, error.message)
       if (error.code === 1) {
         // they said no
       } else if (error.code === 2) {
