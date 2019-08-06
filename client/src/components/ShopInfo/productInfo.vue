@@ -2,21 +2,21 @@
   <div class="product_info">
     <div class="info_top mb50">
       <div class="shop_thumb">
-        <ImageSlider :data="data.thumbnail"/>
+        <ImageSlider :data="data.thumbnail" />
       </div>
       <div class="shop_info">
         <h3 class="tit_shop">{{data.shop_name}}</h3>
         <p class="desc_shop">{{data.description}}</p>
         <span class="txt_address">{{data.shop_address}}</span>
         <!-- {{data.reservation}} -->
-        <Option :optData="data.price_data"/>
-        <ShopBtn :cartData="'asdasdasd'"/>
+        <Option :optData="data.price_data" />
+        <ShopBtn :cartData="'asdasdasd'" />
       </div>
       <template v-if="data">
         <div>{{data.shop_personal_day}}</div>
       </template>
-      <div class="cb mb50">{{data.terms1}}</div>
-      <div class="cb" v-html="data.detail"></div>
+      <div class="cb mb50" v-html="data.terms1" />
+      <div class="cb" v-html="data.detail" />
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
     components: {
         ImageSlider,
         Option,
-        ShopBtn
+        ShopBtn,
     },
 }
 </script>

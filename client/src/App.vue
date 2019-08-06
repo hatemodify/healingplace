@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <gnb></gnb>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -43,7 +43,6 @@ export default {
             }
             this.myLocation(coords)
         },
-
         onGeolocateError(error) {
             console.warn(error.code, error.message)
             if (error.code === 1) {

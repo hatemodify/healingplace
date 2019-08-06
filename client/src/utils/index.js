@@ -16,12 +16,12 @@ export const fixedNum = num => {
 }
 
 export const sortDesc = (data, key1, key2) => {
-  data.sort((a, b) =>
+  return data.sort((a, b) =>
     b[key1][key2] > a[key1][key2] ? 1 : a[key1][key2] > b[key1][key2] ? -1 : 0
   )
 }
 export const sortAsc = (data, key1, key2) => {
-  data.sort((a, b) =>
+  return data.sort((a, b) =>
     b[key1][key2] < a[key1][key2] ? 1 : a[key1][key2] < b[key1][key2] ? -1 : 0
   )
 }

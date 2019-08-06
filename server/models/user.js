@@ -14,6 +14,9 @@ const USER_MODEL = {
   },
   wish: {
     type: Array
+  },
+  cart:{
+    type:Array
   }
 }
 

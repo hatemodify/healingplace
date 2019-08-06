@@ -1,13 +1,14 @@
 <template>
   <div id="contents">
-    <product-info :data="productData"/>
-    <review-list :reviewData="reviewData" :reviewList="reviewData.review_list"/>
-    <shop-map :addressData="addressData"/>
+    <product-info :data="shopDetailData" />
+    <review-list :reviewData="shopDetailData.review" />
+    <!-- <shop-map :addressData="addressData" /> -->
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
 import { ProductInfo, ReviewList, ShopMap } from '@/components'
 
 export default {
@@ -20,42 +21,31 @@ export default {
             addressData: {},
         }
     },
-    // beforeRouteEnter(to, from, next) {
-    //   next(vm => {
-    //     axios
-    //       .get(
-    //         `https://dev.local.com:9998/product/productdetail/${vm.$route.params._id}`
-    //       )
-    //       .then(res => {
-    //         console.log(res);
-    //         const data = res.data;
-    //         const vmData = vm._data;
-    //         vmData.productData = data;
-    //         vmData.reviewData = data.review.review_list
-    //       })
-    //       .catch(err => {
-    //         console.log(err);
-    //       });
-    //   });
-    // },
+
+    computed: {
+        ...mapGetters('shop', ['shopDetailData']),
+    },
     created() {
-        axios
-            .get(
-                `https://dev.local.com:9998/product/productdetail/${
-                    this.$route.params._id
-                }`
-            )
-            .then(res => {
-                this.productData = res.data
-                this.reviewData = res.data.review
-                this.addressData = {
-                    shop_address: res.data.shop_address,
-                    shop_name: res.data.shop_name,
-                }
-            })
-            .catch(err => {
-                return err
-            })
+        // axios
+        //     .get(
+        //         `https://dev.local.com:9998/product/productdetail/${this.$route.params._id}`
+        //     )
+        //     .then(res => {
+        //         this.productData = res.data
+        //         this.reviewData = res.data.review
+        //         this.addressData = {
+        //             shop_address: res.data.shop_address,
+        //             shop_name: res.data.shop_name,
+        //         }
+        //     })
+        //     .catch(err => {
+        //         return err
+        //     })
+
+        this.getShopDetail(this.$route.params._id)
+    },
+    methods: {
+        ...mapActions('shop', ['getShopDetail']),
     },
 }
 </script>

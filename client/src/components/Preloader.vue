@@ -28,7 +28,7 @@
     </div>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 $color: #36ffc9;
 $colorRight: darken(#36ffc9, 15%);
 $colorLeft: darken(#36ffc9, 5%);

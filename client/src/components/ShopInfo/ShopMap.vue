@@ -29,9 +29,7 @@ export default {
             addr: [],
         }
     },
-    created() {
-        console.log(this)
-    },
+    created() {},
     watch: {
         addressData: 'addressSearch',
     },
@@ -55,9 +53,7 @@ export default {
                     })
 
                     const infowindow = new daum.maps.InfoWindow({
-                        content: `<div style='width:100px;text-align:center;padding:3px'>${
-                            opt.shop_name
-                        }</div>`,
+                        content: `<div style='width:100px;text-align:center;padding:3px'>${opt.shop_name}</div>`,
                     })
                     infowindow.open(this.mapObject, marker)
 

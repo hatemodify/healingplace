@@ -1,9 +1,10 @@
 <template>
   <div class="review_comp">
-    <div class="review_top" v-if="reviewList">
+    {{reviewData.rate_avg}}
+    <div class="review_top">
       <span class="txt_count">
         전체 리뷰
-        <strong>{{numComma(reviewList.length)}}</strong>개
+        <strong>{{numComma(reviewData.review_list.length)}}</strong>개
       </span>
       <span class="txt_avg">
         평점 평균
@@ -11,9 +12,9 @@
       </span>
       <div></div>
     </div>
-    <write-review/>
+    <write-review />
 
-    <div class="wrap_reviewlist" v-if="reviewList">
+    <div class="wrap_reviewlist" v-if="reviewData.review_list">
       <ul class="review_list">
         <li v-for="item in paginatedData" :key="item.autor">
           <div class="wrap_info" v-if="item.author">
@@ -47,8 +48,8 @@ export default {
     components: { WriteReview },
     data() {
         return {
-            numComma: numComma,
-            fixedNum: fixedNum,
+            numComma,
+            fixedNum,
             currentPage: 0,
         }
     },
@@ -56,22 +57,20 @@ export default {
         reviewData: {
             require: true,
         },
-        reviewList: {
-            type: Array,
-        },
         pageSize: {
             type: Number,
             default: 5,
         },
     },
+
     computed: {
         paginatedData() {
             const start = this.currentPage * this.pageSize
             const end = start + this.pageSize
-            return this.reviewList.slice(start, end)
+            return this.reviewData.review_list.slice(start, end)
         },
         totalPage() {
-            return Math.ceil(this.reviewList.length / 5)
+            return Math.ceil(this.reviewData.review_list.length / 5)
         },
     },
     methods: {
