@@ -8,7 +8,7 @@
         <h3 class="tit_shop">{{data.shop_name}}</h3>
         <p class="desc_shop">{{data.description}}</p>
         <span class="txt_address">{{data.shop_address}}</span>
-        <!-- {{data.reservation}} -->
+        {{data.reservation}}
         <Option :optData="data.price_data" />
         <ShopBtn :cartData="'asdasdasd'" />
       </div>
@@ -30,8 +30,8 @@ export default {
     props: ['data'],
     data() {
         return {
-            fixedNum: fixedNum,
-            numComma: numComma,
+            fixedNum,
+            numComma,
             isActive: false,
         }
     },

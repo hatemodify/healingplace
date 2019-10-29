@@ -14,6 +14,9 @@ export default new Vuex.Store({
     userInfo: {},
     prevPath: ''
   },
+  getters: {
+    getCoordinates: state => state.coordinates
+  },
   mutations: {
     changePage: (state, payload) => {
       return (state.currentPage = payload)
